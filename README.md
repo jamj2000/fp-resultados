@@ -100,5 +100,5 @@ Añade un cartridge PHP 5.4.
 - Iconos FlatWoken  CC BY-SA 4.0  Alessandro Roncone         
 ```
 
-* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html). <https://github.com/jamj2000/fp-resultados>
-* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)<https://github.com/alecive/FlatWoken>
+* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html)..... <https://github.com/jamj2000/fp-resultados>
+* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)..... <https://github.com/alecive/FlatWoken>
