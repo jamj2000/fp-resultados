@@ -89,16 +89,19 @@ OpenshSift es un sitio, perteneciente a Red Hat Inc, para alojamiento en la nube
 
 Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debes seguir:
 
-Create una cuenta en [OpenShift](https://www.openshift.com/)
-Añade un cartridge PHP 5.4.
+1) Create una cuenta en [OpenShift](https://www.openshift.com/)
+2) Añade un cartridge PHP 5.4.
+3) Crea un nombre de aplicación y dominio
 
-</ol>
+4) 
+
 
 # Licencia
+
+* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html)..... <https://github.com/jamj2000/fp-resultados>
+* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)..... <https://github.com/alecive/FlatWoken>
+
 ```
 - Código            GPL-3         José Antonio Muñoz Jiménez
 - Iconos FlatWoken  CC BY-SA 4.0  Alessandro Roncone         
 ```
-
-* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html)..... <https://github.com/jamj2000/fp-resultados>
-* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)..... <https://github.com/alecive/FlatWoken>
