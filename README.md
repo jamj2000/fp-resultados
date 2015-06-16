@@ -10,17 +10,52 @@ fp-resultados es una aplicación web para el sector de la educación de Formaci�
 - Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com).  
 
 ## Instalación en equipo local
+Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
+<ol>
+
+<li>Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL.</li>
+```bash
+apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
+```
+
+<li>Configura el servidor apache2. En el archivo /etc/apache2/apache2.conf debe aparecer:</li>
+```apache
+<Directory /var/www/>
+  Options Indexes FollowSymLinks
+  AllowOverride All
+  Require all granted
+</Directory>
+
+```
+ 
+ <li>Activa módulos de Apache y reinicia servidor:</li>
+```
+a2enmod rewrite
+php5enmod mcrypt
+
+service apache2 restart/reload
+```
+ 
+<li>Descarga código</li>
+```
+cd /var/www/html
+git clone 
+```
+
+
+</ol>
+
 
 
 ## Instalación en Openshift
-OpenshSift es un sitio de alojamiento en la nube que proporciona una Plataforma como Servicio (PaaS). Es de la empresa Red Hat Inc. 
-Existe una versión gratuita para aplicaciones que requieren pocos cartriges.
+OpenshSift es un sitio, perteneciente a Red Hat Inc, para alojamiento en la nube que proporciona una Plataforma como Servicio (PaaS). Existe una versión gratuita para aplicaciones que requieren pocos cartridges (máximo 3).
 
 Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debes seguir:
- 1. Create una cuenta en [OpenShift](https://www.openshift.com/)
- 2. Añade un cartrige PHP 5.4.
+<ol>
+<li>Create una cuenta en [OpenShift](https://www.openshift.com/)</li>
+<li>Añade un cartridge PHP 5.4.</li>
 
-
+</ol>
 
 # Licencia
 
