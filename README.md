@@ -94,6 +94,7 @@ Añade un cartridge PHP 5.4.
 </ol>
 
 # Licencia
+<https://github.com/jamj2000/fp-resultados/LICENSE>
 
 - Código: GPL-3. José Antonio Muñoz Jiménez.  [Repositorio en GitHub](https://github.com/jamj2000/fp-resultados) 
 - Iconos FlatWoken: CC BY-SA 4.0. Alessandro Roncone. [Repositorio en GitHub](https://github.com/alecive/FlatWoken) 
