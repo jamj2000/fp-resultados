@@ -25,7 +25,7 @@ Si estás interesado en probar la aplicación en tu equipo local, aquí tienes l
 
 1) Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
 ```bash
-apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
+apt-get install apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
 
 2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
@@ -58,13 +58,13 @@ git clone https://github.com/jamj2000/fp-resultados.git
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
-7) Revisa el script database.sh para modificar tu usuario y clave de mysql
+7) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
 ```
 cd fp-resultados.datos
 nano database.sh
 ```
 
-8) Ejecuta el script database.sh
+8) Ejecuta el script ```database.sh```
 ```
 chmod +x database.sh
 ./database.sh
@@ -112,7 +112,7 @@ Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debe
 ssh-keygen
 ```
 
-6) Copia el contenido de la clave pública ~/.ssh/id_rsa.pub a OpenShift 
+6) Copia el contenido de la clave pública ```~/.ssh/id_rsa.pub``` a OpenShift 
 
 ![Key en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-key.png "Key en OpenShift")
 
@@ -123,7 +123,7 @@ ssh-keygen
 8) Descarga tu repositorio vacío a tu equipo local
 ```
 cd /var/www/html
-git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/fp.git/
+git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/<app>.git/
 ```
 
 
