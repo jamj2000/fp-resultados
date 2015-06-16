@@ -16,12 +16,12 @@ Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.r
 ## Instalación en equipo local
 Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
 
-Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
+1) Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
 ```bash
 apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
 
-Configura el archivo /etc/apache2/apache2.conf, para que aparezca
+2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
 ```apache
 <Directory /var/www/>
   Options Indexes FollowSymLinks
@@ -30,7 +30,7 @@ Configura el archivo /etc/apache2/apache2.conf, para que aparezca
 </Directory>
 ```
  
-Activa módulos de Apache y reinicia servidor
+3) Activa módulos de Apache y reinicia servidor
 ```
 a2enmod rewrite
 php5enmod mcrypt
@@ -38,26 +38,32 @@ php5enmod mcrypt
 service apache2 restart/reload
 ```
  
-Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
+4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
 ```
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.git
 ```
 
-Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+5) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
 
-Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
+6) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 ```
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
-Revisa el script database.sh para modificar tu usuario y clave de mysql
+7) Revisa el script database.sh para modificar tu usuario y clave de mysql
 ```
 cd fp-resultados.datos
 nano database.sh
 ```
 
-Recuerda que estos valores también deben hallarse en el archivo _/var/www/html/fp-resultados/app/config/database.php_. Por ejemplo para usuario root y clave root es
+8) Ejecuta el script database.sh
+```
+chmod +x database.sh
+./database.sh
+```
+
+9) Recuerda los valores previos también deben hallarse en el archivo _/var/www/html/fp-resultados/app/config/database.php_. Por ejemplo para usuario root y clave root es
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
@@ -74,11 +80,6 @@ Recuerda que estos valores también deben hallarse en el archivo _/var/www/html/
 
 ```
 
-Ejecuta el script database.sh
-```
-chmod +x database.sh
-./database.sh
-```
 
 
 
@@ -94,7 +95,6 @@ Añade un cartridge PHP 5.4.
 </ol>
 
 # Licencia
-<https://github.com/jamj2000/fp-resultados/LICENSE>
 
 - Código: GPL-3. José Antonio Muñoz Jiménez.  [Repositorio en GitHub](https://github.com/jamj2000/fp-resultados) 
 - Iconos FlatWoken: CC BY-SA 4.0. Alessandro Roncone. [Repositorio en GitHub](https://github.com/alecive/FlatWoken) 
