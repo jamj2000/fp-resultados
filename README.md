@@ -1,23 +1,27 @@
 # fp-resultados
 
 ## Introducción
-fp-resultados es una aplicación web para el sector de la educación de Formación Profesional en España.
+fp-resultados es una aplicación web destinada al profesorado de Formación Profesional en España. La he realizado en mi poco tiempo libre para seguir aprendiendo sobre distintas tecnologías web. La pongo a disposición de toda la comunidad por si alguien la considera interesante por motivos didácticos o de producción.
+
+La aplicación es funcional y dispone de numerosas características.
+Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com) para fines demostrativos.  
 
 ### Características
 - Permite calificar por resultados de aprendizaje.
 - Genera actas de evaluación y boletines de calificaciones en HTML y PDF.
 - Se ha diseñado pensando en los ciclos formativos de la familia profesional de Informática y Comunicaciones, sin embargo es posible adaptarla a otras familias profesionales.
-- Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com).  
+- Permite las operaciones CRUD (Create, Read, Update, Delete) a base de datos MySQL a través de interfaz web.
+
 
 ## Instalación en equipo local
 Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
 
-Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL.
+Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
 ```bash
 apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
 
-Configura el servidor apache2. En el archivo /etc/apache2/apache2.conf debe aparecer:
+Configura el archivo /etc/apache2/apache2.conf, para que aparezca
 ```apache
 <Directory /var/www/>
   Options Indexes FollowSymLinks
@@ -26,7 +30,7 @@ Configura el servidor apache2. En el archivo /etc/apache2/apache2.conf debe apar
 </Directory>
 ```
  
-Activa módulos de Apache y reinicia servidor:
+Activa módulos de Apache y reinicia servidor
 ```
 a2enmod rewrite
 php5enmod mcrypt
@@ -34,14 +38,50 @@ php5enmod mcrypt
 service apache2 restart/reload
 ```
  
-Descarga código del repositorio.
+Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
 ```
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.git
+```
+
+Prueba en el navegador
+```
+http://localhost/fp-resultados/public
+```
+
+Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
+```
+git clone https://github.com/jamj2000/fp-resultados.datos.git
+```
+
+Revisa el script database.sh para modificar tu usuario y clave de mysql
+```
+cd fp-resultados.datos
+nano database.sh
+```
+
+Recuerda que estos valores de también deben hallarse en el archivo /var/www/html/fp/app/config/database.php. Por ejemplo para usuario root y clave root es
+```
+               'mysql' => array(
+                        'driver'    => 'mysql',
+                        'host'      => 'localhost',
+                        'port'      => '3306',
+                        'database'  => 'fp',
+                        'username'  => 'root',
+                        'password'  => 'root',
+                        'charset'   => 'utf8',
+                        'charset'   => 'utf8',
+                        'collation' => 'utf8_unicode_ci',
+                        'prefix'    => '',
+                ),
 
 ```
 
-
+Ejecuta el script database.sh
+```
+chmod +x database.sh
+./database.sh
+```
 
 
 
