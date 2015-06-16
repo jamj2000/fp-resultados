@@ -44,10 +44,7 @@ cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.git
 ```
 
-Prueba en el navegador
-```
-http://localhost/fp-resultados/public
-```
+Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
 
 Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 ```
@@ -60,7 +57,7 @@ cd fp-resultados.datos
 nano database.sh
 ```
 
-Recuerda que estos valores de también deben hallarse en el archivo /var/www/html/fp/app/config/database.php. Por ejemplo para usuario root y clave root es
+Recuerda que estos valores también deben hallarse en el archivo _/var/www/html/fp-resultados/app/config/database.php_. Por ejemplo para usuario root y clave root es
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
