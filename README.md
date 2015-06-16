@@ -1,10 +1,17 @@
 # fp-resultados
+![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
 ## Introducción
 fp-resultados es una aplicación web destinada al profesorado de Formación Profesional en España. La he realizado en mi poco tiempo libre para seguir aprendiendo sobre distintas tecnologías web. La pongo a disposición de toda la comunidad por si alguien la considera interesante por motivos didácticos o de producción.
 
-La aplicación es funcional y dispone de numerosas características.
+![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
+
 Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com) para fines demostrativos.  
+
+![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.png "Logo de ejemplo")
+
+La aplicación es funcional y dispone de numerosas características.
+
 
 ### Características
 - Permite calificar por resultados de aprendizaje.
@@ -83,17 +90,35 @@ chmod +x database.sh
 
 
 
-
 ## Instalación en Openshift
 OpenshSift es un sitio, perteneciente a Red Hat Inc, para alojamiento en la nube que proporciona una Plataforma como Servicio (PaaS). Existe una versión gratuita para aplicaciones que requieren pocos cartridges (máximo 3).
 
 Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debes seguir:
 
 1) Create una cuenta en [OpenShift](https://www.openshift.com/)
-2) Añade un cartridge PHP 5.4.
-3) Crea un nombre de aplicación y dominio
 
-4) 
+2) Añade un cartridge PHP 5.4.
+
+3) Crea un nombre de aplicación y dominio.
+
+![App en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-app.png "App en OpenShift")
+
+4) Crea una base de datos MySQL.
+
+![Database en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-database.png "Database en OpenShift")
+
+5) Genera un par de claves pública/privada. En tu equipo local ejecuta
+```
+ssh-keygen
+```
+
+6) Copia el contenido de la clave pública ~/.ssh/id_rsa.pub a OpenShift. 
+
+![Key en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-key.png "Key en OpenShift")
+
+7) Comprueba el resultado y copia la dirección ssh para trabajar con git.
+
+![Resultado en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-resultado.png "Resultado en OpenShift")
 
 
 # Licencia
