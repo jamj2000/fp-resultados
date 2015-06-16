@@ -2,7 +2,7 @@
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
 ## Introducción
-fp-resultados es una aplicación web destinada al profesorado de Formación Profesional en España. La he realizado en mi poco tiempo libre para seguir aprendiendo sobre distintas tecnologías web. La pongo a disposición de toda la comunidad por si alguien la considera interesante por motivos didácticos o de producción.
+__fp-resultados__ es una aplicación web destinada al profesorado de Formación Profesional en España. Realizada en mi tiempo libre para seguir aprendiendo sobre distintas tecnologías web. La pongo a disposición de toda la comunidad por si alguien la considera interesante por motivos didácticos o de producción.
 
 ![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
 
@@ -70,7 +70,7 @@ chmod +x database.sh
 ./database.sh
 ```
 
-9) Recuerda los valores previos también deben hallarse en el archivo _/var/www/html/fp-resultados/app/config/database.php_. Por ejemplo para usuario root y clave root es
+9) Recuerda que los valores previos también deben hallarse en el archivo [/var/www/html/fp-resultados/app/config/database.php](file:///var/www/html/fp-resultados/app/config/database.php). Por ejemplo para usuario root y clave root 
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
@@ -107,7 +107,7 @@ Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debe
 
 ![Database en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-database.png "Database en OpenShift")
 
-5) Genera un par de claves pública/privada. En tu equipo local ejecuta
+5) En tu equipo local genera un par de claves pública/privada
 ```
 ssh-keygen
 ```
@@ -119,6 +119,12 @@ ssh-keygen
 7) Comprueba el resultado y copia la dirección ssh para trabajar con git.
 
 ![Resultado en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-resultado.png "Resultado en OpenShift")
+
+8) Descarga tu repositorio vacío a tu equipo local
+```
+cd /var/www/html
+git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/fp.git/
+```
 
 
 # Licencia
