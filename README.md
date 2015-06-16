@@ -19,3 +19,10 @@ Existe una versión gratuita para aplicaciones que requieren pocos cartriges.
 Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debes seguir:
  1. Create una cuenta en [OpenShift](https://www.openshift.com/)
  2. Añade un cartrige PHP 5.4.
+
+
+
+# Licencia
+
+- Código: GPL-3. José Antonio Muñoz Jiménez.  [Repositorio en GitHub](https://github.com/jamj2000/fp-resultados) 
+- Iconos FlatWoken: CC BY-SA 4.0. Alessandro Roncone. [Repositorio en GitHub](https://github.com/alecive/FlatWoken) 
