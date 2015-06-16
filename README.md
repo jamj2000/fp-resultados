@@ -70,7 +70,7 @@ chmod +x database.sh
 ./database.sh
 ```
 
-9) Recuerda que los valores previos también deben hallarse en el archivo [/var/www/html/fp-resultados/app/config/database.php](file:///var/www/html/fp-resultados/app/config/database.php). Por ejemplo para usuario root y clave root 
+9) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/database.php```. Por ejemplo para usuario root y clave root 
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
@@ -97,13 +97,13 @@ Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debe
 
 1) Create una cuenta en [OpenShift](https://www.openshift.com/)
 
-2) Añade un cartridge PHP 5.4.
+2) Añade un cartridge PHP 5.4
 
-3) Crea un nombre de aplicación y dominio.
+3) Crea un nombre de aplicación y dominio
 
 ![App en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-app.png "App en OpenShift")
 
-4) Crea una base de datos MySQL.
+4) Crea una base de datos MySQL
 
 ![Database en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-database.png "Database en OpenShift")
 
@@ -112,11 +112,11 @@ Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debe
 ssh-keygen
 ```
 
-6) Copia el contenido de la clave pública ~/.ssh/id_rsa.pub a OpenShift. 
+6) Copia el contenido de la clave pública ~/.ssh/id_rsa.pub a OpenShift 
 
 ![Key en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-key.png "Key en OpenShift")
 
-7) Comprueba el resultado y copia la dirección ssh para trabajar con git.
+7) Comprueba el resultado y copia la dirección ssh para trabajar con git
 
 ![Resultado en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-resultado.png "Resultado en OpenShift")
 
