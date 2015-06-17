@@ -23,8 +23,8 @@ La aplicación es funcional y dispone de numerosas características.
 ### Probar la aplicación de demostración
 Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados.rhcloud.com](http://fp-resultados.rhcloud.com).
 
-Para entrar debes introducir un email y contraseña.
-Puedes utilizar cualquiera de los siguientes (emails ficticios):
+Para entrar debes introducir un correo y contraseña.
+Puedes utilizar cualquiera de los siguientes (correos ficticios):
 
 ```
 email                  contraseña  
@@ -40,7 +40,7 @@ profe8@gmail.com       profe8
 profe9@gmail.com       profe9
 ```
 Cada proferor puede calificar los resultados de aprendizaje de los módulos que imparte.
-Algunos de ellos son tutores de algún curso, otros no. Los que son tutores pueden ver y generar los boletines de notas de su tutoría. Existe un administrador (yo, con email real jamj2000@gmail.com) que puede ver y generar las actas de evaluación así como realizar diversas tareas administrativas.
+Algunos de ellos son tutores de algún curso, otros no. Los que son tutores pueden ver y generar los boletines de notas de su tutoría. Existe un administrador (yo, con correo real jamj2000@gmail.com) que puede ver y generar las actas de evaluación así como realizar diversas tareas administrativas.
 
 Si deseas comprobar las posibilidades para el/los usuarios administradores deberás instalarte la aplicación en tu equipo local y probarla ahí.
 
