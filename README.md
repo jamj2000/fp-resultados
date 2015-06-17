@@ -6,7 +6,7 @@ __fp-resultados__ es una aplicación web destinada al profesorado de Formación 
 
 ![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
 
-Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar e incluso a veces falla. Supongo que OpenShift debe lanzar la instancia de la máquina virtual. Si esto ocurre volver a probar pasado un pequeño tiempo. 
+Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Supongo que OpenShift debe lanzar la instancia de la máquina virtual. Si esto ocurre volver a intentar pasado un pequeño tiempo. 
 
 ![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.png "Logo de ejemplo")
 
