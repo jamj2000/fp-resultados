@@ -2,9 +2,9 @@
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
 ## Repositorios relacionados
-[App para android](https://github.com/jamj2000/fp-resultados.apk)
-[Datos de ejemplo](https://github.com/jamj2000/fp-resultados.datos)
-[Capturas](https://github.com/jamj2000/fp-resultados.capturas)
+- [App para android](https://github.com/jamj2000/fp-resultados.apk)
+- [Datos de ejemplo](https://github.com/jamj2000/fp-resultados.datos)
+- [Capturas](https://github.com/jamj2000/fp-resultados.capturas)
 
 
 ## Introducción
