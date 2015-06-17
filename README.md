@@ -160,8 +160,8 @@ git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/<a
 
 # Licencia
 
-* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html)..... <https://github.com/jamj2000/fp-resultados>
-* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)..... <https://github.com/alecive/FlatWoken>
+* [GPL-3](http://www.gnu.org/licenses/gpl-3.0.html) / <https://github.com/jamj2000/fp-resultados>
+* [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) / <https://github.com/alecive/FlatWoken>
 
 ```
 - Código            GPL-3         José Antonio Muñoz Jiménez
