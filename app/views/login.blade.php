@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IES Guadalpeña - Dpto. de Informática y Comunicaciones</title>
+  <title>Centro educativo - Dpto. de Informática y Comunicaciones</title>
   <link rel="icon" type="image/png" href="{{ URL::asset('img/favicon.png')}}"  />
   
   {{HTML::style('css/bootstrap.css')}}
