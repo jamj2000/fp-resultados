@@ -1,0 +1,98 @@
+@extends('plantilla')
+
+
+@section('contenido')
+
+{{-- mostramos mensajes --}}
+@if (Session::has('message'))
+	<div class="alert alert-info">{{ Session::get('message') }}</div>
+@endif
+
+{{-- si hay errores, los mostramos aquí --}}
+{{ HTML::ul($errors->all(), array('class' => 'alert alert-danger' ))}}
+
+
+<script>  
+  $(document).ready(function () {
+     // Ocultamos mensaje de alert tras unos segundos
+     setTimeout(function(){$(".alert").animate({fontSize: "0px", opacity: "0", padding: "0" });  }, 3000);
+  });
+</script>
+
+
+
+
+         
+
+{{ Form::model($modulo, array('action' => array('ResultadosController@update', $modulo->id), 'method' => 'PUT')) }}
+
+        <div class="panel panel-info">
+        <div class="panel-heading alto55">{{ $modulo->curso.' - '.$modulo->nombre }} 
+           {{ Form::submit('Actualizar', array('class' => 'btn btn-primary', 'style' => 'float: right !important;')) }}</div>
+	<div class="list-group">
+        @foreach($modulo->alumnos as $alumno)
+          <div class="container row"><br>
+	  <dl class="dl-vertical">
+	      <dt class="col-md-3 col-sm-3 col-xs-12">{{ $alumno->nombre.' '.$alumno->apellido1.' '.$alumno->apellido2 }}</dt>
+	      
+	      <dd>
+	      @for ($i = 1; $i <= $modulo->num_resultados; $i++)
+                {{-- Obtenemos nota con el siguiente código PHP. No encontre mejor manera de hacerlo. --}}
+	        <?php $str="$"."alumno->pivot->r".$i; $nota = eval ("return $str;"); ?>
+	        
+		 <div class="col-md-1 col-sm-1 col-xs-1">
+                   <label  id="{{'label_r'.$i.'_'.$alumno->id}}"></label>
+	           <input type="hidden" id="{{'r'.$i.'_'.$alumno->id}}" name="{{'r'.$i.'_'.$alumno->id}}"/>
+		 </div>
+	      
+	   <script>
+            var {{'label_r'.$i.'_'.$alumno->id}} = new IconSelect("{{'label_r'.$i.'_'.$alumno->id}}", 
+                {'selectedIconWidth':23,
+                'selectedIconHeight':23,
+                'selectedBoxPadding':1,
+                'iconsWidth':48,
+                'iconsHeight':48,
+                'boxIconSpace':1,
+                'vectoralIconNumber':3,
+                'horizontalIconNumber':5});
+
+            var icons = [];
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/punto.png')     }}", 'iconValue':'-2'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/asterisco.png') }}", 'iconValue':'-1'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/0.png')         }}", 'iconValue':'0'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/1.png')         }}", 'iconValue':'1'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/2.png')         }}", 'iconValue':'2'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/3.png')         }}", 'iconValue':'3'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/4.png')         }}", 'iconValue':'4'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/5.png')         }}", 'iconValue':'5'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/6.png')         }}", 'iconValue':'6'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/7.png')         }}", 'iconValue':'7'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/8.png')         }}", 'iconValue':'8'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/9.png')         }}", 'iconValue':'9'});
+            icons.push({'iconFilePath': "{{ URL::asset('img/iconos/10.png')        }}", 'iconValue':'10'});
+            
+            {{'label_r'.$i.'_'.$alumno->id}}.refresh(icons);
+  
+	    {{'label_r'.$i.'_'.$alumno->id}}.setSelectedIndex("{{ $nota+2 }}");  {{-- Sumamos 2, porque las notas empiezan en -2 y el índice en 0 --}}
+	    {{'r'.$i.'_'.$alumno->id}}.value = {{'label_r'.$i.'_'.$alumno->id}}.getSelectedValue();
+	    document.getElementById("{{'label_r'.$i.'_'.$alumno->id}}").addEventListener('changed', function(e){
+		document.getElementById("{{'r'.$i.'_'.$alumno->id}}").value = {{'label_r'.$i.'_'.$alumno->id}}.getSelectedValue();
+	    });
+	   </script>	         
+         
+	      @endfor
+	      
+	      </dd>
+	      
+	  
+	</dl>
+	  
+	  </div>
+	@endforeach
+	</div>
+</div>
+
+	
+{{ Form::close() }}
+
+@stop
