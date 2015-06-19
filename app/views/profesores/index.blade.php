@@ -18,7 +18,7 @@
 </script>
 
 
-<div class="panel panel-info">
+<div class="panel panel-info"><img src="{{ URL::asset('img/profesores.png')}}" >
   <div class="panel-heading alto55">
     @if (Auth::user()->admin == 's')
     <a class="btn btn-small btn-primary" style="float: right !important;"  href="{{ URL::to('profesores/create') }}">Nuevo</a>

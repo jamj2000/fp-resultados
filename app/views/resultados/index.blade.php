@@ -17,7 +17,7 @@
   });
 </script>
 
-<div class="panel panel-info">
+<div class="panel panel-info"><img src="{{ URL::asset('img/resultados.png')}}" >
   <div class="panel-heading alto55">
   {{-- Auth::user()->nombre.' '.Auth::user()->apellido1.' '.Auth::user()->apellido2 --}}
   {{ '<b>Resultados de aprendizaje</b>' }}

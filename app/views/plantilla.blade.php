@@ -60,9 +60,11 @@
 		</li>		
 	    </ul>
 	    <div class="navbar-form navbar-right" >
-	        <a class="btn btn-default" style="margin-right: 5px" href="{{ URL::to('logout') }}">	        	       
+	        <a class="btn btn-default" style="margin-right: 5px" href="{{ URL::to('profesores/'.Auth::user()->id) }}">	        	       
 	        {{ Auth::user()->nombre }}  {{ Auth::user()->apellido1 }} {{ Auth::user()->apellido2 }}
-	         <span class="glyphicon glyphicon-remove-circle"></span>
+	        </a>
+	        <a class="btn btn-default" style="margin-right: 5px" href="{{ URL::to('logout') }}">	        	       
+	           <span class="glyphicon glyphicon-remove-circle"></span>
 	        </a>
 	    </div>
 

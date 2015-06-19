@@ -9,13 +9,12 @@
 @endif
 
 {{ HTML::image('img/logo.png', 'logo', array('class' => 'img-responsive')) }}
-<h2>
-Dpto. de Informática y Comunicaciones
-</h2>
 
 <div class="row">
-<a class="btn btn-default pull-right" href="{{ URL::to('logout') }}">	        	       
+<a class="btn btn-default" href="{{ URL::to('profesores/'.Auth::user()->id) }}">	        	       
     {{ Auth::user()->nombre }}  {{ Auth::user()->apellido1 }} {{ Auth::user()->apellido2 }}
+</a>
+<a class="btn btn-default pull-right" href="{{ URL::to('logout') }}">	        	       
       <span class="glyphicon glyphicon-remove-circle"></span>
 </a>
 </div>
@@ -43,6 +42,10 @@ Dpto. de Informática y Comunicaciones
 <b>Alumnos</b> <br> {{ HTML::image('img/alumnos.png', 'alumnos', array('class' => 'img-responsive')) }}
 </a>
 </div>
+<h3>
+Departamento de Informática y Comunicaciones
+</h3>
+
 <br>
 <br>
 <br>
