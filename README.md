@@ -101,7 +101,7 @@ chmod +x database.sh
 ./database.sh
 ```
 
-9) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/database.php```. Por ejemplo para usuario root y clave root 
+9) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root 
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
