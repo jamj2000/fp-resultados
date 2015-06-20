@@ -79,8 +79,8 @@
 {{ Form::model($modulo, array('action' => array('ResultadosController@update', $modulo->id), 'method' => 'PUT')) }}
 
         <div class="panel panel-info">
-        <div class="panel-heading alto55"><b>{{ $modulo->curso.' - '.$modulo->nombre }} </b>
-           {{ Form::submit('Actualizar', array('class' => 'btn btn-primary', 'style' => 'float: right !important;')) }}</div>
+        <div class="panel-heading alto55">{{ Form::submit('Actualizar', array('class' => 'btn btn-primary', 'style' => 'float: right !important;')) }}
+           <b>{{ $modulo->curso.' - '.$modulo->nombre }}</b></div>
 	<div class="list-group">
         @foreach($modulo->alumnos as $alumno)
           <div class="container"><br>

@@ -28,7 +28,7 @@ var STATE_NONE=0;var STATE_SOME=1;var STATE_ALL=2;var UNCHECKED_NORM="UNCHECKED_
 </script>
 
 
-<div class="panel panel-danger"><img src="{{ URL::asset('img/informes.png')}}" >
+<div class="panel panel-info"><img src="{{ URL::asset('img/informes.png')}}" >
 @if (Auth::user()->admin!='s' and !Auth::user()->tutoria ) 
 <div class="panel-heading alto55"><b>No puedes generar informes</b></div>
 <div class="panel-body">
@@ -42,7 +42,7 @@ var STATE_NONE=0;var STATE_SOME=1;var STATE_ALL=2;var UNCHECKED_NORM="UNCHECKED_
 @if (Auth::user()->admin=='s')
 {{ Form::open(array('url' => 'informes/evaluaciones')) }} 
 {{-- Form::submit('Generar PDF', array('class' => 'btn btn-primary')) --}}
-<div class="panel panel-warning">
+<div class="panel panel-info">
 <div class="panel-heading alto55">{{ Form::submit('Generar PDF', array('class' => 'btn btn-primary ', 'style' => 'float: right !important;')) }}<b> {{ 'Informes de Evaluación - Actas'  }} </b></div>
 
 <div class="panel-body">
@@ -94,7 +94,7 @@ var STATE_NONE=0;var STATE_SOME=1;var STATE_ALL=2;var UNCHECKED_NORM="UNCHECKED_
 @if (Auth::user()->tutoria)
 {{ Form::open(array('action' => array('InformesController@calificacionesvarias', Auth::user()->tutoria))) }}                  
 
-<div class="panel panel-warning"> 
+<div class="panel panel-info"> 
 <div class="panel-heading alto55">{{ Form::submit('Generar PDF', array('class' => 'btn btn-primary', 'style' => 'float: right !important;')) }}<b>  {{ 'Informes de Calificaciones - Boletines'  }} </b></div>
 
 <div class="panel-body">

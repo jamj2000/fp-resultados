@@ -42,9 +42,8 @@
 <b>Alumnos</b> <br> {{ HTML::image('img/alumnos.png', 'alumnos', array('class' => 'img-responsive')) }}
 </a>
 </div>
-<h3>
-Departamento de Informática y Comunicaciones
-</h3>
+
+<br><b><em>Departamento de Informática y Comunicaciones</em></b>
 
 <br>
 <br>
