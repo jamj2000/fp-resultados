@@ -1,3 +1,6 @@
+---
+output: html_document
+---
 # fp-resultados
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
@@ -69,12 +72,11 @@ apt-get install apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
  
 3) Activa módulos de Apache y reinicia servidor
-```
+```bash
 a2enmod rewrite
 php5enmod mcrypt
-
 service apache2 restart/reload
-```
+``` 
  
 4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
 ```
@@ -102,6 +104,7 @@ chmod +x database.sh
 ```
 
 9) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root 
+
 ```
                'mysql' => array(
                         'driver'    => 'mysql',
