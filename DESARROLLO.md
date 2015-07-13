@@ -30,7 +30,7 @@ apt install apache2 mysql-server php5 php5-mysql php5-mcrypt php5-gd mcrypt curl
 Configuración de apache
 -----------------------
 
-/etc/apache2/apache2.conf
+__/etc/apache2/apache2.conf__
 
 ```apache2
 <Directory /var/www/>
@@ -61,7 +61,7 @@ mv composer.phar /usr/local/bin/composer
 Creación de proyecto
 --------------------
 
-En carpeta /var/www/html
+En carpeta __/var/www/html__
 
 Podemos instalar la versión 4.2, que es la utilizada para este tutorial, con el comando:
 
@@ -79,7 +79,7 @@ composer  create-project  laravel/laravel  nombre-proyecto  --prefer-dist
 
 
 > __NOTAS__:
- -   Debes de sustituir _nombre-proyecto_ por el nombre que tú quieras dar a tu proyecto, por ejemplo prueba, miproyecto, app-demo o similar.
+ -   Debes sustituir _nombre-proyecto_ por el nombre que tú quieras dar a tu proyecto, por ejemplo prueba, miproyecto, app-demo o similar.
  -   A partir de ahora trabajaremos con rutas relativas a /var/www/html/_nombre-proyecto_
 
 
@@ -87,7 +87,7 @@ Permisos
 --------
 
 ```sh
-cd /var/www/html/__nombre-proyecto__
+cd /var/www/html/nombre-proyecto
 chmod -R 777 app/storage
 ```
 
@@ -116,8 +116,8 @@ $env = $app->detectEnvironment(function(){
 
 
 Si NO se detecta la variable de entorno OPENSHIFT_APP_DNS pasamos a modo local, de lo contrario a modo producción.
-En modo production (modo por defecto) se leen los archivos app/config/app.php y app/config/database.php.
-En modo local se leen los archivos app/config/local/app.php y app/config/local/database.php.
+En modo production (modo por defecto) se leen los archivos __app/config/app.php__ y __app/config/database.php__.
+En modo local se leen los archivos __app/config/local/app.php__ y __app/config/local/database.php__.
 
 
 
@@ -126,28 +126,29 @@ Configuración de depuración
 
 Cuando estamos en modo local es aconsejable tener activados los mensajes de depuración para obtener información detallada de los errores produccidos durante el desarrollo de la aplicación.
 
-En archivo app/config/local/app.php
+En archivo __app/config/local/app.php__
 
-'debug' =\> true,
+```php
+'debug' => true,
+'locale' => 'es',
+'fallback_locale' => 'es',
+```
 
-'locale' =\> 'es',
 
-'fallback\_locale' =\> 'es',
+> __NOTAS IMPORTANTES__:
+La opción __'debug' => true__ es adecuada cuando trabajamos en el equipo local y deseamos ver información de depuración. Es muy peligroso tener esta opción a true en un sitio en producción en Internet puesto que contiene mucha información sensible y nuestro sitio podría ser fácilmente atacado.
 
 
+-   Configuración local en app/config/local/app.php y app/config/local/database.php
 
-NOTAS IMPORTANTES:
-
-La opción 'debug' =\> true es adecuada cuando trabajamos en el equipo local y deseamos ver información de depuración. Es muy peligroso tener esta opción a true en un sitio en producción en Internet puesto que contiene mucha información sensible y nuestro sitio podría ser fácilmente atacado.
-
--   •Configuración local en app/config/local/app.php y app/config/local/database.php
-
--   •Configuración en producción en app/config/app.php y app/config/database.php
+-   Configuración en producción en app/config/app.php y app/config/database.php
 
 Comprobación de resultado en local
 ==================================
 
-Abrimos el navegador y escribimos [http://](http://localhost/nombre-proyecto/public)[localhost/](http://localhost/nombre-proyecto/public)[nombre-proyecto](http://localhost/nombre-proyecto/public)[/](http://localhost/nombre-proyecto/public)[public](http://localhost/nombre-proyecto/public) en el campo de dirección. Debe aparecer una página de inicio con el logotipo de laravel. Sustituye nombre-proyecto por el nombre que le hayas dado.
+Abrimos el navegador y escribimos ```http://localhost/nombre-proyecto/public``` en el campo de dirección. Debe aparecer una página de inicio con el logotipo de laravel. Sustituye nombre-proyecto por el nombre que le hayas dado.
+
+![Logo de Laravel](https://github.com/jamj2000/fp-resultados.capturas/blob/master/laravel-4.2.png "Logo de Laravel")
 
 
 Base de datos
@@ -156,33 +157,25 @@ Base de datos
 Introducción
 ------------
 
-NOTA: Todo el proceso se ha automatizado mediante un script bash (Ver más abajo). En este apartado sólo se indican los pasos que vamos a seguir. No es necesario hacer nada con la base de datos.
+> __NOTA__: Todo el proceso se ha automatizado mediante un script bash (Ver más abajo). En este apartado sólo se indican los pasos que vamos a seguir. No es necesario hacer nada con la base de datos.
 
 Se hará uso de MySQL. Se creará una base de datos llamada fp.
-
 Dentro de esta base de datos crearemos las siguientes tablas:
 
--   •alumnos
-
--   •modulos
-
--   •profesores
-
--   •modulos\_alumnos
+-   alumnos
+-   modulos
+-   profesores
+-   modulos_alumnos
 
 Tenemos los datos en varios archivos .csv. Los archivos son:
 
--   •alumnos.csv
-
--   •modulos.csv
-
--   •profesores.csv
-
--   •modulos\_alumnos.csv
+-   alumnos.csv
+-   modulos.csv
+-   profesores.csv
+-   modulos_alumnos.csv
 
 
-
-Los archivos .csv (Comma Separated Values) son archivos de texto plano que pueden abrirse con un editor de texto normal y corriente. También pueden abrirse, modificarse y tratarse con cualquier hoja de cálculo.
+Los archivos .csv (Comma-Separated Values) son archivos de texto plano que pueden abrirse con un editor de texto normal y corriente. También pueden abrirse, modificarse y tratarse con cualquier hoja de cálculo.
 
 
 
@@ -192,20 +185,17 @@ El esquema Entidad-Relación es el siguiente:
 
 
 
-Cada tabla tiene un campo id númerico con autoincremento que es clave primaria. No se indica en el esquema previo. Para más detalles consultar más abajo el script tablas.sql.
+Cada tabla tiene un campo __id__ númerico con autoincremento, que es clave primaria. No se indica en el esquema previo. Para más detalles consultar más abajo el script tablas.sql.
 
-Cada módulo admitirá un máximo de 9 resultados de aprendizaje. La cantidad concreta se almacena en el campo Número de resultados.
+Cada módulo admitirá un máximo de 9 resultados de aprendizaje. La cantidad concreta se almacena en el campo __Número de resultados__.
 
-Para cada resultado de aprendizaje existirá su peso correspondiente (por defecto todos con el mismo peso -10-), por si en el futuro se desea poner calificación numérica y ponderar cada resultado de forma distinta.
+Para cada resultado de aprendizaje existirá su peso correspondiente (por defecto todos con el mismo peso: 10), por si en el futuro se desea poner calificación numérica y ponderar cada resultado de forma distinta.
 
 La nota de cada alumno en cada módulo se almacena en los campos R1, R2, ..., R9, para cada uno de los resultados de aprendizaje. Estos campos tendrán valor:
 
--   •-2:     si el resultado no ha sido impartido. 
-
--   •-1:     si el módulo no ha terminado de impartirse y no existe aún nota definitiva.
-
--   •0 - 10: si el módulo se ha impartido y evaluado.
-
+-   -2:     si el resultado no ha sido impartido. 
+-   -1:     si el módulo no ha terminado de impartirse y no existe aún nota definitiva.
+-   0 - 10: si el módulo se ha impartido y evaluado.
 
 
 Para automatizar el proceso se hace uso de un script bash (database.sh) y de otro sql (tablas.sql)
@@ -214,240 +204,147 @@ El script database.sh crea la base de datos llamada fp, invoca al script tablas.
 
 ### Script database.sh
 
-\#!/bin/bash
+```bash
+#!/bin/bash
 
-if  [ \$OPENSHIFT\_APP\_DNS ] ;then
 
-  HOST=\$OPENSHIFT\_MYSQL\_DB\_HOST
-
- PUERTO=\$OPENSHIFT\_MYSQL\_DB\_PORT
-
-USUARIO=\$OPENSHIFT\_MYSQL\_DB\_USERNAME
-
- CLAVE=\$OPENSHIFT\_MYSQL\_DB\_PASSWORD
-
+if     [ $OPENSHIFT_APP_DNS ] ;then
+    HOST=$OPENSHIFT_MYSQL_DB_HOST
+  PUERTO=$OPENSHIFT_MYSQL_DB_PORT
+ USUARIO=$OPENSHIFT_MYSQL_DB_USERNAME
+   CLAVE=$OPENSHIFT_MYSQL_DB_PASSWORD
 else
-
-  HOST="localhost"
-
- PUERTO="3306"
-
-USUARIO="root"
-
- CLAVE="root"
-
+    HOST="localhost"
+  PUERTO="3306"
+ USUARIO="root"
+   CLAVE="root"
 fi
 
 BASEDATOS="fp"
-
 TABLAS="tablas.sql"
-
 ALUMNOS="alumnos.csv"
-
 PROFESORES="profesores.csv"
-
 MODULOS="modulos.csv"
+MODULOS_ALUMNOS="modulos_alumnos.csv"
 
-MODULOS\_ALUMNOS="modulos\_alumnos.csv"
 
-echo "Creando base de datos \$BASEDATOS desde cero"
 
-echo "drop  database if exists   \$BASEDATOS;" | mysql -u \$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO
+echo "Creando base de datos $BASEDATOS desde cero"
+echo "drop   database if exists     $BASEDATOS;" | mysql -u $USUARIO -p$CLAVE -h$HOST -P$PUERTO
+echo "create database if not exists $BASEDATOS\
+             default character set utf8 \
+             default collate utf8_general_ci;"   | mysql -u $USUARIO -p$CLAVE -h$HOST -P$PUERTO
 
-echo "create database if not exists \$BASEDATOS\\
+echo "Creando tablas desde archivo $TABLAS"
+mysql -u$USUARIO -p$CLAVE -h$HOST -P$PUERTO $BASEDATOS < $TABLAS
 
-      default character set utf8 \\
+echo "Importando datos desde archivo $PROFESORES"
+mysqlimport  --ignore-lines=1 \
+             --fields-terminated-by=, \
+             --columns='apellido1,apellido2,nombre,tutoria,email,alias,password,remember_token,admin' \
+             --local -u$USUARIO -h$HOST -P$PUERTO -p$CLAVE $BASEDATOS $PROFESORES 2&> /dev/null
 
-      default collate utf8\_general\_ci;"  | mysql -u \$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO
+echo "Importando datos desde archivo $ALUMNOS"
+mysqlimport  --ignore-lines=1 \
+             --fields-terminated-by=, \
+             --columns='apellido1,apellido2,nombre,curso,fecha_nac,email,id_escolar' \
+             --local -u$USUARIO -p$CLAVE -h$HOST -P$PUERTO $BASEDATOS $ALUMNOS 2&> /dev/null
 
-echo "Creando tablas desde archivo \$TABLAS"
-
-mysql -u\$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO \$BASEDATOS \< \$TABLAS
-
-echo "Importando datos desde archivo \$PROFESORES"
-
-mysqlimport --ignore-lines=1 \\
-
-      --fields-terminated-by=, \\
-
-      --columns='apellido1,apellido2,nombre,tutoria,email,alias,password,remember\_token,admin' \\
-
-      --local -u\$USUARIO -h\$HOST -P\$PUERTO -p\$CLAVE \$BASEDATOS \$PROFESORES 2&\> /dev/null
-
-echo "Importando datos desde archivo \$ALUMNOS"
-
-mysqlimport --ignore-lines=1 \\
-
-      --fields-terminated-by=, \\
-
-      --columns='apellido1,apellido2,nombre,curso,fecha\_nac,email,id\_escolar' \\
-
-      --local -u\$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO \$BASEDATOS \$ALUMNOS 2&\> /dev/null
-
-echo "Importando datos desde archivo \$MODULOS"
-
-mysqlimport --ignore-lines=1 \\
-
-      --fields-terminated-by=, \\
-
-      --columns='profesor\_id,siglas,nombre,curso,ciclo,horas\_totales,horas\_semanales,num\_resultados,r1\_peso,r2\_peso,r3\_peso,r4\_peso,r5\_peso,r6\_peso,r7\_peso,r8\_peso,r9\_peso' \\
-
-      --local -u\$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO \$BASEDATOS \$MODULOS 2&\> /dev/null
-
-      
-
-echo "Importando datos desde archivo \$MODULOS\_ALUMNOS"
-
-mysqlimport --ignore-lines=1 \\
-
-      --fields-terminated-by=, \\
-
-      --columns='modulo\_id,alumno\_id,r1,r2,r3,r4,r5,r6,r7,r8,r9' \\
-
-      --local -u\$USUARIO -p\$CLAVE -h\$HOST -P\$PUERTO \$BASEDATOS \$MODULOS\_ALUMNOS 2&\> /dev/null
-
+echo "Importando datos desde archivo $MODULOS"
+mysqlimport  --ignore-lines=1 \
+             --fields-terminated-by=, \
+             --columns='profesor_id,siglas,nombre,curso,ciclo,horas_totales,horas_semanales,num_resultados,r1_peso,r2_peso,r3_peso,r4_peso,r5_peso,r6_peso,r7_peso,r8_peso,r9_peso' \
+             --local -u$USUARIO -p$CLAVE -h$HOST -P$PUERTO $BASEDATOS $MODULOS  2&> /dev/null
+             
+echo "Importando datos desde archivo $MODULOS_ALUMNOS"
+mysqlimport  --ignore-lines=1 \
+             --fields-terminated-by=, \
+             --columns='modulo_id,alumno_id,r1,r2,r3,r4,r5,r6,r7,r8,r9' \
+             --local -u$USUARIO -p$CLAVE -h$HOST -P$PUERTO $BASEDATOS $MODULOS_ALUMNOS 2&> /dev/null
+```
 
 
 
 
 ### Script tablas.sql
 
-drop table if exists modulos\_alumnos, alumnos, modulos, profesores;
-
-
-
-CREATE TABLE \`alumnos\` (
-
- \`id\` integer NOT NULL AUTO\_INCREMENT,
-
- \`apellido1\` varchar(100),
-
- \`apellido2\` varchar(100),
-
- \`nombre\` varchar(100),
-
- \`curso\` varchar(100),
-
- \`fecha\_nac\` date DEFAULT '0000-00-00',
-
- \`email\` varchar(100),
-
- \`id\_escolar\` integer, 
-
- \`created\_at\` timestamp NOT NULL DEFAULT NOW(),
-
- \`updated\_at\` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-
- PRIMARY KEY (\`id\`)
-
-) ENGINE=INNODB AUTO\_INCREMENT=1;
-
-CREATE TABLE \`modulos\` (
-
- \`id\` integer NOT NULL AUTO\_INCREMENT,
-
- \`profesor\_id\` integer,
-
- \`siglas\` varchar(100),
-
- \`nombre\` varchar(100),
-
- \`curso\` varchar(100),
-
- \`ciclo\` varchar(100),
-
- \`horas\_totales\` integer,
-
- \`horas\_semanales\` integer,
-
- \`num\_resultados\` integer,
-
- \`r1\_peso\` integer,
-
- \`r2\_peso\` integer,
-
- \`r3\_peso\` integer,
-
- \`r4\_peso\` integer,
-
- \`r5\_peso\` integer,
-
- \`r6\_peso\` integer,
-
- \`r7\_peso\` integer,
-
- \`r8\_peso\` integer,
-
- \`r9\_peso\` integer,
-
- \`created\_at\` timestamp NOT NULL DEFAULT NOW(),
-
- \`updated\_at\` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-
- PRIMARY KEY (\`id\`)
-
-) ENGINE=INNODB AUTO\_INCREMENT=1;
-
-CREATE TABLE \`profesores\` (
-
- \`id\` integer NOT NULL AUTO\_INCREMENT,
-
- \`apellido1\` varchar(100),
-
- \`apellido2\` varchar(100),
-
- \`nombre\` varchar(100),
-
- \`tutoria\` varchar(100),
-
- \`email\` varchar(100),
-
- \`alias\` varchar(100),
-
- \`password\` varchar(100),
-
- \`remember\_token\` varchar(100) DEFAULT NULL,
-
- \`admin\` char(1),
-
- \`created\_at\` timestamp NOT NULL DEFAULT NOW(),
-
- \`updated\_at\` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-
- PRIMARY KEY (\`id\`)
-
-) ENGINE=INNODB AUTO\_INCREMENT=1;
-
-CREATE TABLE \`modulos\_alumnos\` (
-
- \`id\` integer NOT NULL AUTO\_INCREMENT,
-
- \`modulo\_id\` integer NOT NULL,
-
- \`alumno\_id\` integer NOT NULL,
-
- \`r1\` integer DEFAULT '-2',
-
- \`r2\` integer DEFAULT '-2',
-
- \`r3\` integer DEFAULT '-2',
-
- \`r4\` integer DEFAULT '-2',
-
- \`r5\` integer DEFAULT '-2',
-
- \`r6\` integer DEFAULT '-2',
-
- \`r7\` integer DEFAULT '-2',
-
- \`r8\` integer DEFAULT '-2',
-
- \`r9\` integer DEFAULT '-2',
-
- PRIMARY KEY (\`id\`)
-
-) ENGINE=INNODB AUTO\_INCREMENT=1;
-
+```sql
+drop table if exists modulos_alumnos, alumnos, modulos, profesores;
+
+ 
+CREATE TABLE `alumnos` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `apellido1` varchar(100),
+  `apellido2` varchar(100),
+  `nombre` varchar(100),
+  `curso` varchar(100),
+  `fecha_nac` date DEFAULT '0000-00-00',
+  `email` varchar(100), 
+  `id_escolar` integer,  
+  `created_at` timestamp NOT NULL DEFAULT NOW(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1;
+
+
+CREATE TABLE `modulos` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `profesor_id` integer,
+  `siglas` varchar(100),
+  `nombre` varchar(100),
+  `curso` varchar(100),
+  `ciclo` varchar(100),
+  `horas_totales` integer,
+  `horas_semanales` integer,
+  `num_resultados` integer,
+  `r1_peso` integer,
+  `r2_peso` integer,
+  `r3_peso` integer,
+  `r4_peso` integer,
+  `r5_peso` integer,
+  `r6_peso` integer,
+  `r7_peso` integer,
+  `r8_peso` integer,
+  `r9_peso` integer,
+  `created_at` timestamp NOT NULL DEFAULT NOW(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1;
+
+
+CREATE TABLE `profesores` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `apellido1` varchar(100),
+  `apellido2` varchar(100),
+  `nombre` varchar(100),
+  `tutoria` varchar(100),
+  `email` varchar(100),
+  `alias` varchar(100),
+  `password` varchar(100),
+  `remember_token` varchar(100) DEFAULT NULL,
+  `admin` char(1),
+  `created_at` timestamp NOT NULL DEFAULT NOW(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1;
+
+
+CREATE TABLE `modulos_alumnos` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `modulo_id` integer NOT NULL,
+  `alumno_id` integer NOT NULL,
+  `r1` integer DEFAULT '-2',
+  `r2` integer DEFAULT '-2',
+  `r3` integer DEFAULT '-2',
+  `r4` integer DEFAULT '-2',
+  `r5` integer DEFAULT '-2',
+  `r6` integer DEFAULT '-2',
+  `r7` integer DEFAULT '-2',
+  `r8` integer DEFAULT '-2',
+  `r9` integer DEFAULT '-2',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1;
+```
 
 
 
@@ -455,53 +352,35 @@ CREATE TABLE \`modulos\_alumnos\` (
 Archivos de configuración
 -------------------------
 
-Editamos archivo app/config/local/database.php
-
-       'mysql' =\> array(
-
-            'driver'  =\> 'mysql',
-
-            'host'   =\> 'localhost',
-
-            'database' =\> 'fp',// Nombre de la base de datos
-
-            'username' =\> 'root',    // Usuario de la base de datos   
-
-            'password' =\> 'root',    // Clave del usuario
-
-            'charset'  =\> 'utf8',
-
-            'collation' =\> 'utf8\_unicode\_ci',
-
-            'prefix'  =\> '',
-
-        ),
+Editamos archivo __app/config/local/database.php__
+```php
+               'mysql' => array(
+                        'driver'    => 'mysql',
+                        'host'      => 'localhost', 
+                        'database'  => 'fp',	// Nombre de la base de datos
+                        'username'  => 'root',	// Usuario de la base de datos	
+                        'password'  => 'root',	// Clave del usuario
+                        'charset'   => 'utf8',
+                        'collation' => 'utf8_unicode_ci',
+                        'prefix'    => '',
+                ),
+```
 
 
-
-Editamos archivo app/config/database.php
-
-       'mysql' =\> array(
-
-            'driver'  =\> 'mysql',
-
-            'host'   =\> getenv('OPENSHIFT\_MYSQL\_DB\_HOST'),
-
-            'port'   =\> getenv('OPENSHIFT\_MYSQL\_DB\_PORT'),
-
-            'database' =\> 'fp',
-
-            'username' =\> getenv('OPENSHIFT\_MYSQL\_DB\_USERNAME'),
-
-            'password' =\> getenv('OPENSHIFT\_MYSQL\_DB\_PASSWORD'),
-
-            'charset'  =\> 'utf8',
-
-            'collation' =\> 'utf8\_unicode\_ci',
-
-            'prefix'  =\> '',
-
-        ),
+Editamos archivo __app/config/database.php__
+```php
+               'mysql' => array(
+                        'driver'    => 'mysql',
+                        'host'      => getenv('OPENSHIFT_MYSQL_DB_HOST'),
+                        'port'      => getenv('OPENSHIFT_MYSQL_DB_PORT'),
+                        'database'  => 'fp',
+                        'username'  => getenv('OPENSHIFT_MYSQL_DB_USERNAME'),
+                        'password'  => getenv('OPENSHIFT_MYSQL_DB_PASSWORD'),
+                        'charset'   => 'utf8',
+                        'collation' => 'utf8_unicode_ci',
+                        'prefix'    => '',
+                ),
+```
 
 
 
@@ -510,8 +389,9 @@ Creación de la base de datos en sitio local
 
 Simplemente ejecutamos script database.sh.
 
+```
 ./database.sh
-
+```
 
 
 
@@ -523,26 +403,23 @@ NOTA: Para poder seguir los pasos indicados a continuación debe poseerse una cu
 
 1.  1.Subimos archivos a carpeta app-root/data del equipo remoto.
 
-scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos\_alumnos.csv usuario\_numero@app-domain.rhcloud.com:app-root/data
+```
+scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos_alumnos.csv usuario_numero@app-domain.rhcloud.com:app-root/data
+```
 
 Donde:
-
--   •usuario\_numero debe sustituirse por el nombre de nuestro usuario en Openshift en forma de número.
-
--   •app-domain debe sustituirse por el nombre de nuestra apliación en Openshift.
-
+-   *usuario_numero* debe sustituirse por el nombre de nuestro usuario en Openshift en forma de número.
+-   *app-domain* debe sustituirse por el nombre de nuestra apliación en Openshift.
 
 
 1.  2.En equipo remoto ejecutamos script database.sh.
 
-ssh usuario\_numero@app-domain.rhcloud.com
-
+```
+ssh usuario_numero@app-domain.rhcloud.com
 cd app-root/data
-
 chmod +x database.sh
-
 ./database.sh
-
+```
 
 
 Consejos para exportar e importar datos
@@ -550,13 +427,13 @@ Consejos para exportar e importar datos
 
 ### Si tenemos los datos en MySQL y queremos exportar a archivo:
 
--   •A archivo .csv:    
+-   A archivo .csv:    
 
 mysqldump [-u uname] -p[pass] -t -T/tmp db\_name [db\_table1] [db\_table2] --fields-terminated-by=','
 
 Ésto crea un archivo /tmp/db\_table1.txt (es un archivo CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
 
--   •A archivo .sql:
+-   A archivo .sql:
 
 mysqldump [-u uname] -p[pass] db\_name [db\_table1] [db\_table2] \> db\_backup.sql
 
@@ -725,23 +602,23 @@ Vistas
 
 Existen numerosas vistas.
 
--   •plantilla.blade.php 
+-   plantilla.blade.php 
 
--   •inicio.blade.php 
+-   inicio.blade.php 
 
--   •login.blade.php 
+-   login.blade.php 
 
--   •alumnos (carpeta) 
+-   alumnos (carpeta) 
 
--   •modulos (carpeta) 
+-   modulos (carpeta) 
 
--   •profesores (carpeta) 
+-   profesores (carpeta) 
 
--   •resultados (carpeta)
+-   resultados (carpeta)
 
--   •informes (carpeta)
+-   informes (carpeta)
 
--   •informacion (carpeta) 
+-   informacion (carpeta) 
 
 Se hace uso de extensiones blade ( código entre dobles llaves {{ }} )
 
@@ -750,19 +627,19 @@ Controladores
 
 La lógica de la aplicación se halla en varios archivos en la carpeta app/controllers:
 
--   •BaseController.php 
+-   BaseController.php 
 
--   •HomeController.php 
+-   HomeController.php 
 
--   •AlumnoController.php 
+-   AlumnoController.php 
 
--   •ModuloController.php 
+-   ModuloController.php 
 
--   •ProfesorController.php 
+-   ProfesorController.php 
 
--   •InformesController.php 
+-   InformesController.php 
 
--   •ResultadosController.php
+-   ResultadosController.php
 
 ### Controladores de recursos RESTful
 
@@ -1071,9 +948,9 @@ php artisan config:publish ignited/laravel-pdf
 
 Se habrán creado 2directorios:
 
--•vendor/h4cc
+-vendor/h4cc
 
--•vendor/ignited
+-vendor/ignited
 
 
 
@@ -1133,11 +1010,11 @@ NOTA:ParapoderseguirlospasosindicadosacontinuacióndebesposeerunacuentaenOpenshi
 Requisitos
 ----------
 
--•Tenemosunaaplicaciónlaravelfuncionandocorrectamenteennuestroequipolocalen/var/www/html/pruebaosimilar.
+-Tenemosunaaplicaciónlaravelfuncionandocorrectamenteennuestroequipolocalen/var/www/html/pruebaosimilar.
 
--•HemoscreadounacuentayunaaplicaciónenOpenshift.
+-HemoscreadounacuentayunaaplicaciónenOpenshift.
 
--•HemossubidolabasededatosaOpenshift.
+-HemossubidolabasededatosaOpenshift.
 
 Pasosaseguir
 --------------
@@ -1285,39 +1162,39 @@ Nosquedaunaestructuradedirectoriostalcomolamostradaacontinuación.Sehasuprimidol
 ANEXOI:Archivosmodificadosoañadidos
 ========================================
 
--•composer.json
+-composer.json
 
--•bootstrap/start.php
+-bootstrap/start.php
 
--•app/routes.php
+-app/routes.php
 
--•app/config/local/database.php
+-app/config/local/database.php
 
--•app/config/local/app.php
+-app/config/local/app.php
 
--•app/config/database.php
+-app/config/database.php
 
--•app/config/auth.php
+-app/config/auth.php
 
--•app/models/\*
+-app/models/\*
 
--•app/controllers/\*
+-app/controllers/\*
 
--•app/views/\*
+-app/views/\*
 
--•public/
+-public/
 
--•public/css/\*
+-public/css/\*
 
--•public/js/\*
+-public/js/\*
 
--•public/fonts/\*
+-public/fonts/\*
 
--•public/img/\*
+-public/img/\*
 
--•vendor/ignited/\*(Instaladoconcomposer)
+-vendor/ignited/\*(Instaladoconcomposer)
 
--•vendor/h4cc/\*(Instaladoconcomposer)
+-vendor/h4cc/\*(Instaladoconcomposer)
 
 
 
