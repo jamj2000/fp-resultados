@@ -746,326 +746,42 @@ Contenido de la tabla profesores
 
 Ejemplo de claves almacenadas en profesores.csv (simplificado)
 
-|Primer apellido | Segundo apellido | Nombre       | Contraseña |
-|================|==================|==============|============|
-|Muñoz           | Jiménez          | José Antonio | $2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca |
-|Pareja          | Delgado          | Ana María    | $2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I. |
-|Merino          | Fernández        | Fernando     | $2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y |
-|Pérez           | Fuentes          | Isaías       | $2y$10$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK |
-|Antolino        | García           | Jacinto      | $2y$10$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK |
-|Lozano          | Ortega           | José María   | $2y$10$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa |
-|Molina          | Polo             | María Eugenia | $2y$10$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6 |
+|Primer apellido | Segundo apellido | Nombre           | Contraseña                                                   |
+|================|==================|==================|==============================================================|
+|Muñoz           | Jiménez          | José Antonio     | $2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca |
+|Pareja          | Delgado          | Ana María        | $2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I. |
+|Merino          | Fernández        | Fernando         | $2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y |
+|Pérez           | Fuentes          | Isaías           | $2y$10$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK |
+|Antolino        | García           | Jacinto          | $2y$10$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK |
+|Lozano          | Ortega           | José María       | $2y$10$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa |
+|Molina          | Polo             | María Eugenia    | $2y$10$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6 |
 |Siles           | Rosado           | María Inmaculada | $2y$10$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C |
-|Conde           | Silva            | Marta Teresa | $2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG |
-|García          | Viera            | Miguel Ángel | $2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi |
+|Conde           | Silva            | Marta Teresa     | $2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG |
+|García          | Viera            | Miguel Ángel     | $2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi |
 
 
 
 
-
-
-
-
-
-
-
-
-
-Generación de PDFs con Laravel
-==============================
-
-ignited con wkhtmltopdf
------------------------
-
-<https://github.com/mikehaertl/phpwkhtmltopdf>
-
-<https://github.com/ignited/laravel-pdf>
-
-<http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
-
-
-
-Editar el archivo composer.json insertando las siguientes líneas:
-
-{
-
-  "require": {
-
-    // ...
-
-   "ignited/laravel-pdf": "1.\*",
-
-    "h4cc/wkhtmltopdf-i386": "\*",
-
-    "h4cc/wkhtmltopdf-amd64": "\*"
-
-  }
-
-}
-
-
-
-Para descargar paquetes ejecutar
-
-composer update
-
-
-
-Publicar el paquete usando artisan
-
-php artisan config:publish ignited/laravel-pdf
-
-
-
-Se habrán creado 2directorios:
-
--vendor/h4cc
-
--vendor/ignited
-
-
-
-Enarchivoapp/config/app.phpinsertarlassiguienteslíneas:
-
-'providers'=\>array(
-
-//...
-
-'Ignited\\Pdf\\PdfServiceProvider',
-
-)
-
-//...
-
-'aliases'=\>array(
-
-//...
-
-'PDF'=\>'Ignited\\Pdf\\Facades\\Pdf'
-
-)
-
-
-
-
-
-Enarchivoapp/config/packages/ignited/laravel-pdf/config.phpdescomentarunadelassiguienteslíneassegúnSOde32bitso64bits:
-
-
-
-###Sistemasde32-bits
-
-returnarray(
-
-\#Uncommentfor32-bitsystems
-
-'bin'=\>base\_path().'/vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386',
-
-###Sistemasde64-bits
-
-returnarray(
-
-\#Uncommentfor64-bitsystems
-
-'bin'=\>base\_path().'/vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64',
-
-
-
-
-
-Instalaciónenremoto
-=====================
-
-NOTA:ParapoderseguirlospasosindicadosacontinuacióndebesposeerunacuentaenOpenshiftytenerdadadealtaunaaplicación.
-
-Requisitos
-----------
-
--Tenemosunaaplicaciónlaravelfuncionandocorrectamenteennuestroequipolocalen/var/www/html/pruebaosimilar.
-
--HemoscreadounacuentayunaaplicaciónenOpenshift.
-
--HemossubidolabasededatosaOpenshift.
-
-Pasosaseguir
---------------
-
-1.1.Enlocal,vamosa/var/www/htmlybajamoslospocosarchivosqueexistenenOpenshift
-
-cd/var/www/html
-
-gitclonessh://usuario\_numero@app-domain.rhcloud.com/\~/git/app.git/
-
-
-
-1.2.Copiamosarchivosde/var/www/html/pruebaa/var/www/html/app-domain
-
-rsync-avprueba/app-domain/--exclude=.git--exclude=.openshift
-
-
-
-1.3.Subimosarchivosasitioremoto.
-
-cdapp-domain
-
-gitadd.
-
-gitcommit-m"Archivosdelaravellocalessubidosporprimeravez"
-
-gitpush
-
-
-
-1.4.ConectamosmedianteSSHyhusmeamosunpocoaverquetalhaquedado.
-
-
-
-sshusuario\_numero@app-domain.rhcloud.com
-
-tree-L6
-
-
-
-Nosquedaunaestructuradedirectoriostalcomolamostradaacontinuación.Sehasuprimidolavistadelosarchivosmenosimportantes.Losarchivossesubenautomáticamentealdirectoriorepo,queseráconelquetrabajaremos.Ennegritalosarchivosmásimportantes.
-
-.
-
-├──app-deployments
-
-├──app-root
-
-│├──build-dependencies-\>runtime/build-dependencies
-
-│├──data
-
-│├──dependencies-\>runtime/dependencies
-
-│├──logs
-
-│├──repo-\>runtime/repo
-
-│└──runtime
-
-│├──build-dependencies
-
-│├──data-\>../data
-
-│├──dependencies
-
-│├──logshifter-haproxy
-
-│└──repo
-
-│├──app
-
-││├──commands
-
-││├──config
-
-│││├──app.php
-
-│││├──database.php
-
-│││└──local
-
-│││├──app.php
-
-│││└──database.php
-
-││├──controllers
-
-││├──database
-
-││├──filters.php
-
-││├──lang
-
-│││└──en
-
-││├──models
-
-││├──routes.php
-
-││├──start
-
-││├──storage
-
-││├──tests
-
-││└──views
-
-│├──artisan
-
-│├──bootstrap
-
-│├──composer.json
-
-│├──composer.lock
-
-│├──CONTRIBUTING.md
-
-│├──index.php
-
-│├──phpunit.xml
-
-│├──public
-
-│├──readme.md
-
-│├──server.php
-
-│├──tree.txt
-
-│├──usuarios.sql
-
-│└──vendor
-
-├──gear-registry
-
-├──git
-
-├──haproxy
-
-└──php
-
-
-
-ANEXOI:Archivosmodificadosoañadidos
+ANEXO I: Archivos modificados o añadidos
 ========================================
 
--composer.json
-
--bootstrap/start.php
-
--app/routes.php
-
--app/config/local/database.php
-
--app/config/local/app.php
-
--app/config/database.php
-
--app/config/auth.php
-
--app/models/\*
-
--app/controllers/\*
-
--app/views/\*
-
--public/
-
--public/css/\*
-
--public/js/\*
-
--public/fonts/\*
-
--public/img/\*
-
--vendor/ignited/\*(Instaladoconcomposer)
-
--vendor/h4cc/\*(Instaladoconcomposer)
+- composer.json
+- bootstrap/start.php
+- app/routes.php
+- app/config/local/database.php
+- app/config/local/app.php
+- app/config/database.php
+- app/config/auth.php
+- app/models/*
+- app/controllers/*
+- app/views/*
+- public/
+- public/css/*
+- public/js/*
+- public/fonts/*
+- public/img/*
+- vendor/ignited/* (Instalado con composer)
+- vendor/h4cc/*  (Instalado con composer)
 
 
 
@@ -1074,40 +790,28 @@ ANEXOI:Archivosmodificadosoañadidos
 
 
 
-
-ANEXOII:Referencias
+ANEXO II: Referencias
 =====================
 
 Laravel
 -------
-
-Tutorialbase:<http://codehero.co/series/laravel-4-desde-cero/>
-
-Documentaciónoficial:<http://laravel.com/docs/4.2>
-
+- Tutorial base: <http://codehero.co/series/laravel-4-desde-cero/>
+- Documentación oficial: <http://laravel.com/docs/4.2>
 
 
 Openshift
 ---------
-
-CreacióndeaplicaciónenOpenshift:<http://www.deploy2cloud.com/laravel/Install-Custom-laravel-4-Application-to-OpenShift>
+- Creación de aplicación en Openshift: <http://www.deploy2cloud.com/laravel/Install-Custom-laravel-4-Application-to-OpenShift>
 
 
 
 Ejemplos
 --------
-
-Frameworkforauthorizationandauthentication:<https://cartalyst.com/manual/sentry/2.1#installation>
-
-CRUDoperations:<https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers>
-
-DBRelations:<https://scotch.io/tutorials/a-guide-to-using-eloquent-orm-in-laravel>
-
-SimpleLogin:<https://scotch.io/tutorials/simple-and-easy-laravel-login-authentication>
-
-Otrostutosdescotch.iosobreLaravel:<https://scotch.io/tag/laravel>
-
-EjemploconSentry:<https://github.com/brunogaspar/laravel-starter-kit>
-
-Ejemplobasadoenelanterior:<https://github.com/andrewelkins/Laravel-4-Bootstrap-Starter-Site>
+- Framework for authorization and authentication: <https://cartalyst.com/manual/sentry/2.1#installation>
+- CRUD operations: <https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers>
+- DB Relations: <https://scotch.io/tutorials/a-guide-to-using-eloquent-orm-in-laravel>
+- Simple Login: <https://scotch.io/tutorials/simple-and-easy-laravel-login-authentication>
+- Otros tutos de scotch.iosobreLaravel: <https://scotch.io/tag/laravel>
+- Ejemplo con Sentry: <https://github.com/brunogaspar/laravel-starter-kit>
+- Ejemplo basado en el anterior: <https://github.com/andrewelkins/Laravel-4-Bootstrap-Starter-Site>
 
