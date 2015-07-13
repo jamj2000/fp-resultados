@@ -13,9 +13,9 @@ Laravel se ajusta a MVC (Modelo-Vista-Controlador), lo que permite trabajar de f
 
  
 
-NOTA IMPORTANTE: A partir de la versión 5 de Laravel la distribución de los archivos es diferente, por lo que este tutorial no es válido para la versión 5.
+>_NOTA IMPORTANTE_: A partir de la versión 5 de Laravel la distribución de los archivos es diferente, por lo que este tutorial no es válido para la versión 5.
 
- 
+
 
 Instalación en local
 ====================
@@ -31,15 +31,15 @@ Configuración de apache
 /etc/apache2/apache2.conf
 
 ```apache2
-<Directory /var/www/\>
+<Directory /var/www/>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
-</Directory\>
+</Directory>
 ```
- 
 
- 
+Habilitamos módulos rewrite y mcrypt y reiniciamos servidor Apache2.
+
 ```sh
 a2enmod rewrite
 php5enmod mcrypt
@@ -64,19 +64,19 @@ En carpeta /var/www/html
 Podemos instalar la versión 4.2, que es la utilizada para este tutorial, con el comando:
 
 ```
-composer  create-project  laravel/laravel=4.2 __nombre-proyecto__  --prefer-dist
+composer  create-project  laravel/laravel=4.2  nombre-proyecto  --prefer-dist
 ```
  
 
-Podría instalarse la última versión (actualmente -Julio 2015- la versión 5), con el siguiente comando (aunque se desaconseja  para seguir este tutorial  puesto que existen muchos cambios en cuanto a la organización de los archivos):
+Podría instalarse la última versión (actualmente -Julio 2015- la versión 5), con el siguiente comando (aunque se desaconseja para seguir este tutorial puesto que existen muchos cambios en cuanto a la organización de los archivos):
 
  
 ```
-composer  create-project  laravel/laravel __nombre-proyecto__  --prefer-dist
+composer  create-project  laravel/laravel  nombre-proyecto  --prefer-dist
 ``` 
- 
 
-NOTAS:
+
+> _NOTAS_:
 
 -   Debes de sustituir nombre-proyecto por el nombre que tú quieras dar a tu proyecto, por ejemplo prueba, miproyecto, app-demo o similar. 
 
