@@ -506,7 +506,7 @@ class Alumno extends Eloquent
 }
 ```
 
-__ app/models/Modulo.php__
+__app/models/Modulo.php__
 
 ```php
 <?php
@@ -747,7 +747,7 @@ Contenido de la tabla profesores
 Ejemplo de claves almacenadas en profesores.csv (simplificado)
 
 |Primer apellido | Segundo apellido | Nombre           | Contraseña                                                   |
-|================|==================|==================|==============================================================|
+|----------------|------------------|------------------|--------------------------------------------------------------|
 |Muñoz           | Jiménez          | José Antonio     | $2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca |
 |Pareja          | Delgado          | Ana María        | $2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I. |
 |Merino          | Fernández        | Fernando         | $2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y |
@@ -758,6 +758,268 @@ Ejemplo de claves almacenadas en profesores.csv (simplificado)
 |Siles           | Rosado           | María Inmaculada | $2y$10$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C |
 |Conde           | Silva            | Marta Teresa     | $2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG |
 |García          | Viera            | Miguel Ángel     | $2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi |
+
+
+
+
+Generación de PDFs con Laravel
+==============================
+
+ignited con wkhtmltopdf
+-----------------------
+
+<https://github.com/mikehaertl/phpwkhtmltopdf>
+
+<https://github.com/ignited/laravel-pdf>
+
+<http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
+
+ 
+
+Editar el archivo composer.json insertando las siguientes líneas:
+
+{
+
+    "require": {
+
+        // ...
+
+        "ignited/laravel-pdf": "1.\*",
+
+        "h4cc/wkhtmltopdf-i386": "\*",
+
+        "h4cc/wkhtmltopdf-amd64": "\*"
+
+    }
+
+}
+
+ 
+
+Para descargar paquetes ejecutar
+
+composer update
+
+ 
+
+Publicar el paquete usando artisan
+
+php artisan config:publish ignited/laravel-pdf
+
+ 
+
+Se habrán creado 2 directorios:
+
+-   •vendor/h4cc 
+
+-   •vendor/ignited 
+
+ 
+
+En archivo app/config/app.php  insertar las siguientes líneas:
+
+    'providers' =\> array(
+
+        // ...
+
+        'Ignited\\Pdf\\PdfServiceProvider',
+
+    )      
+
+    //...
+
+    'aliases' =\> array(
+
+        // ...
+
+        'PDF'             =\> 'Ignited\\Pdf\\Facades\\Pdf'
+
+    )
+
+ 
+
+ 
+
+En archivo app/config/packages/ignited/laravel-pdf/config.php descomentar una de las siguientes líneas según SO de 32bits o 64bits:
+
+ 
+
+### Sistemas de 32-bits
+
+return array(
+
+    \# Uncomment for 32-bit systems
+
+    'bin' =\> base\_path() . '/vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386',
+
+### Sistemas de 64-bits
+
+return array(
+
+    \# Uncomment for 64-bit systems
+
+    'bin' =\> base\_path() . '/vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64',
+
+ 
+
+ 
+
+Instalación en remoto
+=====================
+
+NOTA: Para poder seguir los pasos indicados a continuación debes poseer una cuenta en Openshift y tener dada de alta una aplicación.
+
+Requisitos
+----------
+
+-   •Tenemos una aplicación laravel funcionando correctamente en nuestro equipo local en /var/www/html/prueba o similar. 
+
+-   •Hemos creado una cuenta y una aplicación en Openshift. 
+
+-   •Hemos subido la base de datos a Openshift. 
+
+Pasos a seguir
+--------------
+
+1.  1.En local, vamos a /var/www/html y bajamos los pocos archivos que existen en Openshift 
+
+cd /var/www/html
+
+git clone ssh://usuario\_numero@app-domain.rhcloud.com/\~/git/app.git/
+
+ 
+
+1.  2.Copiamos archivos de /var/www/html/prueba a /var/www/html/app-domain 
+
+rsync -av prueba/  app-domain/ --exclude=.git --exclude=.openshift
+
+ 
+
+1.  3.Subimos archivos a sitio remoto. 
+
+cd app-domain
+
+git add .
+
+git commit -m "Archivos de laravel locales subidos por primera vez"
+
+git push
+
+ 
+
+1.  4.Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado. 
+
+ 
+
+ssh usuario\_numero@app-domain.rhcloud.com
+
+tree -L 6
+
+ 
+
+Nos queda una estructura de directorios tal como la mostrada a continuación. Se ha suprimido la vista de los archivos menos importantes. Los archivos se suben automáticamente al directorio repo, que será con el que trabajaremos. En negrita los archivos más importantes.
+
+.
+
+├── app-deployments
+
+├── app-root
+
+│   ├── build-dependencies -\> runtime/build-dependencies
+
+│   ├── data
+
+│   ├── dependencies -\> runtime/dependencies
+
+│   ├── logs
+
+│   ├── repo -\> runtime/repo
+
+│   └── runtime
+
+│       ├── build-dependencies
+
+│       ├── data -\> ../data
+
+│       ├── dependencies
+
+│       ├── logshifter-haproxy
+
+│       └── repo
+
+│           ├── app
+
+│           │   ├── commands
+
+│           │   ├── config
+
+│           │   │   ├── app.php
+
+│           │   │   ├── database.php
+
+│           │   │   └── local
+
+│           │   │       ├── app.php
+
+│           │   │       └── database.php
+
+│           │   ├── controllers
+
+│           │   ├── database
+
+│           │   ├── filters.php
+
+│           │   ├── lang
+
+│           │   │   └── en
+
+│           │   ├── models
+
+│           │   ├── routes.php
+
+│           │   ├── start
+
+│           │   ├── storage
+
+│           │   ├── tests
+
+│           │   └── views
+
+│           ├── artisan
+
+│           ├── bootstrap
+
+│           ├── composer.json
+
+│           ├── composer.lock
+
+│           ├── CONTRIBUTING.md
+
+│           ├── index.php
+
+│           ├── phpunit.xml
+
+│           ├── public
+
+│           ├── readme.md
+
+│           ├── server.php
+
+│           ├── tree.txt
+
+│           ├── usuarios.sql
+
+│           └── vendor
+
+├── gear-registry
+
+├── git
+
+├── haproxy
+
+└── php
+
+ 
 
 
 
