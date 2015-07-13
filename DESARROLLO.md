@@ -769,9 +769,7 @@ ignited con wkhtmltopdf
 -----------------------
 
 <https://github.com/mikehaertl/phpwkhtmltopdf>
-
 <https://github.com/ignited/laravel-pdf>
-
 <http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
 
  
@@ -920,103 +918,55 @@ tree -L 6
 Nos queda una estructura de directorios tal como la mostrada a continuación. Se ha suprimido la vista de los archivos menos importantes. Los archivos se suben automáticamente al directorio repo, que será con el que trabajaremos. En negrita los archivos más importantes.
 
 .
-
 ├── app-deployments
-
 ├── app-root
-
 │   ├── build-dependencies -\> runtime/build-dependencies
-
-│   ├── data
-
+│   ├── __data__
 │   ├── dependencies -\> runtime/dependencies
-
 │   ├── logs
-
 │   ├── repo -\> runtime/repo
-
 │   └── runtime
-
 │       ├── build-dependencies
-
 │       ├── data -\> ../data
-
 │       ├── dependencies
-
 │       ├── logshifter-haproxy
-
-│       └── repo
-
-│           ├── app
-
+│       └── __repo__
+│           ├── __app__
 │           │   ├── commands
-
 │           │   ├── config
-
-│           │   │   ├── app.php
-
-│           │   │   ├── database.php
-
+│           │   │   ├── __app.php__
+│           │   │   ├── __database.php__
 │           │   │   └── local
-
-│           │   │       ├── app.php
-
-│           │   │       └── database.php
-
-│           │   ├── controllers
-
+│           │   │       ├── __app.php__
+│           │   │       └── __database.php__
+│           │   ├── __controllers__
 │           │   ├── database
-
 │           │   ├── filters.php
-
 │           │   ├── lang
-
 │           │   │   └── en
-
-│           │   ├── models
-
-│           │   ├── routes.php
-
+│           │   ├── __models__
+│           │   ├── __routes.php__
 │           │   ├── start
-
 │           │   ├── storage
-
 │           │   ├── tests
-
-│           │   └── views
-
-│           ├── artisan
-
-│           ├── bootstrap
-
-│           ├── composer.json
-
+│           │   └── __views__
+│           ├── __artisan__
+│           ├── __bootstrap__
+│           │   └── __start.php__
+│           ├── __composer.json__
 │           ├── composer.lock
-
 │           ├── CONTRIBUTING.md
-
 │           ├── index.php
-
 │           ├── phpunit.xml
-
 │           ├── public
-
 │           ├── readme.md
-
 │           ├── server.php
-
 │           ├── tree.txt
-
 │           ├── usuarios.sql
-
 │           └── vendor
-
 ├── gear-registry
-
 ├── git
-
 ├── haproxy
-
 └── php
 
  
