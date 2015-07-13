@@ -160,6 +160,10 @@ cd /var/www/html
 git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/<app>.git/
 ```
 
+## Desarrollo de la aplicación con Laravel 4.2
+
+Si quieres detalles técnicos acerca de cómo he creado está aplicación puedes seguir [este tutorial](https://github.com/jamj2000/fp-resultados/blob/master/DESARROLLO.md) que he elaborado explicando los conceptos principales. Te ayudará a entender el código fuente.
+
 
 # Licencia
 
