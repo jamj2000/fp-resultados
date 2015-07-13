@@ -137,11 +137,9 @@ En archivo __app/config/local/app.php__
 
 > __NOTAS IMPORTANTES__:
 La opción __'debug' => true__ es adecuada cuando trabajamos en el equipo local y deseamos ver información de depuración. Es muy peligroso tener esta opción a true en un sitio en producción en Internet puesto que contiene mucha información sensible y nuestro sitio podría ser fácilmente atacado.
+-   Configuración local en __app/config/local/app.php__ y __app/config/local/database.php__
+-   Configuración en producción en __app/config/app.php__ y __app/config/database.php__
 
-
--   Configuración local en app/config/local/app.php y app/config/local/database.php
-
--   Configuración en producción en app/config/app.php y app/config/database.php
 
 Comprobación de resultado en local
 ==================================
@@ -191,16 +189,16 @@ Cada módulo admitirá un máximo de 9 resultados de aprendizaje. La cantidad co
 
 Para cada resultado de aprendizaje existirá su peso correspondiente (por defecto todos con el mismo peso: 10), por si en el futuro se desea poner calificación numérica y ponderar cada resultado de forma distinta.
 
-La nota de cada alumno en cada módulo se almacena en los campos R1, R2, ..., R9, para cada uno de los resultados de aprendizaje. Estos campos tendrán valor:
+La nota de cada alumno en cada módulo se almacena en los campos __R1__, __R2__, ..., __R9__, para cada uno de los resultados de aprendizaje. Estos campos tendrán valor:
 
--   -2:     si el resultado no ha sido impartido. 
--   -1:     si el módulo no ha terminado de impartirse y no existe aún nota definitiva.
--   0 - 10: si el módulo se ha impartido y evaluado.
+-   · · · -2:  si el resultado no ha sido impartido. 
+-   · · · -1:  si el módulo no ha terminado de impartirse y no existe aún nota definitiva.
+-   0 - 10:  si el módulo se ha impartido y evaluado.
 
 
-Para automatizar el proceso se hace uso de un script bash (database.sh) y de otro sql (tablas.sql)
+Para automatizar el proceso se hace uso de un script bash (__database.sh__) y de otro sql (__tablas.sql__)
 
-El script database.sh crea la base de datos llamada fp, invoca al script tablas.sql para crear las tablas y después las rellena con el contenido de los archivos .csv. Los scripts y los archivos .csv deben hallarse todos en el mismo directorio.
+El script database.sh crea la base de datos llamada _fp_, invoca al script tablas.sql para crear las tablas y después las rellena con el contenido de los archivos .csv. Los scripts y los archivos .csv deben hallarse todos en el mismo directorio.
 
 ### Script database.sh
 
@@ -399,9 +397,9 @@ Simplemente ejecutamos script database.sh.
 Creación de la base de datos en sitio de producción
 ---------------------------------------------------
 
-NOTA: Para poder seguir los pasos indicados a continuación debe poseerse una cuenta en Openshift y tener dada de alta una aplicación.
+> __NOTA__: Para poder seguir los pasos indicados a continuación debe poseerse una cuenta en Openshift y tener dada de alta una aplicación.
 
-1.  1.Subimos archivos a carpeta app-root/data del equipo remoto.
+1. Subimos archivos a carpeta __app-root/data__ del equipo remoto.
 
 ```
 scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos_alumnos.csv usuario_numero@app-domain.rhcloud.com:app-root/data
@@ -412,7 +410,7 @@ Donde:
 -   *app-domain* debe sustituirse por el nombre de nuestra apliación en Openshift.
 
 
-1.  2.En equipo remoto ejecutamos script database.sh.
+2. En equipo remoto ejecutamos script database.sh.
 
 ```
 ssh usuario_numero@app-domain.rhcloud.com
@@ -427,55 +425,61 @@ Consejos para exportar e importar datos
 
 ### Si tenemos los datos en MySQL y queremos exportar a archivo:
 
--   A archivo .csv:    
+-  A archivo .csv:    
 
+```
 mysqldump [-u uname] -p[pass] -t -T/tmp db\_name [db\_table1] [db\_table2] --fields-terminated-by=','
+```
 
-Ésto crea un archivo /tmp/db\_table1.txt (es un archivo CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
+Ésto crea un archivo /tmp/db_table1.txt (es un archivo CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
 
--   A archivo .sql:
+-  A archivo .sql:
 
+```
 mysqldump [-u uname] -p[pass] db\_name [db\_table1] [db\_table2] \> db\_backup.sql
-
+```
 
 
 ### Si tenemos un archivo .sql y queremos importar a MySQL:
 
+```
 mysql [-u uname] -p[pass] db\_name \< db\_backup.sql
+```
 
-NOTA: Sustituir con los valores adecuados uname, pass, db\_name, db\_table1, db\_table2.
+> __NOTA__: Sustituir los valores adecuados en _uname_, _pass_, *db_name*, *db_table1*, *db_table2*.
 
 
 
 Migrations and Seeds
 --------------------
 
-NOTA: Esta forma de trabajar NO se ha utilizado. Solo la comento como una posibilidad. Considero más manejable para grandes cantidades de datos el importar directamente dentro de mysql el contenido de archivos .csv con los datos.
+> __NOTA__: Esta forma de trabajar NO se ha utilizado. Solo la comento como una posibilidad. Considero más manejable para grandes cantidades de datos el importar directamente dentro de mysql el contenido de archivos .csv con los datos.
 
 Es posible trabajar con la BD de forma indirecta. Para ello laravel utiliza un sistema de migraciones y sembrado.
-
 Las migraciones corresponden a la creación de la estructura de las tablas.
-
 El sembrado corresponde al rellenado de datos de estas tablas.
 
 Para utilizar este método debemos usar el comando artisan y seguir los pasos siguientes:
 
-1.  1.Crear la base de datos con MySQL u otro gestor.
+1.  Crear la base de datos con MySQL u otro gestor.
+2.  Darla de alta en el archivo app/config/database.php
+3.  MIGRATIONS. Crear las tablas. Por ejemplo para crear una tabla llamada users:
 
-2.  2.Darla de alta en el archivo app/config/database.php
+```
+php artisan migrate:make CreateUsersTable --create=users --table=users
+```
 
-3.  3.MIGRATIONS. Crear las tablas. Por ejemplo para crear una tabla llamada users:
+Editar los archivos necesarios en __app/database/migrations/*__ . Y ejecutar:
 
-php artisan migrate:make CreateUsersTable –create=users --table=users
-
-Editar los archivos necesarios en app/database/migrations/\* . Y ejecutar:
-
+```
 php artisan migrate
+```
 
-1.  4.SEEDS. Rellenar las tablas. Para ello editar los archivos app/database/seeds/\* . Y ejecutar: 
+4.  SEEDS. Rellenar las tablas. Para ello editar los archivos __app/database/seeds/*__ . Y ejecutar: 
 
+```
 php artisan db:seed
-
+```
 
 
 
@@ -483,118 +487,90 @@ php artisan db:seed
 Modelos
 =======
 
-En el directorio app/models tenemos tres archivos (Alumno.php, Modulo.php y Profesor.php)
+En el directorio __app/models__ tenemos tres archivos (Alumno.php, Modulo.php y Profesor.php)
 
+__app/models/Alumno.php__
 
-
-
-
-app/models/Alumno.php
-
-\<?php
+```php
+<?php
 
 class Alumno extends Eloquent
-
 {
 
-  public function modulos() {
+    public function modulos() {
+        return $this->belongsToMany('Modulo', 'modulos_alumnos','alumno_id', 'modulo_id')
+               ->withPivot('r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9');
+    }
 
-    return \$this-\>belongsToMany('Modulo', 'modulos\_alumnos','alumno\_id', 'modulo\_id')
-
-       -\>withPivot('r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9');
-
-  }
-
-
-
+  
 }
+```
 
+__ app/models/Modulo.php__
 
-
-app/models/Modulo.php
-
-\<?php
+```php
+<?php
 
 class Modulo extends Eloquent
-
 {
 
- //protected \$fillable = array('name', 'taste\_level');
+   //protected $fillable = array('name', 'taste_level');
 
-  public function profesor() {
+    public function profesor() {
+        return $this->belongsTo('Profesor');
+    }
 
-    return \$this-\>belongsTo('Profesor');
 
-  }
-
-  public function alumnos() {
-
-    return \$this-\>belongsToMany('Alumno', 'modulos\_alumnos', 'modulo\_id', 'alumno\_id')
-
-       -\>withPivot('r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9');
-
-  }
+    public function alumnos() {
+        return $this->belongsToMany('Alumno', 'modulos_alumnos', 'modulo_id', 'alumno_id')
+               ->withPivot('r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9');
+    }
 
 }
+```
 
+__app/models/Profesor.php__
 
+```php
+<?php
 
-app/models/Profesor.php
-
-\<?php
-
-use Illuminate\\Auth\\UserTrait;
-
-use Illuminate\\Auth\\UserInterface;
-
-use Illuminate\\Auth\\Reminders\\RemindableTrait;
-
-use Illuminate\\Auth\\Reminders\\RemindableInterface;
+use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Profesor extends Eloquent implements UserInterface, RemindableInterface {
 
-    use UserTrait, RemindableTrait;
+        use UserTrait, RemindableTrait;
 
-    /\*\*
+        /**
+         * The database table used by the model.
+         *
+         * @var string
+         */
+        protected $table = 'profesores';
 
-    \* The database table used by the model.
+        /**
+         * The attributes excluded from the model's JSON form.
+         *
+         * @var array
+         */
+        protected $hidden = array('password', 'remember_token');
 
-    \*
 
-    \* @var string
+        public function modulos() {
+               return $this->hasMany('Modulo');
+        }
 
-    \*/
-
-    protected \$table = 'profesores';
-
-    /\*\*
-
-    \* The attributes excluded from the model's JSON form.
-
-    \*
-
-    \* @var array
-
-    \*/
-
-    protected \$hidden = array('password', 'remember\_token');
-
-    public function modulos() {
-
-       return \$this-\>hasMany('Modulo');
-
-    }
-
-   
-
+        
 }
-
-
+``` 
 
 Por convenio, Laravel asocia automáticamente cada clase (Alumno, Modulo y Profesor) con las tablas MySQL alumnos, modulos y profesors. Observa que la clase empieza por mayúscula y está en sigular y la tabla mysql asociada está en minúsculas y plural añadiendo únicamente la letra 's'. Para la clase Profesor la tabla que busca Laravel es profesors. Por tanto debemos indicar dentro de la clase Profesor que la tabla asociada es profesores.
 
+```php
 protected \$table = 'profesores';
-
+```
 Observa también como indicamos el tipo de relación (1:N o N:N). entre las tablas.
 
 Vistas
@@ -603,21 +579,13 @@ Vistas
 Existen numerosas vistas.
 
 -   plantilla.blade.php 
-
 -   inicio.blade.php 
-
 -   login.blade.php 
-
 -   alumnos (carpeta) 
-
 -   modulos (carpeta) 
-
 -   profesores (carpeta) 
-
 -   resultados (carpeta)
-
 -   informes (carpeta)
-
 -   informacion (carpeta) 
 
 Se hace uso de extensiones blade ( código entre dobles llaves {{ }} )
@@ -628,141 +596,107 @@ Controladores
 La lógica de la aplicación se halla en varios archivos en la carpeta app/controllers:
 
 -   BaseController.php 
-
 -   HomeController.php 
-
 -   AlumnoController.php 
-
 -   ModuloController.php 
-
 -   ProfesorController.php 
-
 -   InformesController.php 
-
 -   ResultadosController.php
 
 ### Controladores de recursos RESTful
 
-Podemos crear fácilmente el esqueleto de un controlador haciendo uso de artisan. En /var/www/html/app-domain ejecutamos:
+Podemos crear fácilmente el esqueleto de un controlador haciendo uso de artisan. En /var/www/html/_nombre-proyecto_ ejecutamos:
 
+```
 php artisan controller:make ResultadosController --only=index,edit,update
+```
 
+Añadimos a __app/routes.php__
 
-
-Añadimos a app/routes.php
-
+```php
  Route::resource('resultados', 'ResultadosController');
+```
 
 
 
+Ejemplo de controlador creado:
 
+__app/controllers/ResultadosController.php__
 
-app/controllers/ResultadosController.php
+```php
+<?php
 
-\<?php
+class ResultadosController extends \BaseController {
 
-class ResultadosController extends \\BaseController {
+        public function index()
+        {
+                //
+        }
 
-    public function index()
+     
+        public function edit($id)
+        {
+                //
+        }
 
-    {
+      
+        public function update($id)
+        {
+                //
+        }
 
-        //
-
-    }
-
-  
-
-    public function edit(\$id)
-
-    {
-
-        //
-
-    }
-
-  
-
-    public function update(\$id)
-
-    {
-
-        //
-
-    }
 
 }
+```
+
 
 Rutas
 =====
 
-Para poder acceder a las distintas rutas de la aplicación, debemos darlas de alta.
+Para poder acceder a las distintas rutas de la aplicación, debemos darlas de alta en el archivo __app/routes.php__
 
-Editar archivo app/routes.php
+```php
+<?php
 
-\<?php
 
 Route::get('/', function()
-
-{ 
-
-  return Redirect::to('login');
-
+{  
+    return Redirect::to('login');
 });
+
 
 // route to show the login form
-
-Route::get('login', array('uses' =\> 'HomeController@showLogin'));
+Route::get('login', array('uses' => 'HomeController@showLogin'));
 
 // route to process the form
+Route::post('login', array('uses' => 'HomeController@doLogin'));
 
-Route::post('login', array('uses' =\> 'HomeController@doLogin'));
 
 // Nos indica que las rutas que están dentro de él sólo serán mostradas si antes el usuario se ha autenticado.
-
-Route::group(array('before' =\> 'auth'), function()
-
+Route::group(array('before' => 'auth'), function()
 {
+   Route::get('inicio', function()
+   {
+        return View::make("inicio");
+   });
 
- Route::get('inicio', function()
+   Route::get('logout', array('uses' => 'HomeController@doLogout'));
+   
+   Route::get('informacion',  function() { return View::make("informacion.index"); });
 
- {
+   Route::get('informes/evaluacion/{curso}/{medio}', array('uses' => 'InformesController@evaluacion'));
+   Route::post('informes/evaluaciones', array('uses' => 'InformesController@evaluaciones'));
+   
+   Route::get('informes/calificaciones/{id}', array('uses' => 'InformesController@calificaciones'));
+   Route::post('informes/calificacionesvarias/{curso}', array('uses' => 'InformesController@calificacionesvarias'));
 
-    return View::make("inicio");
-
- });
-
- Route::get('logout', array('uses' =\> 'HomeController@doLogout'));
-
- 
-
- Route::get('informacion', function() { return View::make("informacion.index"); });
-
- Route::get('informes/evaluacion/{curso}/{medio}', array('uses' =\> 'InformesController@evaluacion'));
-
- Route::post('informes/evaluaciones', array('uses' =\> 'InformesController@evaluaciones'));
-
- 
-
- Route::get('informes/calificaciones/{id}', array('uses' =\> 'InformesController@calificaciones'));
-
- Route::post('informes/calificacionesvarias/{curso}', array('uses' =\> 'InformesController@calificacionesvarias'));
-
- Route::resource('alumnos',  'AlumnoController');
-
- Route::resource('modulos',  'ModuloController');
-
- Route::resource('profesores', 'ProfesorController');
-
- Route::resource('resultados', 'ResultadosController');
-
- Route::resource('informes',  'InformesController');
-
- 
-
+   Route::resource('alumnos',    'AlumnoController');
+   Route::resource('modulos',    'ModuloController');
+   Route::resource('profesores', 'ProfesorController');
+   Route::resource('resultados', 'ResultadosController');
+   Route::resource('informes',   'InformesController');
 });
-
-
+```
 
 
 
@@ -771,42 +705,37 @@ Autenticación
 
 Indicamos en app/config/auth.php que la tabla profesores es donde se almacenarán las claves, en lugar de la tabla users.
 
-\<?php
-
+```php
+<?php
 return array(
-
-  'driver' =\> 'eloquent',
-
-  'model' =\> 'Profesor',          
-
-  'table' =\> 'profesores',   //tabla que queremos utilizar para autenticar
-
+    'driver' => 'eloquent',
+    'model' => 'Profesor',                     
+    'table' => 'profesores',     //tabla que queremos utilizar para autenticar
 ...
-
 );
+```
 
 
 
 Generando passwords Blowfish
 ----------------------------
 
-En /var/www/html/nombre-proyecto ejecutamos:
+En __/var/www/html/*nombre-proyecto*__ ejecutamos:
 
+```
 php artisan tinker
-
 echo Hash::make('password');
+```
 
 
+Se generan claves de la forma
 
-Se general claves de la forma
+```
+$2y$10$wZuOP5EdJ1f3caU0ShknTOpqKv78d79Gc3ChEj33mnbu41GaRniNm
+``` 
 
-\$2y\$10\$wZuOP5EdJ1f3caU0ShknTOpqKv78d79Gc3ChEj33mnbu41GaRniNm
-
-Explicación en
-
+Explicado en
 <https://mnshankar.wordpress.com/2014/03/29/laravel-hash-make-explained/>
-
-
 
 Quizás sea posible hacer uso del comando mcrypt de Linux para ello, aunque no lo he comprobado.
 
@@ -815,78 +744,20 @@ Quizás sea posible hacer uso del comando mcrypt de Linux para ello, aunque no l
 Contenido de la tabla profesores
 --------------------------------
 
-profesores.csv (simplificado)
+Ejemplo de claves almacenadas en profesores.csv (simplificado)
 
-
-
-|:--|
-|Primer apellido
-
-Segundo apellido
-
-Nombre
-
-Contraseña|Muñoz
-
-Jiménez
-
-José Antonio
-
-\$2y\$10\$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca|Pareja
-
-Delgado
-
-Ana María
-
-\$2y\$10\$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I.|Merino
-
-Fernández
-
-Fernando
-
-\$2y\$10\$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y|Pérez
-
-Fuentes
-
-Isaías
-
-\$2y\$10\$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK|Antolino
-
-García
-
-Jacinto
-
-\$2y\$10\$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK|Lozano
-
-Ortega
-
-José María
-
-\$2y\$10\$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa|Molina
-
-Polo
-
-María Eugenia
-
-\$2y\$10\$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6|Siles
-
-Rosado
-
-María Inmaculada
-
-\$2y\$10\$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C|Conde
-
-Silva
-
-Marta Teresa
-
-\$2y\$10\$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG|García
-
-Viera
-
-Miguel Ángel
-
-\$2y\$10\$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi|
+|Primer apellido | Segundo apellido | Nombre       | Contraseña |
+|================|==================|==============|============|
+|Muñoz           | Jiménez          | José Antonio | $2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca |
+|Pareja          | Delgado          | Ana María    | $2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I. |
+|Merino          | Fernández        | Fernando     | $2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y |
+|Pérez           | Fuentes          | Isaías       | $2y$10$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK |
+|Antolino        | García           | Jacinto      | $2y$10$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK |
+|Lozano          | Ortega           | José María   | $2y$10$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa |
+|Molina          | Polo             | María Eugenia | $2y$10$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6 |
+|Siles           | Rosado           | María Inmaculada | $2y$10$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C |
+|Conde           | Silva            | Marta Teresa | $2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG |
+|García          | Viera            | Miguel Ángel | $2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi |
 
 
 
