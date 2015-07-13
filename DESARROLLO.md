@@ -1,82 +1,6 @@
 Desarrollo de aplicación con Laravel 4.2
 
- 
 
-Índice de contenido
-
-[Introducción](#__RefHeading___Toc3418_717912503)
-
-[Instalación en local](#__RefHeading__806_968706402)
-
-[Instalación de paquetes necesarios](#__RefHeading__808_968706402)
-
-[Configuración de apache](#__RefHeading__810_968706402)
-
-[Descarga de composer](#__RefHeading__812_968706402)
-
-[Creación de proyecto](#__RefHeading__814_968706402)
-
-[Permisos](#__RefHeading__816_968706402)
-
-[Configuración](#__RefHeading___Toc3412_717912503)
-
-[Para entorno local o entorno de producción](#__RefHeading___Toc3420_717912503)
-
-[Configuración de depuración](#__RefHeading__818_968706402)
-
-[Comprobación de resultado en local](#__RefHeading__820_968706402)
-
-[Base de datos](#__RefHeading__824_968706402)
-
-[Introducción](#__RefHeading___Toc3226_2090657670)
-
-[Archivos de configuración](#__RefHeading___Toc3228_2090657670)
-
-[Creación de la base de datos en sitio local](#__RefHeading__2788_1381169636)
-
-[Creación de la base de datos en sitio de producción](#__RefHeading___Toc3230_2090657670)
-
-[Consejos para exportar e importar datos](#__RefHeading__846_968706402)
-
-[Migrations and Seeds](#__RefHeading___Toc3232_2090657670)
-
-[Modelos](#__RefHeading__828_968706402)
-
-[Vistas](#__RefHeading__830_968706402)
-
-[Controladores](#__RefHeading__832_968706402)
-
-[Rutas](#__RefHeading__834_968706402)
-
-[Autenticación](#__RefHeading___Toc3589_2090657670)
-
-[Generando passwords Blowfish](#__RefHeading__2786_1381169636)
-
-[Contenido de la tabla profesores](#__RefHeading___Toc3236_2090657670)
-
-[Generación de PDFs con Laravel](#__RefHeading__2800_1381169636)
-
-[ignited con wkhtmltopdf](#__RefHeading___Toc3228_699644295)
-
-[Instalación en remoto](#__RefHeading___Toc3595_2090657670)
-
-[Requisitos](#__RefHeading___Toc3611_2090657670)
-
-[Pasos a seguir](#__RefHeading__842_968706402)
-
-[ANEXO I: Archivos modificados o añadidos](#__RefHeading__2802_1381169636)
-
-[ANEXO II: Referencias](#__RefHeading___Toc3414_717912503)
-
-[Laravel](#__RefHeading___Toc3416_717912503)
-
-[Openshift](#__RefHeading___Toc3423_717912503)
-
-[Ejemplos](#__RefHeading__2780_138116963653)
-
- 
-
- 
 
 Introducción
 ============
@@ -106,32 +30,31 @@ Configuración de apache
 
 /etc/apache2/apache2.conf
 
-\<Directory /var/www/\>
-
+```apache2
+<Directory /var/www/\>
         Options Indexes FollowSymLinks
-
         AllowOverride All
-
         Require all granted
-
-\</Directory\>
-
+</Directory\>
+```
  
 
  
-
+```sh
 a2enmod rewrite
-
 php5enmod mcrypt
 
 service apache2 restart
+```
+
 
 Descarga de composer
 --------------------
 
+```sh
 curl -sS   https://getcomposer.org/installer | php
-
 mv  composer.phar  /usr/local/bin/composer
+```
 
 Creación de proyecto
 --------------------
@@ -140,31 +63,32 @@ En carpeta /var/www/html
 
 Podemos instalar la versión 4.2, que es la utilizada para este tutorial, con el comando:
 
-composer  create-project  laravel/laravel=4.2  nombre-proyecto  --prefer-dist
-
+```
+composer  create-project  laravel/laravel=4.2 __nombre-proyecto__  --prefer-dist
+```
  
 
 Podría instalarse la última versión (actualmente -Julio 2015- la versión 5), con el siguiente comando (aunque se desaconseja  para seguir este tutorial  puesto que existen muchos cambios en cuanto a la organización de los archivos):
 
  
-
-composer  create-project  laravel/laravel  nombre-proyecto  --prefer-dist
-
+```
+composer  create-project  laravel/laravel __nombre-proyecto__  --prefer-dist
+``` 
  
 
 NOTAS:
 
--   •Debes de sustituir nombre-proyecto por el nombre que tú quieras dar a tu proyecto, por ejemplo prueba, miproyecto, app-demo o similar. 
+-   Debes de sustituir nombre-proyecto por el nombre que tú quieras dar a tu proyecto, por ejemplo prueba, miproyecto, app-demo o similar. 
 
--   •A partir de ahora trabajaremos con rutas relativas a /var/www/html/nombre-proyecto 
+-   A partir de ahora trabajaremos con rutas relativas a /var/www/html/nombre-proyecto 
 
 Permisos
 --------
 
-cd /var/www/html/nombre-proyecto
-
+```sh
+cd /var/www/html/__nombre-proyecto__
 chmod -R 777 app/storage
-
+```
  
 
 Es imprescindible que el subdirectorio app/storage y todos sus subdirectorios tengan permisos de escritura.
