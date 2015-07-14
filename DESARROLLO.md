@@ -9,7 +9,7 @@ En este tutorial se explicará paso a paso (pero sin entrar en demasiados detall
 
 El código fuente de la aplicación puedes bajarlo desde <https://github.com/jamj2000/fp-resultados> . La demo está en [http://fp-resultados.rhcloud.com](http://fp-resultados.rhcloud.com/) .
 
-Laravel se ajusta a MVC (Modelo-Vista-Controlador), lo que permite trabajar de forma relativamente independiente cada una de estas partes de la aplicación. En el Modelo se define el esquema de datos utilizado para la base de datos. En la Vista o más frecuentemente varias Vistas definimos la forma de mostrar esos datos. El Controlador se encarga la lógica de la aplicación, recuperando datos desde el modelo e invocando a las vistas deseadas.
+Laravel se ajusta a __MVC (Modelo-Vista-Controlador)__, lo que permite trabajar de forma relativamente independiente cada una de estas partes de la aplicación. En el Modelo se define el esquema de datos utilizado para la base de datos. En la Vista o más frecuentemente varias Vistas definimos la forma de mostrar esos datos. El Controlador se encarga la lógica de la aplicación, recuperando datos desde el modelo e invocando a las vistas deseadas.
 
 
 
@@ -801,9 +801,7 @@ php artisan config:publish ignited/laravel-pdf
 
 
 Se habrán creado 2 directorios:
-
 - __vendor/h4cc__
-
 - __vendor/ignited__
 
 
@@ -860,141 +858,87 @@ Pasos a seguir
 
 ```
 cd /var/www/html
-git clone ssh://\_usuario_numero\_@\_app-domain\_.rhcloud.com/\~/git/app.git/
+git clone ssh://usuario_numero@app-domain.rhcloud.com/\~/git/app.git/
 ```
  
 
 1.  2.Copiamos archivos de /var/www/html/prueba a /var/www/html/app-domain 
 
+```
 rsync -av prueba/  app-domain/ --exclude=.git --exclude=.openshift
-
+```
  
 
 1.  3.Subimos archivos a sitio remoto. 
 
+```
 cd app-domain
-
 git add .
-
 git commit -m "Archivos de laravel locales subidos por primera vez"
-
 git push
+```
 
- 
 
 1.  4.Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado. 
 
  
-
-ssh usuario\_numero@app-domain.rhcloud.com
-
+```
+ssh usuario_numero@app-domain.rhcloud.com
 tree -L 6
-
- 
+```
 
 Nos queda una estructura de directorios tal como la mostrada a continuación. Se ha suprimido la vista de los archivos menos importantes. Los archivos se suben automáticamente al directorio repo, que será con el que trabajaremos. En negrita los archivos más importantes.
 
 .
-
 ├── app-deployments
-
 ├── app-root
-
 │   ├── build-dependencies -\> runtime/build-dependencies
-
 │   ├── data
-
 │   ├── dependencies -\> runtime/dependencies
-
 │   ├── logs
-
 │   ├── repo -\> runtime/repo
-
 │   └── runtime
-
 │       ├── build-dependencies
-
 │       ├── data -\> ../data
-
 │       ├── dependencies
-
 │       ├── logshifter-haproxy
-
 │       └── repo
-
 │           ├── app
-
 │           │   ├── commands
-
 │           │   ├── config
-
 │           │   │   ├── app.php
-
 │           │   │   ├── database.php
-
 │           │   │   └── local
-
 │           │   │       ├── app.php
-
 │           │   │       └── database.php
-
 │           │   ├── controllers
-
 │           │   ├── database
-
 │           │   ├── filters.php
-
 │           │   ├── lang
-
 │           │   │   └── en
-
 │           │   ├── models
-
 │           │   ├── routes.php
-
 │           │   ├── start
-
 │           │   ├── storage
-
 │           │   ├── tests
-
 │           │   └── views
-
 │           ├── artisan
-
 │           ├── bootstrap
-
 │           ├── composer.json
-
 │           ├── composer.lock
-
 │           ├── CONTRIBUTING.md
-
 │           ├── index.php
-
 │           ├── phpunit.xml
-
 │           ├── public
-
 │           ├── readme.md
-
 │           ├── server.php
-
 │           ├── tree.txt
-
 │           ├── usuarios.sql
-
 │           └── vendor
-
 ├── gear-registry
-
 ├── git
-
 ├── haproxy
-
 └── php
-
-
 
 
 
