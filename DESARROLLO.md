@@ -399,7 +399,7 @@ Creación de la base de datos en sitio de producción
 
 > __NOTA__: Para poder seguir los pasos indicados a continuación debe poseerse una cuenta en Openshift y tener dada de alta una aplicación.
 
-1. Subimos archivos a carpeta __app-root/data__ del equipo remoto.
+UNO. Subimos archivos a carpeta __app-root/data__ del equipo remoto.
 
 ```
 scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos_alumnos.csv usuario_numero@app-domain.rhcloud.com:app-root/data
@@ -407,10 +407,10 @@ scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos_alumno
 
 Donde:
 -   *usuario_numero* debe sustituirse por el nombre de nuestro usuario en Openshift en forma de número.
--   *app-domain* debe sustituirse por el nombre de nuestra apliación en Openshift.
+-   *app-domain* debe sustituirse por el nombre de nuestra apliación y dominio en Openshift.
 
 
-2. En equipo remoto ejecutamos script database.sh.
+DOS. En equipo remoto ejecutamos script database.sh.
 
 ```
 ssh usuario_numero@app-domain.rhcloud.com
@@ -428,7 +428,7 @@ Consejos para exportar e importar datos
 -  A archivo .csv:    
 
 ```
-mysqldump [-u uname] -p[pass] -t -T/tmp db\_name [db\_table1] [db\_table2] --fields-terminated-by=','
+mysqldump [-u uname] -p[pass] -t -T/tmp db_name [db_table1] [db_table2] --fields-terminated-by=','
 ```
 
 Ésto crea un archivo /tmp/db_table1.txt (es un archivo CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
@@ -436,14 +436,14 @@ mysqldump [-u uname] -p[pass] -t -T/tmp db\_name [db\_table1] [db\_table2] --fie
 -  A archivo .sql:
 
 ```
-mysqldump [-u uname] -p[pass] db\_name [db\_table1] [db\_table2] \> db\_backup.sql
+mysqldump [-u uname] -p[pass] db_name [db_table1] [db_table2] > db_backup.sql
 ```
 
 
 ### Si tenemos un archivo .sql y queremos importar a MySQL:
 
 ```
-mysql [-u uname] -p[pass] db\_name \< db\_backup.sql
+mysql [-u uname] -p[pass] db_name < db_backup.sql
 ```
 
 > __NOTA__: Sustituir los valores adecuados en _uname_, _pass_, *db_name*, *db_table1*, *db_table2*.
@@ -461,9 +461,9 @@ El sembrado corresponde al rellenado de datos de estas tablas.
 
 Para utilizar este método debemos usar el comando artisan y seguir los pasos siguientes:
 
-1.  Crear la base de datos con MySQL u otro gestor.
-2.  Darla de alta en el archivo app/config/database.php
-3.  MIGRATIONS. Crear las tablas. Por ejemplo para crear una tabla llamada users:
+UNO.  Crear la base de datos con MySQL u otro gestor.
+DOS.  Darla de alta en el archivo app/config/database.php
+TRES.  MIGRATIONS. Crear las tablas. Por ejemplo para crear una tabla llamada users:
 
 ```
 php artisan migrate:make CreateUsersTable --create=users --table=users
@@ -475,12 +475,11 @@ Editar los archivos necesarios en __app/database/migrations/*__ . Y ejecutar:
 php artisan migrate
 ```
 
-4.  SEEDS. Rellenar las tablas. Para ello editar los archivos __app/database/seeds/*__ . Y ejecutar: 
+CUATRO.  SEEDS. Rellenar las tablas. Para ello editar los archivos __app/database/seeds/*__ . Y ejecutar: 
 
 ```
 php artisan db:seed
 ```
-
 
 
 
@@ -703,7 +702,7 @@ Route::group(array('before' => 'auth'), function()
 Autenticación
 =============
 
-Indicamos en app/config/auth.php que la tabla profesores es donde se almacenarán las claves, en lugar de la tabla users.
+Indicamos en __app/config/auth.php__ que la tabla profesores es donde se almacenarán las claves, en lugar de la tabla users.
 
 ```php
 <?php
@@ -767,14 +766,14 @@ Generación de PDFs con Laravel
 
 ignited con wkhtmltopdf
 -----------------------
-
+Documentación interesante:
 - <https://github.com/mikehaertl/phpwkhtmltopdf>
 - <https://github.com/ignited/laravel-pdf>
 - <http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
 
  
 
-Editar el archivo __composer.json__ insertando las siguientes líneas:
+Editamos el archivo __composer.json__ para que aparezcan las 3 líneas mostradas:
 
 ```php
 {
@@ -787,7 +786,7 @@ Editar el archivo __composer.json__ insertando las siguientes líneas:
 }
 ```
 
-Para descargar paquetes ejecutar
+Actualizamos
 
 ```
 composer update
@@ -805,7 +804,9 @@ Se habrán creado 2 directorios:
 - __vendor/ignited__
 
 
-En archivo __app/config/app.php__  insertar las siguientes líneas:
+Editamos el archivo __app/config/app.php__ . 
+Añadimos la línea mostrada al final de la sección 'providers'. 
+Añadimos la línea mostrada al final de la sección 'aliases'.
 
 ```php 
   'providers' => array(
@@ -820,9 +821,8 @@ En archivo __app/config/app.php__  insertar las siguientes líneas:
     )
 ```
 
-En archivo app/config/packages/ignited/laravel-pdf/config.php descomentar una de las siguientes líneas según SO de 32bits o 64bits:
+En archivo __app/config/packages/ignited/laravel-pdf/config.php__ descomentamos una de las siguientes líneas según el Sistema Operativo sea de 32bits o 64bits:
 
- 
 
 ### Sistemas de 32-bits
 
@@ -847,29 +847,27 @@ Instalación en remoto
 
 Requisitos
 ----------
--   Tenemos una aplicación laravel funcionando correctamente en nuestro equipo local en /var/www/html/prueba o similar. 
+-   Tenemos una aplicación laravel funcionando correctamente en nuestro equipo local en /var/www/html/_nombre-proyecto_ o similar. 
 -   Hemos creado una cuenta y una aplicación en Openshift. 
 -   Hemos subido la base de datos a Openshift. 
 
 Pasos a seguir
 --------------
 
-1. En local, vamos a __/var/www/html__ y bajamos los pocos archivos que existen en Openshift 
+UNO. En local, vamos a __/var/www/html__ y bajamos los pocos archivos que existen en Openshift 
 
 ```
 cd /var/www/html
 git clone ssh://usuario_numero@app-domain.rhcloud.com/\~/git/app.git/
 ```
- 
 
-2. Copiamos archivos de __/var/www/html/*nombre-proyecto*__ a __/var/www/html/*app-domain*__
+DOS. Copiamos archivos de __/var/www/html/*nombre-proyecto*__ a __/var/www/html/*app-domain*__
 
 ```
 rsync -av nombre-proyecto/ app-domain/ --exclude=.git --exclude=.openshift
 ```
- 
 
-3. Subimos archivos a sitio remoto.
+TRES. Subimos archivos a sitio remoto.
 
 ```
 cd app-domain
@@ -878,10 +876,8 @@ git commit -m "Archivos de laravel locales subidos por primera vez"
 git push
 ```
 
+CUATRO. Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado.
 
-4. Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado.
-
- 
 ```
 ssh usuario_numero@app-domain.rhcloud.com
 tree -L 6
@@ -892,8 +888,9 @@ Nos queda una estructura de directorios tal como la mostrada a continuación. Se
 ![Árbol de directorios en Openshift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-tree.png "Árbol de directorios en Openshift")
 
 
-> __NOTA__: Para ver el resultado en el navegador escribir ```http://app-domain.rhcloud.com```. No debe escribirse la palabra *public* a diferencia de cuando trabajamos en equipo local (http://localhost/*nombre-proyecto*/public)
-Sustituir:
+> __NOTA__: Para ver el resultado en el navegador escribir ```http://app-domain.rhcloud.com```. No debe escribirse la palabra *public* a diferencia de cuando trabajamos en equipo local (http://localhost/*nombre-proyecto*/public).
+
+>Sustituir:
 - *nombre-proyecto*
 - *app*
 - *domain*
