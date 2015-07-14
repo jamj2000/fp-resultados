@@ -748,16 +748,16 @@ Ejemplo de claves almacenadas en profesores.csv (simplificado)
 
 |Primer apellido | Segundo apellido | Nombre           | Contraseña                                                   |
 |----------------|------------------|------------------|--------------------------------------------------------------|
-|Muñoz           | Jiménez          | José Antonio     | $2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca |
-|Pareja          | Delgado          | Ana María        | $2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I. |
-|Merino          | Fernández        | Fernando         | $2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y |
-|Pérez           | Fuentes          | Isaías           | $2y$10$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK |
-|Antolino        | García           | Jacinto          | $2y$10$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK |
-|Lozano          | Ortega           | José María       | $2y$10$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa |
-|Molina          | Polo             | María Eugenia    | $2y$10$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6 |
-|Siles           | Rosado           | María Inmaculada | $2y$10$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C |
-|Conde           | Silva            | Marta Teresa     | $2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG |
-|García          | Viera            | Miguel Ángel     | $2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi |
+|Muñoz           | Jiménez          | José Antonio     | ```$2y$10$LefyK9fMkSV8n1y0Uz1E1e3/Xdcq5tAPdbrGun6ItZ8rLfnrkGDca``` |
+|Pareja          | Delgado          | Ana María        | ```$2y$10$smeD8XAmcxpiHfURbc0uqOvXG9pK4EhNfDy6Ip3oqsctNTBz5i9I.``` |
+|Merino          | Fernández        | Fernando         | ```$2y$10$IvU9okb2W/8lPvPWGMHd/.exYlAG3Z.VNimwszB6mP2Rw.043iW7y``` |
+|Pérez           | Fuentes          | Isaías           | ```$2y$10$OfqbfoMmY7mnP.XRX1Lx4uAA1zjXgI5jSIbmLS3Emb65f97u8rnPK``` |
+|Antolino        | García           | Jacinto          | ```$2y$10$MlwoQq.4LH3SBRT6Dz6hTuR314IxzSJnQXbc4Pq8EqmWwGyTdAyEK``` |
+|Lozano          | Ortega           | José María       | ```$2y$10$XLsFZ8NRsdWMwvKqBPWU2OhAcUbI2WQK1YlqNLgzDxcGElM8qldwa``` |
+|Molina          | Polo             | María Eugenia    | ```$2y$10$ZbhCfvimFrfUR3PSGJR/fejRqkEJt7Br0fdnERN/uFnPyP8ayFQJ6``` |
+|Siles           | Rosado           | María Inmaculada | ```$2y$10$viS3TmBpQbxJOZWEwcrvye2WCkLDK1nPjBcZkkeXI5EMzXEZkLw8C``` |
+|Conde           | Silva            | Marta Teresa     | ```$2y$10$fF91W.6nQGkfR/XR0rRa2Oh./BahV2WMMaVVi2BSeQ.jD9ixB97FG``` |
+|García          | Viera            | Miguel Ángel     | ```$2y$10$9tkQHZCEDnWaMfSEBKtS4uK4lrEOkLKefNaI/e7zlLawNNTRPptgi``` |
 
 
 
