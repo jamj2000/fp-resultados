@@ -768,75 +768,59 @@ Generación de PDFs con Laravel
 ignited con wkhtmltopdf
 -----------------------
 
-<https://github.com/mikehaertl/phpwkhtmltopdf>
-<https://github.com/ignited/laravel-pdf>
-<http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
+- <https://github.com/mikehaertl/phpwkhtmltopdf>
+- <https://github.com/ignited/laravel-pdf>
+- <http://stackoverflow.com/questions/19649276/laravel-4-wkhtmltopdf-routes-post-and-get-issue>
 
  
 
-Editar el archivo composer.json insertando las siguientes líneas:
+Editar el archivo __composer.json__ insertando las siguientes líneas:
 
+```php
 {
-
-    "require": {
-
-        // ...
-
-        "ignited/laravel-pdf": "1.\*",
-
-        "h4cc/wkhtmltopdf-i386": "\*",
-
-        "h4cc/wkhtmltopdf-amd64": "\*"
-
-    }
-
+    "require": {
+	       // ...
+        "ignited/laravel-pdf": "1.*",
+        "h4cc/wkhtmltopdf-i386": "*",
+        "h4cc/wkhtmltopdf-amd64": "*"
+    }
 }
-
- 
+```
 
 Para descargar paquetes ejecutar
 
+```
 composer update
+```
 
- 
+Publicamos el paquete usando artisan
 
-Publicar el paquete usando artisan
-
+```
 php artisan config:publish ignited/laravel-pdf
+``` 
 
- 
 
 Se habrán creado 2 directorios:
 
--   •vendor/h4cc 
+- __vendor/h4cc__
 
--   •vendor/ignited 
+- __vendor/ignited__
 
- 
 
-En archivo app/config/app.php  insertar las siguientes líneas:
+En archivo __app/config/app.php__  insertar las siguientes líneas:
 
-    'providers' =\> array(
+```php 
+  'providers' => array(
+        // ...
+        'Ignited\Pdf\PdfServiceProvider',
+    )      
+    //...
 
-        // ...
-
-        'Ignited\\Pdf\\PdfServiceProvider',
-
-    )      
-
-    //...
-
-    'aliases' =\> array(
-
-        // ...
-
-        'PDF'             =\> 'Ignited\\Pdf\\Facades\\Pdf'
-
-    )
-
- 
-
- 
+    'aliases' => array(
+        // ...
+        'PDF'             => 'Ignited\Pdf\Facades\Pdf'
+    )
+```
 
 En archivo app/config/packages/ignited/laravel-pdf/config.php descomentar una de las siguientes líneas según SO de 32bits o 64bits:
 
@@ -844,47 +828,40 @@ En archivo app/config/packages/ignited/laravel-pdf/config.php descomentar una de
 
 ### Sistemas de 32-bits
 
+```php
 return array(
-
-    \# Uncomment for 32-bit systems
-
-    'bin' =\> base\_path() . '/vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386',
+    # Uncomment for 32-bit systems
+    'bin' => base_path() . '/vendor/h4cc/wkhtmltopdf-i386/bin/wkhtmltopdf-i386',
+```
 
 ### Sistemas de 64-bits
 
+```php
 return array(
-
-    \# Uncomment for 64-bit systems
-
-    'bin' =\> base\_path() . '/vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64',
-
- 
-
- 
+    # Uncomment for 64-bit systems
+    'bin' => base_path() . '/vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64',
+```
 
 Instalación en remoto
 =====================
 
-NOTA: Para poder seguir los pasos indicados a continuación debes poseer una cuenta en Openshift y tener dada de alta una aplicación.
+> __NOTA__: Para poder seguir los pasos indicados a continuación debes poseer una cuenta en Openshift y tener dada de alta una aplicación.
 
 Requisitos
 ----------
-
--   •Tenemos una aplicación laravel funcionando correctamente en nuestro equipo local en /var/www/html/prueba o similar. 
-
--   •Hemos creado una cuenta y una aplicación en Openshift. 
-
--   •Hemos subido la base de datos a Openshift. 
+-   Tenemos una aplicación laravel funcionando correctamente en nuestro equipo local en /var/www/html/prueba o similar. 
+-   Hemos creado una cuenta y una aplicación en Openshift. 
+-   Hemos subido la base de datos a Openshift. 
 
 Pasos a seguir
 --------------
 
 1.  1.En local, vamos a /var/www/html y bajamos los pocos archivos que existen en Openshift 
 
+```
 cd /var/www/html
-
-git clone ssh://usuario\_numero@app-domain.rhcloud.com/\~/git/app.git/
-
+git clone ssh://\_usuario_numero\_@\_app-domain\_.rhcloud.com/\~/git/app.git/
+```
  
 
 1.  2.Copiamos archivos de /var/www/html/prueba a /var/www/html/app-domain 
@@ -918,58 +895,105 @@ tree -L 6
 Nos queda una estructura de directorios tal como la mostrada a continuación. Se ha suprimido la vista de los archivos menos importantes. Los archivos se suben automáticamente al directorio repo, que será con el que trabajaremos. En negrita los archivos más importantes.
 
 .
+
 ├── app-deployments
+
 ├── app-root
+
 │   ├── build-dependencies -\> runtime/build-dependencies
-│   ├── __data__
+
+│   ├── data
+
 │   ├── dependencies -\> runtime/dependencies
+
 │   ├── logs
+
 │   ├── repo -\> runtime/repo
+
 │   └── runtime
+
 │       ├── build-dependencies
+
 │       ├── data -\> ../data
+
 │       ├── dependencies
+
 │       ├── logshifter-haproxy
-│       └── __repo__
-│           ├── __app__
+
+│       └── repo
+
+│           ├── app
+
 │           │   ├── commands
+
 │           │   ├── config
-│           │   │   ├── __app.php__
-│           │   │   ├── __database.php__
+
+│           │   │   ├── app.php
+
+│           │   │   ├── database.php
+
 │           │   │   └── local
-│           │   │       ├── __app.php__
-│           │   │       └── __database.php__
-│           │   ├── __controllers__
+
+│           │   │       ├── app.php
+
+│           │   │       └── database.php
+
+│           │   ├── controllers
+
 │           │   ├── database
+
 │           │   ├── filters.php
+
 │           │   ├── lang
+
 │           │   │   └── en
-│           │   ├── __models__
-│           │   ├── __routes.php__
+
+│           │   ├── models
+
+│           │   ├── routes.php
+
 │           │   ├── start
+
 │           │   ├── storage
+
 │           │   ├── tests
-│           │   └── __views__
-│           ├── __artisan__
-│           ├── __bootstrap__
-│           │   └── __start.php__
-│           ├── __composer.json__
+
+│           │   └── views
+
+│           ├── artisan
+
+│           ├── bootstrap
+
+│           ├── composer.json
+
 │           ├── composer.lock
+
 │           ├── CONTRIBUTING.md
+
 │           ├── index.php
+
 │           ├── phpunit.xml
+
 │           ├── public
+
 │           ├── readme.md
+
 │           ├── server.php
+
 │           ├── tree.txt
+
 │           ├── usuarios.sql
+
 │           └── vendor
+
 ├── gear-registry
+
 ├── git
+
 ├── haproxy
+
 └── php
 
- 
 
 
 
