@@ -895,7 +895,7 @@ Nos queda una estructura de directorios tal como la mostrada a continuación. Se
 - *app*
 - *domain*
 - *usuario_numero*
-por los valores adecuados.
+>por los valores adecuados.
 
 
 
