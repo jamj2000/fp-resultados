@@ -854,7 +854,7 @@ Requisitos
 Pasos a seguir
 --------------
 
-1.  1.En local, vamos a /var/www/html y bajamos los pocos archivos que existen en Openshift 
+1. En local, vamos a __/var/www/html__ y bajamos los pocos archivos que existen en Openshift 
 
 ```
 cd /var/www/html
@@ -862,14 +862,14 @@ git clone ssh://usuario_numero@app-domain.rhcloud.com/\~/git/app.git/
 ```
  
 
-1.  2.Copiamos archivos de /var/www/html/prueba a /var/www/html/app-domain 
+2. Copiamos archivos de __/var/www/html/*nombre-proyecto*__ a __/var/www/html/*app-domain*__
 
 ```
-rsync -av prueba/  app-domain/ --exclude=.git --exclude=.openshift
+rsync -av nombre-proyecto/ app-domain/ --exclude=.git --exclude=.openshift
 ```
  
 
-1.  3.Subimos archivos a sitio remoto. 
+3. Subimos archivos a sitio remoto.
 
 ```
 cd app-domain
@@ -879,7 +879,7 @@ git push
 ```
 
 
-1.  4.Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado. 
+4. Conectamos mediante SSH y husmeamos un poco a ver que tal ha quedado.
 
  
 ```
@@ -889,56 +889,16 @@ tree -L 6
 
 Nos queda una estructura de directorios tal como la mostrada a continuación. Se ha suprimido la vista de los archivos menos importantes. Los archivos se suben automáticamente al directorio repo, que será con el que trabajaremos. En negrita los archivos más importantes.
 
-.
-├── app-deployments
-├── app-root
-│   ├── build-dependencies -\> runtime/build-dependencies
-│   ├── data
-│   ├── dependencies -\> runtime/dependencies
-│   ├── logs
-│   ├── repo -\> runtime/repo
-│   └── runtime
-│       ├── build-dependencies
-│       ├── data -\> ../data
-│       ├── dependencies
-│       ├── logshifter-haproxy
-│       └── repo
-│           ├── app
-│           │   ├── commands
-│           │   ├── config
-│           │   │   ├── app.php
-│           │   │   ├── database.php
-│           │   │   └── local
-│           │   │       ├── app.php
-│           │   │       └── database.php
-│           │   ├── controllers
-│           │   ├── database
-│           │   ├── filters.php
-│           │   ├── lang
-│           │   │   └── en
-│           │   ├── models
-│           │   ├── routes.php
-│           │   ├── start
-│           │   ├── storage
-│           │   ├── tests
-│           │   └── views
-│           ├── artisan
-│           ├── bootstrap
-│           ├── composer.json
-│           ├── composer.lock
-│           ├── CONTRIBUTING.md
-│           ├── index.php
-│           ├── phpunit.xml
-│           ├── public
-│           ├── readme.md
-│           ├── server.php
-│           ├── tree.txt
-│           ├── usuarios.sql
-│           └── vendor
-├── gear-registry
-├── git
-├── haproxy
-└── php
+![Árbol de directorios en Openshift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-tree.png "Árbol de directorios en Openshift")
+
+
+> __NOTA__: Para ver el resultado en el navegador escribir ```http://app-domain.rhcloud.com```. No debe escribirse la palabra *public* a diferencia de cuando trabajamos en equipo local (http://localhost/*nombre-proyecto*/public)
+Sustituir:
+- *nombre-proyecto*
+- *app*
+- *domain*
+- *usuario_numero*
+por los valores adecuados.
 
 
 
