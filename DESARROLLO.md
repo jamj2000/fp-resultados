@@ -1,5 +1,5 @@
- # Desarrollo de aplicación con Laravel 4.2 #
-
+--------------
+# Desarrollo de aplicación con Laravel 4.2 #
 --------------
 
 
