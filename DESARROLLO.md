@@ -1,5 +1,6 @@
-Desarrollo de aplicación con Laravel 4.2
+ # Desarrollo de aplicación con Laravel 4.2 #
 
+--------------
 
 
 Introducción
@@ -893,7 +894,7 @@ Nos queda una estructura de directorios tal como la mostrada a continuación. Se
 
 
 > __NOTA__: Para ver el resultado en el navegador escribir ```http://app-domain.rhcloud.com```. No debe escribirse la palabra *public* a diferencia de cuando trabajamos en equipo local (http://localhost/*nombre-proyecto*/public).
-Sustituir por los valores adecuados los siguientes términos:
+Sustituir los siguientes términos por los valores adecuados:
 - *nombre-proyecto*
 - *app*
 - *domain*
