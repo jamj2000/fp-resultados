@@ -405,10 +405,6 @@ UNO. Subimos archivos a carpeta __app-root/data__ del equipo remoto.
 scp database.sh tablas.sql modulos.csv profesores.csv alumnos.csv modulos_alumnos.csv usuario_numero@app-domain.rhcloud.com:app-root/data
 ```
 
-Donde:
--   *usuario_numero* debe sustituirse por el nombre de nuestro usuario en Openshift en forma de número.
--   *app-domain* debe sustituirse por el nombre de nuestra apliación y dominio en Openshift.
-
 
 DOS. En equipo remoto ejecutamos script database.sh.
 
@@ -418,6 +414,12 @@ cd app-root/data
 chmod +x database.sh
 ./database.sh
 ```
+
+
+>__NOTA__: Los siguientes términos deben sustituirse:
+-   *usuario_numero* debe sustituirse por el nombre de nuestro usuario en Openshift en forma de número.
+-   *app-domain* debe sustituirse por el nombre de nuestra apliación y dominio en Openshift.
+
 
 
 Consejos para exportar e importar datos
@@ -431,7 +433,7 @@ Consejos para exportar e importar datos
 mysqldump [-u uname] -p[pass] -t -T/tmp db_name [db_table1] [db_table2] --fields-terminated-by=','
 ```
 
-Ésto crea un archivo /tmp/db_table1.txt (es un archivo CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
+Ésto crea un archivo /tmp/db_table1.txt (texto plano CSV). El directorio destino (en este caso /tmp) debe ser escribible por el usuario mysql.
 
 -  A archivo .sql:
 
@@ -462,7 +464,9 @@ El sembrado corresponde al rellenado de datos de estas tablas.
 Para utilizar este método debemos usar el comando artisan y seguir los pasos siguientes:
 
 UNO.  Crear la base de datos con MySQL u otro gestor.
+
 DOS.  Darla de alta en el archivo app/config/database.php
+
 TRES.  MIGRATIONS. Crear las tablas. Por ejemplo para crear una tabla llamada users:
 
 ```
@@ -568,7 +572,7 @@ class Profesor extends Eloquent implements UserInterface, RemindableInterface {
 Por convenio, Laravel asocia automáticamente cada clase (Alumno, Modulo y Profesor) con las tablas MySQL alumnos, modulos y profesors. Observa que la clase empieza por mayúscula y está en sigular y la tabla mysql asociada está en minúsculas y plural añadiendo únicamente la letra 's'. Para la clase Profesor la tabla que busca Laravel es profesors. Por tanto debemos indicar dentro de la clase Profesor que la tabla asociada es profesores.
 
 ```php
-protected \$table = 'profesores';
+protected $table = 'profesores';
 ```
 Observa también como indicamos el tipo de relación (1:N o N:N). entre las tablas.
 
@@ -858,7 +862,7 @@ UNO. En local, vamos a __/var/www/html__ y bajamos los pocos archivos que existe
 
 ```
 cd /var/www/html
-git clone ssh://usuario_numero@app-domain.rhcloud.com/\~/git/app.git/
+git clone ssh://usuario_numero@app-domain.rhcloud.com/~/git/app.git/
 ```
 
 DOS. Copiamos archivos de __/var/www/html/*nombre-proyecto*__ a __/var/www/html/*app-domain*__
@@ -889,13 +893,12 @@ Nos queda una estructura de directorios tal como la mostrada a continuación. Se
 
 
 > __NOTA__: Para ver el resultado en el navegador escribir ```http://app-domain.rhcloud.com```. No debe escribirse la palabra *public* a diferencia de cuando trabajamos en equipo local (http://localhost/*nombre-proyecto*/public).
-
->Sustituir:
+Sustituir por los valores adecuados los siguientes términos:
 - *nombre-proyecto*
 - *app*
 - *domain*
 - *usuario_numero*
->por los valores adecuados.
+
 
 
 
