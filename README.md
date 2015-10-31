@@ -94,12 +94,13 @@ chmod -R 777 app/storage
 
 7) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 ```
+cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
 8) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
 ```
-cd fp-resultados.datos
+cd /var/www/html/fp-resultados.datos
 nano database.sh
 ```
 
@@ -109,7 +110,7 @@ chmod +x database.sh
 ./database.sh
 ```
 
-10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root 
+10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
 
 ```
                'mysql' => array(
