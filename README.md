@@ -84,26 +84,32 @@ cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.git
 ```
 
-5) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+5) Entra en el directorio donde se ha descargado el código y da permisos de escritura al subdirectorio app/storage
+```
+cd /var/www/html/fp-resultados
+chmod -R 777 app/storage
+```
 
-6) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
+6) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+
+7) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 ```
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
-7) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
+8) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
 ```
 cd fp-resultados.datos
 nano database.sh
 ```
 
-8) Ejecuta el script ```database.sh```
+9) Ejecuta el script ```database.sh```
 ```
 chmod +x database.sh
 ./database.sh
 ```
 
-9) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root 
+10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root 
 
 ```
                'mysql' => array(
