@@ -31,7 +31,7 @@ $env = $app->detectEnvironment(array(
 */
 
 $env = $app->detectEnvironment(function(){
-	return getenv('OPENSHIFT_APP_DNS') ?: 'local';
+	return getenv('HEROKU') ?: 'local';
 });
 
 
