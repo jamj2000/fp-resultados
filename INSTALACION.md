@@ -1,11 +1,13 @@
+--------------
 # Instalación en Openshift
+--------------
 
-** NOTA IMPORTANTE: **
+**NOTA IMPORTANTE:**
 
-** Esta guía está desactualizada. La plataforma Openshift se ha renovado y los pasos indicados a continuación no son aplicables actualmente.
+**Esta guía está desactualizada. La plataforma Openshift se ha renovado y los pasos indicados a continuación no son aplicables actualmente.**
 
-Esta guía se mantiene on-line con fines de documentación.
-**
+**Esta guía se mantiene on-line con fines de documentación.**
+
 
 OpenshSift es un sitio, perteneciente a Red Hat Inc, para alojamiento en la nube que proporciona una Plataforma como Servicio (PaaS). Existe una versión gratuita para aplicaciones que requieren pocos cartridges (máximo 3).
 
