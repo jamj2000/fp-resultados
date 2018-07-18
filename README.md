@@ -1,6 +1,3 @@
----
-output: html_document
----
 # fp-resultados
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
@@ -15,7 +12,7 @@ __fp-resultados__ es una aplicación web destinada al profesorado de Formación 
 
 ![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
 
-Existe una aplicación funcional alojada en [rhcloud.com](http://fp-resultados.rhcloud.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Supongo que OpenShift debe lanzar la instancia de la máquina virtual. Si esto ocurre volver a intentar pasado un pequeño tiempo. 
+Existe una aplicación funcional alojada en [heroku.com](http://fp-resultados.herokuapp.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Supongo que OpenShift debe lanzar la instancia de la máquina virtual. Si esto ocurre volver a intentar pasado un pequeño tiempo. 
 
 ![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.png "Logo de ejemplo")
 
@@ -30,7 +27,7 @@ La aplicación es funcional y dispone de numerosas características.
 
 
 ### Probar la aplicación de demostración
-Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados.rhcloud.com](http://fp-resultados.rhcloud.com).
+Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados.herokuapp.com](http://fp-resultados.herokuapp.com).
 
 Para entrar debes introducir un correo y contraseña.
 Puedes utilizar cualquiera de los siguientes (correos ficticios):
@@ -129,43 +126,15 @@ chmod +x database.sh
 ```
 
 
+## Despliegue
+
+Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
 
 ## Instalación en Openshift
-OpenshSift es un sitio, perteneciente a Red Hat Inc, para alojamiento en la nube que proporciona una Plataforma como Servicio (PaaS). Existe una versión gratuita para aplicaciones que requieren pocos cartridges (máximo 3).
 
-Si deseas crear tu propia aplicación en Openshift, estos son los pasos que debes seguir:
+Si quieres conocer los detalles técnicos acerca de cómo desplegué esta aplicación en OPENSHIFT puedes seguir [este tutorial](https://github.com/jamj2000/fp-resultados/blob/master/INSTALACION.md) explicando los pasos principales. **Actualmente la guía no es correcta, puesto que la plataforma actualizó toda su infraestructura.**
 
-1) Create una cuenta en [OpenShift](https://www.openshift.com/)
-
-2) Añade un cartridge PHP 5.4
-
-3) Crea un nombre de aplicación y dominio
-
-![App en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-app.png "App en OpenShift")
-
-4) Crea una base de datos MySQL
-
-![Database en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-database.png "Database en OpenShift")
-
-5) En tu equipo local genera un par de claves pública/privada
-```
-ssh-keygen
-```
-
-6) Copia el contenido de la clave pública ```~/.ssh/id_rsa.pub``` a OpenShift 
-
-![Key en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-key.png "Key en OpenShift")
-
-7) Comprueba el resultado y copia la dirección ssh para trabajar con git
-
-![Resultado en OpenShift](https://github.com/jamj2000/fp-resultados.capturas/blob/master/openshift-resultado.png "Resultado en OpenShift")
-
-8) Descarga tu repositorio vacío a tu equipo local
-```
-cd /var/www/html
-git clone ssh://<usuario en forma de número>@<app-dominio>.rhcloud.com/~/git/<app>.git/
-```
 
 ## Desarrollo de la aplicación con Laravel 4.2
 
