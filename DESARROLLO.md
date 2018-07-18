@@ -8,7 +8,7 @@ Introducción
 
 En este tutorial se explicará paso a paso (pero sin entrar en demasiados detalles) como he desarrollado una aplicación web real con el Framework PHP Laravel 4.2. Es imprescindible que poseas conocimientos previos de uso de terminal de texto en Linux, principalmente la parte de gestión de archivos y directorios, puesto que la aplicación se desarrolla sobre Linux. También es aconsejable conocer HTML, CSS, PHP y Javascript, al menos a nivel básico.
 
-El código fuente de la aplicación puedes bajarlo desde <https://github.com/jamj2000/fp-resultados> . La demo está en [http://fp-resultados.rhcloud.com](http://fp-resultados.rhcloud.com/) .
+El código fuente de la aplicación puedes bajarlo desde <https://github.com/jamj2000/fp-resultados> . La demo actualmente está en [http://fp-resultados.herokuapp.com](http://fp-resultados.herokuapp.com/) (anteriormente se hallaba alojada en `http://fp-resultados.rhcloud.com`).
 
 Laravel se ajusta a __MVC (Modelo-Vista-Controlador)__, lo que permite trabajar de forma relativamente independiente cada una de estas partes de la aplicación. En el Modelo se define el esquema de datos utilizado para la base de datos. En la Vista o más frecuentemente varias Vistas definimos la forma de mostrar esos datos. El Controlador se encarga la lógica de la aplicación, recuperando datos desde el modelo e invocando a las vistas deseadas.
 
