@@ -1,1 +1,0 @@
-Find documentation on the project page: http://mikehaertl.github.com/phpwkhtmltopdf/
