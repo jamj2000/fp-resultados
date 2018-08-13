@@ -55,5 +55,22 @@
 {{ Form::close() }}
 
 </div>
+
+  <script>
+// Si está soportado serviceWorker por el navegador
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+            .register('./service-worker.js')
+            .then(reg => console.log('[Service Worker] * Registrado.'))
+            .catch(err => console.log(`[Service Worker] * Error: ${err}`));
+    });
+}
+  </script>
+
+  <!-- Gestión de eventos del ServiceWorker -->
+  <script src="service-worker.js"></script>
+
+
 </body>
 </html>
