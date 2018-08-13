@@ -6,6 +6,17 @@
   <title>Centro Educativo - Dpto. de Informática y Comunicaciones</title>
   <link rel="icon" type="image/png" href="{{ URL::asset('img/favicon.png')}}"  />
   
+  <!-- PWA: Para habilitar Progressive Web Application -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- PWA: Añadir a pantalla de inicio para Safari en iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Tienda">
+  <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+  <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+  
   {{HTML::style('css/bootstrap.css')}}
   {{HTML::style('css/bootstrap-select.css')}}
   {{HTML::style('css/added.css')}}
