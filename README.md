@@ -52,12 +52,24 @@ Si deseas comprobar las posibilidades para el/los usuarios administradores deber
 
 
 ## Despliegue en equipo local
+
+Este proyecto se desarrolló durante el año 2015, por lo tanto tiene ya algunos años. Es un proyecto realizado en **PHP** con el **Framework Laravel 4.2**. Debido a esto es requisito usar la versión **PHP5** en lugar de la versión PHP 7 actual. La mayoría de las distribuciones modernas ya vienen con PHP 7. Así que si deseamos instalar la versión 5 deberemos añadir los repositorios adecuados. 
+
 Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
+
+0) Prerrequisito de PHP 5.
+
+Para instalar la versión 5 de PHP, debemos añadir los repositorios adecuados. Por ejemplo, para Ubuntu 18.04 hacemos:
+
+```bash
+sudo add-apt-repository -y ppa:ondrej/php
+sudo apt update
+```
 
 1) Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
 
 ```bash
-apt-get install apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
+sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcrypt curl git
 ```
 
 2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
