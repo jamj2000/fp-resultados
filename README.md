@@ -72,6 +72,9 @@ sudo apt update
 sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcrypt curl git
 ```
 
+**NOTA:** De aquí en adelante, por simplicidad, no repetiré en cada comando la orden `sudo`. Sin embargo **todas los pasos y operaciones realizadas a continuación deben realizarse con perfil de superusuario**. 
+
+
 2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
 
 ```apache
@@ -86,8 +89,8 @@ sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcry
 
 ```bash
 a2enmod rewrite
-php5enmod mcrypt
-service apache2 restart/reload
+phpenmod mcrypt
+systemctl restart apache2
 ``` 
  
 4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
@@ -104,30 +107,47 @@ cd /var/www/html/fp-resultados
 chmod -R 777 app/storage
 ```
 
-6) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+6) Instala el software `composer`.
 
-7) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
+```bash
+curl -sS  https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+
+7) Instala las dependencias necesarias 
+
+```bash
+cd /var/www/html/fp-resultados
+composer install
+```
+
+Esto nos permite comprobar las dependencias especificadas en el archivo `composer.json` e instalar los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
+
+Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
+
+8) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+
+9) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 
 ```bash
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
-8) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
+10) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
 
 ```bash
 cd /var/www/html/fp-resultados.datos
 nano database.sh
 ```
-
-9) Ejecuta el script ```database.sh```
+11) Ejecuta el script ```database.sh```
 
 ```bash
 chmod +x database.sh
 ./database.sh
 ```
 
-10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
+12) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
 
 ```php
                'mysql' => array(
@@ -145,23 +165,68 @@ chmod +x database.sh
 
 ```
 
-11) Instala el software `composer`.
+13) Si necesitas establecer o cambiar una clave en MySQL, puedes hacerlo con el comando `mysql_secure_installation`:
 
-```bash
-curl -sS  https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+```
+mysql_secure_installation
 ```
 
-12) Actualiza e instala las dependencias necesarias 
+```
+Securing the MySQL server deployment.
 
-```bash
-composer update
-composer install
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD PLUGIN can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD plugin?
+
+Press y|Y for Yes, any other key for No: No
+Please set the password for root here.
+
+New password: 
+
+Re-enter new password: 
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : Y
+Success.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : Y
+Success.
+
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : No
+
+ ... skipping.
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : Y
+Success.
+
+All done! 
 ```
 
-Cuando ejecutamos `composer update`, el compositor genera un archivo llamado `composer.lock` que enumera todos sus paquetes y las versiones instaladas actualmente. Esto nos permite ejecutar más tarde `composer install`, que instalará los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
+> REFERENCIA: Para la gestión de claves en MySQL, puedes consultar el enlace:
+>
+> - https://www.howtoforge.com/setting-changing-resetting-mysql-root-passwords
 
-Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
 
 ## Despliegue en Internet
 
