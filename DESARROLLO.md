@@ -18,8 +18,8 @@ Laravel se ajusta a __MVC (Modelo-Vista-Controlador)__, lo que permite trabajar 
 
 
 
-Instalación en local
-====================
+Despliegue en equipo local
+==========================
 
 Instalación de paquetes necesarios
 ----------------------------------
