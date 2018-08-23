@@ -51,15 +51,17 @@ Algunos de ellos son tutores de algún curso, otros no. Los que son tutores pued
 Si deseas comprobar las posibilidades para el/los usuarios administradores deberás instalarte la aplicación en tu equipo local y probarla ahí.
 
 
-## Instalación en equipo local
+## Despliegue en equipo local
 Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
 
 1) Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
+
 ```bash
 apt-get install apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
 
 2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
+
 ```apache
 <Directory /var/www/>
   Options Indexes FollowSymLinks
@@ -69,6 +71,7 @@ apt-get install apache2 mysql-server php5 php5-mysql php5-mcrypt mcrypt curl git
 ```
  
 3) Activa módulos de Apache y reinicia servidor
+
 ```bash
 a2enmod rewrite
 php5enmod mcrypt
@@ -76,13 +79,15 @@ service apache2 restart/reload
 ``` 
  
 4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
-```
+
+```bash
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.git
 ```
 
 5) Entra en el directorio donde se ha descargado el código y da permisos de escritura al subdirectorio app/storage
-```
+
+```bash
 cd /var/www/html/fp-resultados
 chmod -R 777 app/storage
 ```
@@ -90,26 +95,29 @@ chmod -R 777 app/storage
 6) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
 
 7) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
-```
+
+```bash
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
 8) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
-```
+
+```bash
 cd /var/www/html/fp-resultados.datos
 nano database.sh
 ```
 
 9) Ejecuta el script ```database.sh```
-```
+
+```bash
 chmod +x database.sh
 ./database.sh
 ```
 
 10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
 
-```
+```php
                'mysql' => array(
                         'driver'    => 'mysql',
                         'host'      => 'localhost',
@@ -125,13 +133,30 @@ chmod +x database.sh
 
 ```
 
+11) Instala el software `composer`.
 
-## Despliegue
+```bash
+curl -sS  https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+
+12) Actualiza e instala las dependencias necesarias 
+
+```bash
+composer update
+composer install
+```
+
+Cuando ejecutamos `composer update`, el compositor genera un archivo llamado `composer.lock` que enumera todos sus paquetes y las versiones instaladas actualmente. Esto nos permite ejecutar más tarde `composer install`, que instalará los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
+
+Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
+
+## Despliegue en Internet
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
 
-## Instalación en Openshift
+## Despliegue en Openshift (Desactualizado)
 
 Si quieres conocer los detalles técnicos acerca de cómo desplegué esta aplicación en OPENSHIFT puedes seguir [este tutorial](https://github.com/jamj2000/fp-resultados/blob/master/INSTALACION.md) explicando los pasos principales. **Actualmente la guía no es correcta, puesto que la plataforma actualizó toda su infraestructura.**
 
