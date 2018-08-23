@@ -165,67 +165,57 @@ chmod +x database.sh
 
 ```
 
-13) Si necesitas establecer o cambiar una clave en MySQL, puedes hacerlo con el comando `mysql_secure_installation`:
+13) Si necesitas establecer o cambiar una clave en MySQL, puedes hacerlo con el comando de mysql:
 
+**`ALTER USER '`usuario`'@'localhost' IDENTIFIED WITH mysql_native_password BY '`clave`';`**
+
+En las últimas versiones el sistema de autenticación ha sido cambiado de forma significativa respecto a versiones anteriores. Si instalas la version 5.7 o superior de mysql, usará el plugin auth_socket y no proporcionará una contraseña al usuario root. Pero nosotros queremos ponerle una contraseña.
+
+**Para ello necesitamos cambiar el plugin y establecer la contraseña al mismo tiempo, en el mismo comando**. Primero, cambiar el plugin y luego configurar la contraseña no funcionará, y volverá a caer en auth_socket.
+
+
+Por ejemplo para el usuario root hacemos:
 ```
-mysql_secure_installation
-```
+sudo mysql -u root
 
-```
-Securing the MySQL server deployment.
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+mysql> FLUSH PRIVILEGES;
 
-Connecting to MySQL using a blank password.
+mysql> SELECT User, Host, plugin FROM mysql.user;
++------------------+-----------+-----------------------+
+| User             | Host      | plugin                |
++------------------+-----------+-----------------------+
+| root             | localhost | mysql_native_password |
+| mysql.session    | localhost | mysql_native_password |
+| mysql.sys        | localhost | mysql_native_password |
+| debian-sys-maint | localhost | mysql_native_password |
+| jose             | localhost | auth_socket           |
++------------------+-----------+-----------------------+
+5 rows in set (0.00 sec)
 
-VALIDATE PASSWORD PLUGIN can be used to test passwords
-and improve security. It checks the strength of password
-and allows the users to set only those passwords which are
-secure enough. Would you like to setup VALIDATE PASSWORD plugin?
+mysql> SELECT User, Host, authentication_string FROM mysql.user;
++------------------+-----------+-------------------------------------------+
+| User             | Host      | authentication_string                     |
++------------------+-----------+-------------------------------------------+
+| root             | localhost | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |
+| mysql.session    | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| mysql.sys        | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| debian-sys-maint | localhost | *B117D4112EFD856563A869CC76ABE86FCA0735C2 |
+| jose             | localhost | *9B7E9CB5C7418FF658BE5C710AC2A3688DFAABF8 |
++------------------+-----------+-------------------------------------------+
+5 rows in set (0.00 sec)
 
-Press y|Y for Yes, any other key for No: No
-Please set the password for root here.
+mysql> exit;
 
-New password: 
-
-Re-enter new password: 
-By default, a MySQL installation has an anonymous user,
-allowing anyone to log into MySQL without having to have
-a user account created for them. This is intended only for
-testing, and to make the installation go a bit smoother.
-You should remove them before moving into a production
-environment.
-
-Remove anonymous users? (Press y|Y for Yes, any other key for No) : Y
-Success.
-
-
-Normally, root should only be allowed to connect from
-'localhost'. This ensures that someone cannot guess at
-the root password from the network.
-
-Disallow root login remotely? (Press y|Y for Yes, any other key for No) : Y
-Success.
-
-By default, MySQL comes with a database named 'test' that
-anyone can access. This is also intended only for testing,
-and should be removed before moving into a production
-environment.
-
-
-Remove test database and access to it? (Press y|Y for Yes, any other key for No) : No
-
- ... skipping.
-Reloading the privilege tables will ensure that all changes
-made so far will take effect immediately.
-
-Reload privilege tables now? (Press y|Y for Yes, any other key for No) : Y
-Success.
-
-All done! 
+systemctl restart mysql
 ```
 
-> REFERENCIA: Para la gestión de claves en MySQL, puedes consultar el enlace:
+> NOTA: Si el usuario no existe, utilizar `CREATE` en lugar de `ALTER`.
+
+
+> REFERENCIA: He dado con la solución en el siguiente enlace, después de haber visitado media internet:
 >
-> - https://www.howtoforge.com/setting-changing-resetting-mysql-root-passwords
+> - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
 
 
 ## Despliegue en Internet
