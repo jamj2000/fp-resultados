@@ -72,6 +72,9 @@ sudo apt update
 sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcrypt curl git
 ```
 
+**NOTA:** De aquí en adelante, por simplicidad, no repetiré en cada comando la orden `sudo`. Sin embargo **todas los pasos y operaciones realizadas a continuación deben realizarse con perfil de superusuario**. 
+
+
 2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
 
 ```apache
@@ -86,8 +89,8 @@ sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcry
 
 ```bash
 a2enmod rewrite
-php5enmod mcrypt
-service apache2 restart/reload
+phpenmod mcrypt
+systemctl restart apache2
 ``` 
  
 4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
@@ -104,30 +107,47 @@ cd /var/www/html/fp-resultados
 chmod -R 777 app/storage
 ```
 
-6) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+6) Instala el software `composer`.
 
-7) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
+```bash
+curl -sS  https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+
+7) Instala las dependencias necesarias 
+
+```bash
+cd /var/www/html/fp-resultados
+composer install
+```
+
+Esto nos permite comprobar las dependencias especificadas en el archivo `composer.json` e instalar los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
+
+Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
+
+8) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
+
+9) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
 
 ```bash
 cd /var/www/html
 git clone https://github.com/jamj2000/fp-resultados.datos.git
 ```
 
-8) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
+10) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
 
 ```bash
 cd /var/www/html/fp-resultados.datos
 nano database.sh
 ```
-
-9) Ejecuta el script ```database.sh```
+11) Ejecuta el script ```database.sh```
 
 ```bash
 chmod +x database.sh
 ./database.sh
 ```
 
-10) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
+12) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
 
 ```php
                'mysql' => array(
@@ -145,23 +165,58 @@ chmod +x database.sh
 
 ```
 
-11) Instala el software `composer`.
+13) Si necesitas establecer o cambiar una clave en MySQL, puedes hacerlo con el comando de mysql:
 
-```bash
-curl -sS  https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+**`ALTER USER '`usuario`'@'localhost' IDENTIFIED WITH mysql_native_password BY '`clave`';`**
+
+En las últimas versiones el sistema de autenticación ha sido cambiado de forma significativa respecto a versiones anteriores. Si instalas la version 5.7 o superior de mysql, usará el plugin auth_socket y no proporcionará una contraseña al usuario root. Pero nosotros queremos ponerle una contraseña.
+
+**Para ello necesitamos cambiar el plugin y establecer la contraseña al mismo tiempo, en el mismo comando**. Primero, cambiar el plugin y luego configurar la contraseña no funcionará, y volverá a caer en auth_socket.
+
+
+Por ejemplo para el usuario root hacemos:
+```
+sudo mysql -u root
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+mysql> FLUSH PRIVILEGES;
+
+mysql> SELECT User, Host, plugin FROM mysql.user;
++------------------+-----------+-----------------------+
+| User             | Host      | plugin                |
++------------------+-----------+-----------------------+
+| root             | localhost | mysql_native_password |
+| mysql.session    | localhost | mysql_native_password |
+| mysql.sys        | localhost | mysql_native_password |
+| debian-sys-maint | localhost | mysql_native_password |
+| jose             | localhost | auth_socket           |
++------------------+-----------+-----------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT User, Host, authentication_string FROM mysql.user;
++------------------+-----------+-------------------------------------------+
+| User             | Host      | authentication_string                     |
++------------------+-----------+-------------------------------------------+
+| root             | localhost | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |
+| mysql.session    | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| mysql.sys        | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| debian-sys-maint | localhost | *B117D4112EFD856563A869CC76ABE86FCA0735C2 |
+| jose             | localhost | *9B7E9CB5C7418FF658BE5C710AC2A3688DFAABF8 |
++------------------+-----------+-------------------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> exit;
+
+systemctl restart mysql
 ```
 
-12) Actualiza e instala las dependencias necesarias 
+> NOTA: Si el usuario no existe, utilizar `CREATE` en lugar de `ALTER`.
 
-```bash
-composer update
-composer install
-```
 
-Cuando ejecutamos `composer update`, el compositor genera un archivo llamado `composer.lock` que enumera todos sus paquetes y las versiones instaladas actualmente. Esto nos permite ejecutar más tarde `composer install`, que instalará los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
+> REFERENCIA: He dado con la solución en el siguiente enlace, después de haber visitado media internet:
+>
+> - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
 
-Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
 
 ## Despliegue en Internet
 
