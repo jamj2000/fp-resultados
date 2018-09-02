@@ -218,7 +218,7 @@ systemctl restart mysql
 > - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
 
 
-## Despliegue en Heroku+GearHost
+## Despliegue en Heroku + GearHost
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
