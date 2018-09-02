@@ -222,6 +222,69 @@ systemctl restart mysql
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
+Si deseas hacer un despligue usando los servicios proporcionados por los sitios anteriores, sigue estos pasos: 
+
+1. Create una cuenta en Heroku. Éste tiene varios [planes](https://www.heroku.com/pricing). Registrate en el plan Free, que aunque está algo limitado es gratis. Aún así se te solicitará un número de tarjeta. Tenlo en cuenta.
+
+2. Instala la herramienta `heroku-cli`. En [este enlace](https://devcenter.heroku.com/articles/heroku-cli) tienes la información necesaria.
+
+3. Clona este repositorio en tu equipo:
+  ```bash
+  git  clone  https://github.com/jamj2000/fp-resultados.git
+  cd   fp-resultados
+  ```
+
+4. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
+  
+  ```bash
+  heroku login
+  heroku create --region eu  nombre_aplicacion
+  ```
+  
+  **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
+  
+5. Despliega el código en Heroku.
+
+  ```bash
+  heroku  push  heroku  master
+  ```
+
+  Dentro de unos instantes podrás acceder a la aplicación en la url `http://nombre_aplicacion.herokuapp.com`. 
+  
+  **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre de tu aplicación.
+  
+  Puedes verla abriendo dicha url en el navegador o ejecutando
+  
+  ```bash
+  heroku  open
+  ```
+  
+6. ¿Y los datos?
+  
+  Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). 
+  
+    
+7. Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
+
+8. Crea una base de datos MySQL y apunta los parámetros de configuración.
+  
+  En concreto deberás anotar 5 datos:
+  - El nombre o IP de host donde se aloja la base de datos.
+  - El puerto.
+  - El nombre de la base de datos.
+  - El nombre del usuario.
+  - La contraseña de dicho usuario.
+  
+  ![fp-resultados gearhost](snapshots/gearhost-fp-resultados.png)
+
+9. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior.
+
+  ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
+  
+
+10. En la parte superior derecha de la página, pulsa en el boton `More` y luego en `Restart all dynos`.
+
+  
 
 ## Despliegue en Openshift (Desactualizado)
 
