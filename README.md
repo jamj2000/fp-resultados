@@ -284,6 +284,13 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
 
 10. En la parte superior derecha de la página, pulsa en el boton `More` y luego en `Restart all dynos`.
 
+11. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
+
+  Debe aparecer lo siguiente:
+  ![fp-resultados login](snapshots/heroku-fp-resultados-1.png)
+
+  Si inicias sesión con usuario `profe9@gmail.com` y contraseña `profe9`:  
+  ![fp-resultados profe9](snapshots/heroku-fp-resultados-2.png)
   
 
 ## Despliegue en Openshift (Desactualizado)
