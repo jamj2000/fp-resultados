@@ -261,12 +261,9 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
 6. ¿Y los datos?
   
-  Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). 
-  
-    
-7. Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
+  Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
 
-8. Crea una base de datos MySQL y apunta los parámetros de configuración.
+7. Crea una base de datos MySQL y apunta los parámetros de configuración.
   
   En concreto deberás anotar 5 datos:
   - El nombre o IP de host donde se aloja la base de datos.
@@ -276,6 +273,31 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   - La contraseña de dicho usuario.
   
   ![fp-resultados gearhost](snapshots/gearhost-fp-resultados.png)
+
+8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
+
+  - Clona el repositorio que contiene los datos y el script `database.sh` a ejecutar.
+  ```bash
+  git  clone  https://github.com/jamj2000/fp-resultados.datos.git
+  cd  fp-resultados.datos
+  ```
+  - Edita el script `database.sh` con la información de tu base de datos.
+  
+  ![MySQL GearHost Config](snapshots/mysql-gearhost-config.png)
+  
+  - Ejecuta el script `database.sh`
+ 
+  ![MySQL GearHost Run](snapshots/mysql-gearhost-run.png)
+  
+  - Comprueba que el resultado es correcto.
+  
+  ```bash
+  mysql -h database.host -D database.name -u database.user -pdatabase.password
+  ```
+  Sustituye _database.host_,  _database.name_,  _database.user_ y _database.password_ por los valores adecuados.
+  
+  ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
+   
 
 9. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior.
 
