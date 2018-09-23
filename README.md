@@ -241,12 +241,22 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   heroku create --region eu  nombre_aplicacion
   ```
   
+  Añadimos el `repositorio git` que proporciona Heroku.
+  ```bash
+  git  remote  add  heroku  https://git.heroku.com/nombre_aplicacion.git
+  ```
+  
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
   
 5. Despliega el código en Heroku.
 
   ```bash
   heroku  push  heroku  master
+  ```
+  o
+  
+  ```bash
+  git  push  heroku  master
   ```
 
   Dentro de unos instantes podrás acceder a la aplicación en la url `http://nombre_aplicacion.herokuapp.com`. 
@@ -299,7 +309,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-9. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php``` contiene la siguiente configuración:
+9. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/database.php``` contiene la siguiente configuración:
 
   ```php
              'mysql' => array(
