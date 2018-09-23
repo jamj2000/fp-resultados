@@ -299,12 +299,27 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-9. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior.
+9. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php``` contiene la siguiente configuración:
+
+  ```php
+             'mysql' => array(
+                        'driver'    => 'mysql',
+                        'host'      => getenv('DB_HOST'),
+                        'port'      => getenv('DB_PORT'),
+                        'database'  => getenv('DB_NAME'),
+                        'username'  => getenv('DB_USER'),
+                        'password'  => getenv('DB_PASS'),
+                        'charset'   => 'utf8',
+                        'charset'   => 'utf8',
+                        'collation' => 'utf8_unicode_ci',
+                        'prefix'    => '',
+                ),
+  ```
+
+10. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior. Después pulsa en el boton `More` y luego en `Restart all dynos`, en la parte superior derecha de la página.
 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
-
-10. En la parte superior derecha de la página, pulsa en el boton `More` y luego en `Restart all dynos`.
 
 11. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
 
