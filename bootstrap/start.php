@@ -31,7 +31,7 @@ $env = $app->detectEnvironment(array(
 */
 
 $env = $app->detectEnvironment(function(){
-	return getenv('HEROKU') ?: 'local';
+	return getenv('PRODUCTION') ?: 'local';
 });
 
 

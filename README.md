@@ -218,6 +218,34 @@ systemctl restart mysql
 > - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
 
 
+## Despliegue en Docker
+
+También puedes desplegar la aplicación con Docker. Existe una imagen para la aplicación web y otra para la base de datos.
+
+Para descargar las imágenes y lanzar los contenedores, ejecuta:
+
+
+```
+git  clone  https://github.com/jamj2000/fp-resultados.git
+
+cd fp-resultados.git
+
+docker-compose  up  -d
+```
+
+Para insertar los datos en el volumen asociado a MySQL ejecuta:
+
+```
+docker  exec  fpresultados_bd_1  /data/database.sh
+```
+
+![docker compose](snapshots/docker-compose.png)
+
+
+Para ejecutar la aplicación, abre con el navegador la URL `http://localhost:8888`.
+
+
+
 ## Despliegue en Heroku + GearHost
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).

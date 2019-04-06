@@ -1,0 +1,26 @@
+version: "2"
+services:
+  web:
+    image: jamj2000/web:fp-resultados
+    ports:
+      - "8888:80"
+    restart: always
+    environment:
+      - PRODUCTION=true
+      - DB_HOST=bd
+      - DB_PORT=3306
+      - DB_NAME=fp
+      - DB_USER=root
+      - DB_PASS=root
+    depends_on:
+      - bd
+  bd:
+    image: jamj2000/mysql:fp-resultados
+    environment:
+      - MYSQL_DATABASE=fp
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - datos:/var/lib/mysql
+volumes:
+  datos:
+
