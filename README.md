@@ -268,6 +268,15 @@ docker run --rm -i \
   busybox tar -xzC /target < fpresultados_datos.tar.gz
 ```
 
+> NOTA: Antes de restaurar la copia de seguridad deberemos asegurarnos de que la aplicación está detenida y el volumen no existe. Esto puede hacerlo con los comandos:
+>
+> ```bash
+> docker-compose  down
+> docker  volume  rm  fpresultados_datos
+> ```
+> Después restauramos el volumen según se indica más arriba y por último iniciamos la aplicación con `docker-compose up -d`.
+
+
 
 ## Despliegue en Heroku + GearHost
 
