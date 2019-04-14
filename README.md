@@ -268,7 +268,8 @@ docker run --rm -i \
   busybox tar -xzC /target < fpresultados_datos.tar.gz
 ```
 
-> NOTA: Antes de restaurar la copia de seguridad deberemos asegurarnos de que la aplicación está detenida y el volumen no existe. Esto puede hacerlo con los comandos:
+> NOTA: 
+>Antes de restaurar la copia de seguridad deberemos asegurarnos de que la aplicación está detenida y el volumen no existe. Esto puede hacerse con los comandos:
 >
 > ```bash
 > docker-compose  down
