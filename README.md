@@ -245,7 +245,7 @@ Para ejecutar la aplicación, abre con el navegador la URL `http://localhost:888
 
 Como puedes observar en la imagen anterior, el contenedor de MySQL lleva asociado un **volumen** para guardar la información de la BD y ofrecer persistencia de datos entre distintas ejecuciones. 
 
-En cualquier momento podemos realizar una copia de seguridad del volumne con contenido de la BD, con el comando:
+En cualquier momento podemos realizar una copia de seguridad del volumen con el contenido de la BD, con el comando:
 
 **Exportar volumen fpresultados_datos** 
 
