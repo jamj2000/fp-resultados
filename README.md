@@ -241,9 +241,32 @@ docker  exec  fpresultados_bd_1  /data/database.sh
 
 ![docker compose](snapshots/docker-compose.png)
 
-
 Para ejecutar la aplicación, abre con el navegador la URL `http://localhost:8888`.
 
+Como puedes observar en la imagen anterior, el contenedor de MySQL lleva asociado un **volumen** para guardar la información de la BD y ofrecer persistencia de datos entre distintas ejecuciones. 
+
+En cualquier momento podemos realizar una copia de seguridad del volumne con contenido de la BD, con el comando:
+
+**Exportar volumen fpresultados_datos** 
+
+
+```bash
+docker run --rm \
+  -v fpresultados_datos:/source:ro \
+  busybox tar -czC /source . > fpresultados_datos.tar.gz
+```
+
+Y obtendremos una copia de seguridad del volumen en el archivo `fpresultados_datos.tar.gz`.
+
+Para restaurar la copia de seguridad anterior de dicho volumen ejecutamos el siguiente comando:
+
+**Importar volumen fpresultados_datos**
+
+```bash
+docker run --rm -i \
+  -v fpresultados_datos:/target \
+  busybox tar -xzC /target < fpresultados_datos.tar.gz
+```
 
 
 ## Despliegue en Heroku + GearHost
