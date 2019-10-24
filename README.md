@@ -212,6 +212,11 @@ systemctl restart mysql
 
 > NOTA: Si el usuario no existe, utilizar `CREATE` en lugar de `ALTER`.
 
+En algunos casos está habilitada una **política de contraseñas** bastante estricta. Podemos deshabilitarla con:
+
+```
+mysql> uninstall plugin validate_password;
+```
 
 > REFERENCIA: He dado con la solución en el siguiente enlace, después de haber visitado media internet:
 >
