@@ -212,15 +212,16 @@ systemctl restart mysql
 
 > NOTA: Si el usuario no existe, utilizar `CREATE` en lugar de `ALTER`.
 
-En algunos casos está habilitada una **política de contraseñas** bastante estricta. Podemos deshabilitarla con:
-
-```
-mysql> uninstall plugin validate_password;
-```
-
-> REFERENCIA: He dado con la solución en el siguiente enlace, después de haber visitado media internet:
+> REFERENCIA: He dado con la solución al problema anterior en el siguiente enlace, después de haber visitado media internet:
 >
 > - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
+
+
+> NOTA: En algunos casos está habilitada una **política de contraseñas** bastante estricta. Podemos deshabilitarla con:
+>
+>```
+>mysql> uninstall plugin validate_password;
+>```
 
 
 ## Despliegue en Docker
