@@ -399,7 +399,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   Ponemos la variable de entorno **PRODUCTION** a true. El archivo `bootstrap/start.php` busca esta variable. 
   Si existe lanza la aplicación en modo producción y utiliza la base de datos remota. 
-  Sino existe lanza la aplicación en modo local y usa la base de datos local.
+  Si no existe lanza la aplicación en modo local y usa la base de datos local.
 
 11. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
 
