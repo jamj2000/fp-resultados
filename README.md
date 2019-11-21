@@ -341,11 +341,6 @@ heroku  stack:set  heroku-16
 ```
 
 7. Despliega el código en Heroku.
-
-  ```bash
-  heroku  push  heroku  master
-  ```
-  o
   
   ```bash
   git  push  heroku  master
