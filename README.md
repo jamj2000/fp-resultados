@@ -314,8 +314,33 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```
   
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
-  
-5. Despliega el código en Heroku.
+ 
+5. Generamos archivo `composer.lock` y descargamos dependencias en directorio `vendor`:
+
+```bash
+composer  update  --ignore-platform-reqs
+```
+
+El *flag* **--ignore-platform-reqs** permite que se descarguen las dependencias basadas en PHP5 aún cuando en nuestro sistema tengamos instalado PHP7, como es el caso habitual en Ubuntu 18.04+.
+
+**NOTA:** Se creará un archivo `composer.lock` y un directorio `vendor` con todas las dependencias.
+
+
+6. Las últimas versiones de Heroku realizan el despliegue sobre un *stack* Ubuntu 18, el cual viene con PHP7. Por tanto no es válido para nuestro despliegue. Deberemos indicar que deseamos desplegar sobre el *stack* Ubuntu 16, que viene con PHP5.
+
+Podemos ver los stacks disponibles con la sentencia:
+
+```bash
+heroku  stack
+```
+
+Para establecer el **stack heroku-16**, que es el que nos proporciona una base Ubuntu 16 + PHP5, ejecutamos:
+
+```bash
+heroku  stack:set  heroku-16
+```
+
+7. Despliega el código en Heroku.
 
   ```bash
   heroku  push  heroku  master
@@ -336,11 +361,11 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   heroku  open
   ```
   
-6. ¿Y los datos?
+8. ¿Y los datos?
   
   Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
 
-7. Crea una base de datos MySQL y apunta los parámetros de configuración.
+9. Crea una base de datos MySQL y apunta los parámetros de configuración.
   
   En concreto deberás anotar 5 datos:
   - El nombre o IP de host donde se aloja la base de datos.
@@ -351,7 +376,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   ![fp-resultados gearhost](snapshots/gearhost-fp-resultados.png)
 
-8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
+10. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
 
   - Clona el repositorio que contiene los datos y el script `database.sh` a ejecutar.
   ```bash
@@ -376,7 +401,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-9. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/database.php``` contiene la siguiente configuración:
+11. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/database.php``` contiene la siguiente configuración:
 
   ```php
              'mysql' => array(
@@ -393,7 +418,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
                 ),
   ```
 
-10. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior. Después pulsa en el boton `More` y luego en `Restart all dynos`, en la parte superior derecha de la página.
+12. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior. Después pulsa en el boton `More` y luego en `Restart all dynos`, en la parte superior derecha de la página.
 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
@@ -401,7 +426,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   Si existe lanza la aplicación en modo producción y utiliza la base de datos remota. 
   Si no existe lanza la aplicación en modo local y usa la base de datos local.
 
-11. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
+13. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
 
   Debe aparecer lo siguiente:
   ![fp-resultados login](snapshots/heroku-fp-resultados-1.png)
