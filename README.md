@@ -317,13 +317,15 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   
 **NOTA IMPORTANTE:**
-> Esta aplicación hace uso de la extensión mcrypt de php.
+> Esta aplicación está desarrollada en PHP5, y hace uso de la extensión mcrypt de php.
 >
 > La extensión mcrypt es una interfaz para la biblioteca de criptografía mcrypt, que está incluida desde las versiones PHP 5.4 a PHP 7.1. A partir de PHP 7.2, mcrypt ya no es mantenido y se mueve a extensión PECL no oficial (comunitaria).
 > 
 > Mas información: https://www.sololinux.es/instalar-la-extension-mcrypt-en-php-7-4-y-ubuntu/
 >
 > Como estamos usando la versión 7.4 de PHP, si deseamos instalar dicha extensión deberiamos seguir las indicaciones que se ofrecen en el enlace anterior.
+>
+> Sin embargo, la complejidad y el riesgo de crear conflictos en el sistema hacen que esta opción no sea nada recomendable. En este caso, lo mejor es usar un contenedor docker con php5 como entorno de desarrollo. Esto evita los conflictos en el sistema y simplifica el proceso.
 >
 **FIN DE NOTA**
 
