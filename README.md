@@ -336,7 +336,7 @@ RUN composer install \
 Esto nos permitirá crear una imagen Docker:
 
 - con PHP 5.6 y Apache
-- con el directorio de trabajo /var/www/html dentro del contenedor
+- con el directorio de trabajo `/var/www/html` dentro del contenedor
 - con una copia de todo nuestro código fuente en el directorio anterior
 - con la instalación de composer y otros paquetes necesarios
 - con un archivo `composer.lock` generado mediante `composer update`
@@ -357,22 +357,22 @@ Para comprobar que se ha creado bien la imagen anterior, ejecutamos:
 docker images
 ```
 
-y debe aparecernos en la lista de imágenes que se muestra.
-
-
 5. Lanza un contenedor que haga uso de la imagen anterior.
 
 ```bash
-  docker  run  -d  -p 8888:80 \
-          --name fp \
-          --mount source=fp-volume,target=/var/www/html  fp-resultados
+  docker  run  -d \
+               -p 8888:80 \
+               --mount source=fp-volume,target=/var/www/html \
+               --name fp-app \
+               fp-resultados
 ```
+El nombre del contenedor será `fp-app` y la imagen usada será `fp-resultados`.
 
 Mapeamos el puerto 8888 al puerto 80 del contenedor. Por tanto, podemos ver la aplicación funcionando en `http://localhost:8888`.
 
-El contenido del directorio `/var/www/html` del contenedor será accesible en el anfitrión como volumen llamado `fp-volume`. Esto nos permite acceder al código fuente de la apliación. Este código aparece en `/var/lib/docker/volumes/fp-volume/_data`. Al tratarse de un directorio del sistema, deberemos acceder a él con permisos de root.
+El contenido del directorio `/var/www/html` del contenedor será accesible en el anfitrión como volumen llamado `fp-volume`. Esto nos permite acceder al código fuente de la aplicación. Este código aparece en `/var/lib/docker/volumes/fp-volume/_data`. Al tratarse de un directorio del sistema, deberemos acceder a él con permisos de root.
 
-Por tanto, haz:
+Por tanto, ejecuta:
 
 ```bash
 sudo su
@@ -381,8 +381,6 @@ ls
 ```
 
 ![fp-volume](snapshots/fp-volume.png)
-
-Observa que aparecen el archivo `composer.lock` y la carpeta `vendor`, que no estaban en el código fuente original.
 
 
 6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
@@ -448,10 +446,11 @@ heroku  stack:set  heroku-16
 > Una vez desplegada la aplicación, podemos eliminar el contenedor y el volumen asociado.
 >
 > Para ello, vuelve a tu usuario normal ejecutando `exit`.
+>
 > Y luego ejecuta:
 >
 > ```bash
-> docker container rm  fp   -f 
+> docker container rm  fp-app -f 
 > docker volume    rm  fp-volume
 > ```
 
