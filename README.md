@@ -285,7 +285,17 @@ docker run --rm -i \
 
 
 
-## Despliegue en Heroku + GearHost
+## Despliegue en Heroku + GearHost (y algo de Docker)
+
+> **NOTA IMPORTANTE:**
+>
+> Esta aplicación y sus dependencias hacen uso de PHP 5. Puesto que actualmente se usa la versión PHP 7 en Ubuntu 18.04+, el código fuente aquí disponible se considera código *legacy*.
+>
+> Esto provoca que su despliegue en un entorno de desarrollo local necesite de Ubuntu 16.04 con PHP 5. Instalar una máquina con dicho entorno es algo engorroso. Por tanto, usaremos Docker para obtener un entorno de desarrollo con PHP 5.
+>
+> Usaremos este [Dockerfile](Dockerfile). A partir de él generaremos una imagen Docker y luego lanzaremos un contenedor basado en dicha imagen.
+>
+
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
@@ -301,7 +311,79 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   cd   fp-resultados
   ```
 
-4. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
+4. Genera una imagen Docker a partir de **Dockerfile**
+
+El contenido del archivo **`Dockerfile`** es el siguiente:
+
+```
+FROM php:5.6-apache
+
+WORKDIR /var/www/html
+COPY . .
+
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
+ && curl -S https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+ && apt-get update && apt-get install -y unzip git libmcrypt-dev \
+ && docker-php-ext-install pdo pdo_mysql mcrypt \
+ && docker-php-ext-enable mcrypt \
+ && a2enmod rewrite
+
+RUN composer install \ 
+ && chown -R www-data:www-data .  && chmod -R 777 app/storage \
+ && composer update
+```
+
+Esto nos permitirá crear una imagen Docker:
+
+- con PHP 5.6 y Apache
+- con el directorio de trabajo /var/www/html dentro del contenedor
+- con una copia de todo nuestro código fuente en el directorio anterior
+- con la instalación de composer y otros paquetes necesarios
+- con un archivo `composer.lock` generado mediante `composer update`
+
+Para crear una imagen llamada `fp-resultados`, ejecutamos:
+
+```bash
+docker  build  -t fp-resultados  .
+```
+
+La opción `-t  fp-resultados` permite asignar un nombre a la imagen Docker.
+
+El punto final indica que docker debe buscar el archivo `Dockerfile` en el directorio actual.
+
+Para comprobar que se ha creado bien la imagen anterior, ejecutamos:
+
+```bash
+docker images
+```
+
+y debe aparecernos en la lista de imágenes que se muestra.
+
+
+5. Lanza un contenedor que haga uso de la imagen anterior.
+
+```bash
+  docker  run  -d  -p 8888:80 \
+          --name fp \
+          --mount source=fp-volume,target=/var/www/html  fp-resultados
+```
+
+Mapeamos el puerto 8888 al puerto 80 del contenedor. Por tanto, podemos ver la aplicación funcionando en `http://localhost:8888`.
+
+El contenido del directorio `/var/www/html` del contenedor será accesible en el anfitrión como volumen llamado `fp-volume`. Esto nos permite acceder al código fuente de la apliación. Este código aparece en `/var/lib/docker/volumes/fp-volume/_data`. Al tratarse de un directorio del sistema, deberemos acceder a él con permisos de root.
+
+Por tanto, haz:
+
+```bash
+sudo su
+cd  /var/lib/docker/volumes/fp-volume/_data
+ls
+```
+
+![fp-volume](snapshots/fp-volume.png)
+
+
+6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
   
   ```bash
   heroku login  --interactive
@@ -315,33 +397,9 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
   
-  
-**NOTA IMPORTANTE:**
-> Esta aplicación está desarrollada en PHP5, y hace uso de la extensión mcrypt de php.
->
-> La extensión mcrypt es una interfaz para la biblioteca de criptografía mcrypt, que está incluida desde las versiones PHP 5.4 a PHP 7.1. A partir de PHP 7.2, mcrypt ya no es mantenido y se mueve a extensión PECL no oficial (comunitaria).
-> 
-> Mas información: https://www.sololinux.es/instalar-la-extension-mcrypt-en-php-7-4-y-ubuntu/
->
-> Como estamos usando la versión 7.4 de PHP, si deseamos instalar dicha extensión deberiamos seguir las indicaciones que se ofrecen en el enlace anterior.
->
-> Sin embargo, la complejidad y el riesgo de crear conflictos en el sistema hacen que esta opción no sea nada recomendable. En este caso, lo mejor es usar un contenedor docker con php5 como entorno de desarrollo. Esto evita los conflictos en el sistema y simplifica el proceso.
->
-**FIN DE NOTA**
+ 
 
-
-5. Generamos archivo `composer.lock` y descargamos dependencias en directorio `vendor`:
-
-```bash
-composer  update  --ignore-platform-reqs
-```
-
-El *flag* **--ignore-platform-reqs** permite que se descarguen las dependencias basadas en PHP5 aún cuando en nuestro sistema tengamos instalado PHP7, como es el caso habitual en Ubuntu 18.04+.
-
-**NOTA:** Se creará un archivo `composer.lock` y un directorio `vendor` con todas las dependencias.
-
-
-6. Las últimas versiones de Heroku realizan el despliegue sobre un *stack* Ubuntu 18, el cual viene con PHP7. Por tanto no es válido para nuestro despliegue. Deberemos indicar que deseamos desplegar sobre el *stack* Ubuntu 16, que viene con PHP5.
+7. Las últimas versiones de Heroku realizan el despliegue sobre un *stack* Ubuntu 18, el cual viene con PHP7. Por tanto no es válido para nuestro despliegue. Deberemos indicar que deseamos desplegar sobre el *stack* Ubuntu 16, que viene con PHP 5.
 
 Podemos ver los stacks disponibles con la sentencia:
 
@@ -358,8 +416,20 @@ heroku  stack:set  heroku-16
 7. Despliega el código en Heroku.
   
   ```bash
+  git  add .
+  git  commit  -m "Añadido composer.lock`
   git  push  heroku  master
   ```
+
+> **NOTA:**
+>
+> Puesto que estás como usuario `root` (previamente hiciste `sudo su`), es muy problable que se te pida que introduzcas tus credenciales de git.
+> 
+> ```
+> git config --global user.name "Nombre Apellidos"
+> git config --global user.email nombre@example.com
+> ```
+
 
   Dentro de unos instantes podrás acceder a la aplicación en la url `http://nombre_aplicacion.herokuapp.com`. 
   
@@ -371,6 +441,21 @@ heroku  stack:set  heroku-16
   heroku  open
   ```
   
+> **NOTA:**
+> 
+> Una vez desplegada la aplicación, podemos eliminar el contenedor y el volumen asociado.
+>
+> Para ello, vuelve a tu usuario normal ejecutando `exit`.
+> Y luego ejecuta:
+>
+> ```bash
+> docker container rm  fp   -f 
+> docker volume    rm  fp-volume
+> ```
+
+La opción `-f` fuerza la eliminación del contenedor.
+
+
 8. ¿Y los datos?
   
   Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
