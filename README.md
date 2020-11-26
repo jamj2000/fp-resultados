@@ -314,7 +314,20 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```
   
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
- 
+  
+  
+**NOTA IMPORTANTE:**
+> Esta aplicación hace uso de la extensión mcrypt de php.
+>
+> La extensión mcrypt es una interfaz para la biblioteca de criptografía mcrypt, que está incluida desde las versiones PHP 5.4 a PHP 7.1. A partir de PHP 7.2, mcrypt ya no es mantenido y se mueve a extensión PECL no oficial (comunitaria).
+> 
+> Mas información: https://www.sololinux.es/instalar-la-extension-mcrypt-en-php-7-4-y-ubuntu/
+>
+> Como estamos usando la versión 7.4 de PHP, si deseamos instalar dicha extensión deberiamos seguir las indicaciones que se ofrecen en el enlace anterior.
+>
+**FIN DE NOTA**
+
+
 5. Generamos archivo `composer.lock` y descargamos dependencias en directorio `vendor`:
 
 ```bash
