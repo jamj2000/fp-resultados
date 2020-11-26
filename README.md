@@ -382,6 +382,11 @@ ls
 
 ![fp-volume](snapshots/fp-volume.png)
 
+Observa que aparecen un archivo `composer.lock` y una carpeta `vendor` que no estaban en el código fuente original.
+
+El archivo `composer.lock` especifica las versiones concretas para cada una de las dependencias.
+
+La carpeta `vendor` contiene cada una de las dependencias de la aplicación. Esta carpeta no se sube al repositorio git. Por tanto, cuando subamos el código fuente a Heroku, éste leerá el archivo `composer.lock` y volverá a obtener las dependencias, guardándolas en la carpeta `vendor` remota.
 
 6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
   
