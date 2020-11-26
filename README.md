@@ -382,6 +382,8 @@ ls
 
 ![fp-volume](snapshots/fp-volume.png)
 
+Observa que aparecen el archivo `composer.lock` y la carpeta `vendor`, que no estaban en el código fuente original.
+
 
 6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
   
