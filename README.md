@@ -495,9 +495,9 @@ La opción `-f` fuerza la eliminación del contenedor.
   - Comprueba que el resultado es correcto.
   
   ```bash
-  mysql -h database.host -D database.name -u database.user -pdatabase.password
+  mysql -h databasehost -D databasename -u databaseuser -pdatabasepassword
   ```
-  Sustituye _database.host_,  _database.name_,  _database.user_ y _database.password_ por los valores adecuados.
+  Sustituye _databasehost_,  _databasename_,  _databaseuser_ y _databasepassword_ por los valores adecuados.
   
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
