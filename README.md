@@ -299,9 +299,9 @@ docker run --rm -i \
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
-Si deseas hacer un despligue usando los servicios proporcionados por los sitios anteriores, sigue estos pasos: 
+Si deseas hacer un despligue usando los servicios proporcionados por los sitios anteriores, **sigue estos pasos**: 
 
-1. Create una cuenta en Heroku. Éste tiene varios [planes](https://www.heroku.com/pricing). Registrate en el plan Free, que aunque está algo limitado es gratis.
+1. Crea una cuenta en Heroku. Éste tiene varios [planes](https://www.heroku.com/pricing). Registrate en el plan Free, que aunque está algo limitado es gratis.
 
 2. Instala la herramienta `heroku-cli`. En [este enlace](https://devcenter.heroku.com/articles/heroku-cli) tienes la información necesaria.
 
@@ -311,9 +311,9 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   cd   fp-resultados
   ```
 
-4. OPCIONAL. 
+4. *OPCIONAL*. 
 
-Este paso y el siguiente son OPCIONALES. Sólo deberemos realizar los pasos 4 y 5 en caso de no disponer del archivo `composer.lock` en el repositorio. 
+> NOTA: Este paso y el siguiente son OPCIONALES. Sólo deberemos realizar los pasos 4 y 5 en caso de no disponer del archivo `composer.lock` en el repositorio. 
 
 El archivo `composer.lock` especifica las versiones concretas para cada una de las dependencias.
 
@@ -361,7 +361,7 @@ Para comprobar que se ha creado bien la imagen anterior, ejecutamos:
 docker images
 ```
 
-5. OPCIONAL.
+5. *OPCIONAL*.
 
 Para generar el archivo `composer.lock` debemos ejecutar un contenedor basado en la imagen anterior. Para ello ejecutamos:
 
