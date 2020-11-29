@@ -420,7 +420,7 @@ git  commit  -m "Añadido composer.lock"
 
 > **NOTA 2:**
 >
-> Si en lugar de generar un archivo `composer.lock` deseamos disponer de un contenedor
+> Si en lugar de generar un archivo `composer.lock`, deseamos disponer de un contenedor
 > para realizar desarrollo con PHP5, podemos usar [Dockerfile.dev](Dockerfile.dev) 
 > como método alternativo.
 >
@@ -475,12 +475,12 @@ git  commit  -m "Añadido composer.lock"
   > heroku apps:destroy  nombre_aplicacion --confirm nombre_aplicacion
   > ```
 
-  Comprobamos que tenemos asociado el repositorio Git remote de Heroku:
+  Comprobamos que tenemos asociado el repositorio Git remoto de Heroku:
   ```bash
   git remote -v
   ```
 
-  Si no es así, añadimos el `repositorio git` que proporciona Heroku.
+  Si no es así, añadimos el repositorio git que proporciona Heroku.
   ```bash
   git  remote  add  heroku  https://git.heroku.com/nombre_aplicacion.git
   ```
