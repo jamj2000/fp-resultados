@@ -289,11 +289,11 @@ docker run --rm -i \
 
 > **NOTA IMPORTANTE:**
 >
-> Esta aplicación y sus dependencias hacen uso de PHP 5. Puesto que actualmente se usa la versión PHP 7 en Ubuntu 18.04+, el código fuente aquí disponible se considera código *legacy*.
+> Esta aplicación y sus dependencias hacen uso de PHP 5, por tanto, el código fuente aquí disponible se considera código *legacy*. 
 >
-> Esto provoca que su despliegue en un entorno de desarrollo local necesite de Ubuntu 16.04 con PHP 5. Instalar una máquina con dicho entorno es algo engorroso. Por tanto, usaremos Docker para obtener un entorno de desarrollo con PHP 5.
+> Puesto que actualmente en Ubuntu 18.04+ se usa la versión PHP 7, dicho entorno no nos sirve para su despliegue local.
 >
-> Usaremos este [Dockerfile](Dockerfile). A partir de él generaremos una imagen Docker y luego lanzaremos un contenedor basado en dicha imagen.
+> Para su despliegue local necesitamos Ubuntu 16.04 con PHP 5. Instalar una máquina con dicho entorno es algo engorroso. En su lugar, puede usarse un contenedor Docker para obtener un entorno de desarrollo con PHP 5.
 >
 
 
@@ -311,9 +311,13 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   cd   fp-resultados
   ```
 
-4. Genera una imagen Docker a partir de **Dockerfile**
+4. OPCIONAL. 
 
-El contenido del archivo **`Dockerfile`** es el siguiente:
+Este paso y el siguiente son OPCIONALES. Sólo deberemos realizar los pasos 4 y 5 en caso de no disponer del archivo `composer.lock` en el repositorio. 
+
+El archivo `composer.lock` especifica las versiones concretas para cada una de las dependencias.
+
+Podemos generarlo haciendo uso de un contenedor Docker generado a partir de la imagen definida en el siguiente **`Dockerfile`**:
 
 ```
 FROM php:5.6-apache
@@ -338,10 +342,10 @@ Esto nos permitirá crear una imagen Docker:
 - con PHP 5.6 y Apache
 - con el directorio de trabajo `/var/www/html` dentro del contenedor
 - con una copia de todo nuestro código fuente en el directorio anterior
-- con la instalación de composer y otros paquetes necesarios
-- con un archivo `composer.lock` generado mediante `composer update`
+- con la instalación de `composer` y otros paquetes necesarios
+- con un archivo `composer.lock` generado mediante `composer install`
 
-Para crear una imagen llamada `fp-resultados`, ejecutamos:
+Para crear una imagen Docker llamada `fp-resultados`, ejecutamos:
 
 ```bash
 docker  build  -t fp-resultados  .
@@ -357,7 +361,9 @@ Para comprobar que se ha creado bien la imagen anterior, ejecutamos:
 docker images
 ```
 
-5. Lanza un contenedor que haga uso de la imagen anterior.
+5. OPCIONAL.
+
+Para generar el archivo `composer.lock` debemos ejecutar un contenedor basado en la imagen anterior. Para ello ejecutamos:
 
 ```bash
   docker  run  -d \
@@ -372,30 +378,109 @@ Mapeamos el puerto 8888 al puerto 80 del contenedor. Por tanto, podemos ver la a
 
 El contenido del directorio `/var/www/html` del contenedor será accesible en el anfitrión como volumen llamado `fp-volume`. Esto nos permite acceder al código fuente de la aplicación. Este código aparece en `/var/lib/docker/volumes/fp-volume/_data`. Al tratarse de un directorio del sistema, deberemos acceder a él con permisos de root.
 
-Por tanto, ejecuta:
+Para ver el contenido de dicho directorio, ejecutamos:
 
 ```bash
-sudo su
-cd  /var/lib/docker/volumes/fp-volume/_data
-ls
+sudo  ls  /var/lib/docker/volumes/fp-volume/_data
 ```
 
 ![fp-volume](snapshots/fp-volume.png)
 
 Observa que aparecen un archivo `composer.lock` y una carpeta `vendor` que no estaban en el código fuente original.
 
-El archivo `composer.lock` especifica las versiones concretas para cada una de las dependencias.
-
 La carpeta `vendor` contiene cada una de las dependencias de la aplicación. Esta carpeta no se sube al repositorio git. Por tanto, cuando subamos el código fuente a Heroku, éste leerá el archivo `composer.lock` y volverá a obtener las dependencias, guardándolas en la carpeta `vendor` remota.
 
-6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. 
+
+Para copiar el archivo `composer.lock` a nuestro directorio
+
+```bash
+sudo  cp  /var/lib/docker/volumes/fp-volume/_data/composer.lock  .
+```
+
+Para añadir el archivo anterior al repositorio, ejecutamos:
+
+```bash
+git  add  .
+git  commit  -m "Añadido composer.lock"
+```  
+
+> **NOTA:**
+> 
+> Una vez obtenido y copiado el archivo `composer.lock`, podemos eliminar el contenedor y el volumen asociado.
+>
+> Para ello, ejecuta:
+>
+> ```bash
+> docker container rm  fp-app -f 
+> docker volume    rm  fp-volume
+> ```
+>
+> La opción `-f` fuerza la eliminación del contenedor.
+
+
+> **NOTA 2:**
+>
+> Si en lugar de generar un archivo `composer.lock` deseamos disponer de un contenedor
+> para realizar desarrollo con PHP5, podemos usar [Dockerfile.dev](Dockerfile.dev) 
+> como método alternativo.
+>
+> Para generar el entorno de desarrollo hacemos:
+>
+> 1. Creamos imagen y lanzamos contenedor:
+> ```bash
+> docker build  -t fp-resultados.dev -f Dockerfile.dev  .
+> docker run  --name php5dev  -d -v  `pwd`:/var/www/html -p 8000:80 fp-resultados.dev
+> ```
+>
+> 2. Ejecutamos `composer update` y damos permisos de escritura a `app/storage`:
+> ```bash
+> docker exec -it php5dev composer update
+> docker exec -it php5dev chmod -R 777 app/storage
+> ```
+>
+> 3. Revisamos el archivo `app/config/local/database.php` para establecer los parámetros
+> de la base de datos.  
+> ```bash
+> nano  app/config/local/database.php
+> ```
+>
+> 4. Reiniciamos apache2
+> ```bash
+> docker exec -it php5dev apache2ctl restart
+> ```
+> 
+> Ya podemos editar el código PHP de la aplicación y ver el resultado en 
+> http://localhost:8000
+>
+
+6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. Lo haremos desde CLI (Command Line Interface).
   
+  Para iniciar sesión en Heroku 
   ```bash
   heroku login  --interactive
-  heroku create --region eu  nombre_aplicacion
+  ```
+ 
+  Para crear una aplicación:
+  ```bash
+  heroku apps:create  --region eu  nombre_aplicacion
   ```
   
-  Añadimos el `repositorio git` que proporciona Heroku.
+  Podemos ver las aplicaciones creadas con:
+  ```bash
+  heroku apps
+  ```
+
+  > NOTA: Si deseamos eliminar una aplicación, podemos hacerlo con:
+  > ```bash
+  > heroku apps:destroy  nombre_aplicacion --confirm nombre_aplicacion
+  > ```
+
+  Comprobamos que tenemos asociado el repositorio Git remote de Heroku:
+  ```bash
+  git remote -v
+  ```
+
+  Si no es así, añadimos el `repositorio git` que proporciona Heroku.
   ```bash
   git  remote  add  heroku  https://git.heroku.com/nombre_aplicacion.git
   ```
@@ -421,20 +506,8 @@ heroku  stack:set  heroku-16
 7. Despliega el código en Heroku.
   
   ```bash
-  git  add .
-  git  commit  -m "Añadido composer.lock`
   git  push  heroku  master
   ```
-
-> **NOTA:**
->
-> Puesto que estás como usuario `root` (previamente hiciste `sudo su`), es muy problable que se te pida que introduzcas tus credenciales de git.
-> 
-> ```
-> git config --global user.name "Nombre Apellidos"
-> git config --global user.email nombre@example.com
-> ```
-
 
   Dentro de unos instantes podrás acceder a la aplicación en la url `http://nombre_aplicacion.herokuapp.com`. 
   
@@ -445,22 +518,6 @@ heroku  stack:set  heroku-16
   ```bash
   heroku  open
   ```
-  
-> **NOTA:**
-> 
-> Una vez desplegada la aplicación, podemos eliminar el contenedor y el volumen asociado.
->
-> Para ello, vuelve a tu usuario normal ejecutando `exit`.
->
-> Y luego ejecuta:
->
-> ```bash
-> docker container rm  fp-app -f 
-> docker volume    rm  fp-volume
-> ```
-
-La opción `-f` fuerza la eliminación del contenedor.
-
 
 8. ¿Y los datos?
   
@@ -495,14 +552,14 @@ La opción `-f` fuerza la eliminación del contenedor.
   - Comprueba que el resultado es correcto.
   
   ```bash
-  mysql -h databasehost -D databasename -u databaseuser -pdatabasepassword
+  mysql -h database_host -D database_name -u database_user -pdatabase_password
   ```
-  Sustituye _databasehost_,  _databasename_,  _databaseuser_ y _databasepassword_ por los valores adecuados.
+  Sustituye *database_host*,  *database_name*,  *database_user* y *database_password* por los valores adecuados.
   
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-11. Asegúrate que en el archivo ```/var/www/html/fp-resultados/app/config/database.php``` contiene la siguiente configuración:
+11. Asegúrate que en el archivo ```app/config/database.php``` contiene la siguiente configuración:
 
   ```php
              'mysql' => array(
