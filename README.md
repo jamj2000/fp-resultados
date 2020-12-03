@@ -406,16 +406,19 @@ git  commit  -m "Añadido composer.lock"
 
 > **NOTA:**
 > 
-> Una vez obtenido y copiado el archivo `composer.lock`, podemos eliminar el contenedor y el volumen asociado.
+> Una vez obtenido y copiado el archivo `composer.lock`, podemos eliminar el contenedor, el volumen asociado y la imagen.
 >
 > Para ello, ejecuta:
 >
 > ```bash
 > docker container rm  fp-app -f 
 > docker volume    rm  fp-volume
+> docker image     rm  fp-resultados
 > ```
 >
 > La opción `-f` fuerza la eliminación del contenedor.
+>
+
 
 
 > **NOTA 2:**
@@ -554,12 +557,12 @@ heroku  stack:set  heroku-16
   ```bash
   mysql -h database_host -D database_name -u database_user -pdatabase_password
   ```
-  Sustituye *database_host*,  *database_name*,  *database_user* y *database_password* por los valores adecuados.
+  **NOTA**: Sustituye *database_host*,  *database_name*,  *database_user* y *database_password* por los valores que aparecen en tu configuración de GearHost.
   
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-11. Asegúrate que en el archivo ```app/config/database.php``` contiene la siguiente configuración:
+11. Asegúrate que el archivo `app/config/database.php` contiene, entre otras, la siguiente configuración:
 
   ```php
              'mysql' => array(
@@ -575,12 +578,60 @@ heroku  stack:set  heroku-16
                         'prefix'    => '',
                 ),
   ```
+  Ésta es la configuración para la base de datos usada en producción.
+  
+  > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
+  
 
-12. Vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior. Después pulsa en el boton `More` y luego en `Restart all dynos`, en la parte superior derecha de la página.
+12. Configura las variables de entorno (llamadas config var en Heroku).
+
+Para ello puedes usar uno de los siguientes métodos:
+- Interfaz de Línea de Comandos (CLI) 
+- Interfaz Web
+
+**CLI**
+
+Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` y `PRODUCTION`.
+
+Por ejemplo:
+
+```bash
+heroku config:set DB_HOST=den...gear.host
+heroku config:set DB_PORT=3306
+heroku config:set DB_NAME=basedatos
+heroku config:set DB_USER=usuario
+heroku config:set DB_PASS=clave
+heroku config:set PRODUCTION=true
+```
+
+**NOTA**: Para cada variable sustituye su valor por el que aparece en tu configuración de GearHost. Añade además la variable `PRODUCTION` con valor `true`.
+
+Para ver las variables configuradas, ejecutamos:
+
+```bash
+heroku config
+```
+
+![heroku config](snapshots/heroku-config.png)
+
+
+> NOTA: Si deseamos eliminar una variable, lo hacemos con
+>
+> ```bash
+> heroku config:unset NOMBRE_VARIABLE
+> ```
+
+
+
+**Interfaz Web**
+
+Si configurar las variables de entorno mediante CLI no te llama la atención, siempre puedes hacerlo mediante intefaz Web. 
+
+Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación y pincha en el apartado `Settings` y luego en el botón `Reveal Config Vars`. Crea las variables de entorno que se muestran a continuación con los datos que recopilaste en el apartado anterior. Después pulsa en el boton `More` y luego en `Restart all dynos`, en la parte superior derecha de la página.
 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
-  Ponemos la variable de entorno **PRODUCTION** a true. El archivo `bootstrap/start.php` busca esta variable. 
+  Ponemos la variable de entorno **`PRODUCTION`** a `true`. El archivo `bootstrap/start.php` busca esta variable. 
   Si existe lanza la aplicación en modo producción y utiliza la base de datos remota. 
   Si no existe lanza la aplicación en modo local y usa la base de datos local.
 
