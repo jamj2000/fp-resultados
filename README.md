@@ -1,4 +1,4 @@
-# fp-resultados
+# FP Resultados
 
 ![Laravel 4.2](https://img.shields.io/badge/Laravel-4.2-red?style=for-the-badge&logo=LARAVEL)
 ![PHP 5.6](https://img.shields.io/badge/PHP-5.6-red?style=for-the-badge&logo=PHP)
