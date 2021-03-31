@@ -1,4 +1,9 @@
 # fp-resultados
+
+![Laravel 4.2](https://img.shields.io/badge/Laravel-4.2-red?style=for-the-badge&logo=LARAVEL)
+![PHP 5.6](https://img.shields.io/badge/PHP-5.6-red?style=for-the-badge&logo=PHP)
+![COMPOSER 1.x](https://img.shields.io/badge/composer-1.x-orange?style=for-the-badge&logo=composer)
+
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
 ## Repositorios relacionados
