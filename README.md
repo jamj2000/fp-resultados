@@ -1,16 +1,8 @@
 # FP Resultados
 
-![Laravel 4.2](https://img.shields.io/badge/Laravel-4.2-red?style=for-the-badge&logo=LARAVEL)
-![PHP 5.6](https://img.shields.io/badge/PHP-5.6-red?style=for-the-badge&logo=PHP)
-![COMPOSER 1.x](https://img.shields.io/badge/composer-1.x-orange?style=for-the-badge&logo=composer)
-
-> **IMPORTANTE: Código obsoleto.**
->
-> Este código es para Laravel 4.2 y PHP 5.6. 
-> 
-> En su lugar, deberías hacer uso del código actualizado, disponible en:
-> - https://github.com/jamj2000/fp-resultados
-
+![Laravel 8.0](https://img.shields.io/badge/Laravel-8.0-red?style=for-the-badge&logo=LARAVEL)
+![PHP 8.0](https://img.shields.io/badge/PHP-8.0-red?style=for-the-badge&logo=PHP)
+![COMPOSER 2.x](https://img.shields.io/badge/composer-2.x-orange?style=for-the-badge&logo=composer)
 
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
@@ -64,180 +56,12 @@ Algunos de ellos son tutores de algún curso, otros no. Los que son tutores pued
 Si deseas comprobar las posibilidades para el/los usuarios administradores deberás instalarte la aplicación en tu equipo local y probarla ahí.
 
 
-## Despliegue en equipo local
-
-Este proyecto se desarrolló durante el año 2015, por lo tanto tiene ya algunos años. Es un proyecto realizado en **PHP** con el **Framework Laravel 4.2**. Debido a esto es requisito usar la versión **PHP5** en lugar de la versión PHP 7 actual. La mayoría de las distribuciones modernas ya vienen con PHP 7. Así que si deseamos instalar la versión 5 deberemos añadir los repositorios adecuados. 
-
-Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
-
-0) Prerrequisito de PHP 5.
-
-Para instalar la versión 5 de PHP, debemos añadir los repositorios adecuados. Por ejemplo, para Ubuntu 18.04 hacemos:
-
-```bash
-sudo add-apt-repository -y ppa:ondrej/php
-sudo apt update
-```
-
-1) Instala los paquetes necesarios para tener un servidor Apache+PHP+MySQL
-
-```bash
-sudo apt-get install apache2 mysql-server php5.6 php5.6-mysql php5.6-mcrypt mcrypt curl git
-```
-
-**NOTA:** De aquí en adelante, por simplicidad, no repetiré en cada comando la orden `sudo`. Sin embargo **todas los pasos y operaciones realizadas a continuación deben realizarse con perfil de superusuario**. 
-
-
-2) Configura el archivo /etc/apache2/apache2.conf, para que aparezca
-
-```apache
-<Directory /var/www/>
-  Options Indexes FollowSymLinks
-  AllowOverride All
-  Require all granted
-</Directory>
-```
- 
-3) Activa módulos de Apache y reinicia servidor
-
-```bash
-a2enmod rewrite
-phpenmod mcrypt
-systemctl restart apache2
-``` 
- 
-4) Descarga código del repositorio [fp-resultados](https://github.com/jamj2000/fp-resultados)
-
-```bash
-cd /var/www/html
-git clone https://github.com/jamj2000/fp-resultados.git
-```
-
-5) Entra en el directorio donde se ha descargado el código y da permisos de escritura al subdirectorio app/storage
-
-```bash
-cd /var/www/html/fp-resultados
-chmod -R 777 app/storage
-```
-
-6) Instala el software `composer`.
-
-```bash
-curl -sS  https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-```
-
-7) Instala las dependencias necesarias 
-
-```bash
-cd /var/www/html/fp-resultados
-composer install
-```
-
-Esto nos permite comprobar las dependencias especificadas en el archivo `composer.json` e instalar los paquetes enumerados en ese archivo, recreando el entorno que se estaba utilizando por última vez.
-
-Si todo ha ido bien, se creará una carpeta llamada `vendor` con todos los paquetes que necesita la aplicación como dependencias.
-
-8) Prueba en el navegador [http://localhost/fp-resultados/public](http://localhost/fp-resultados/public)
-
-9) Descarga datos de ejemplo del repositorio [fp-resultados.datos](https://github.com/jamj2000/fp-resultados.datos)
-
-```bash
-cd /var/www/html
-git clone https://github.com/jamj2000/fp-resultados.datos.git
-```
-
-10) Revisa el script ```database.sh``` para modificar tu usuario y clave de mysql
-
-```bash
-cd /var/www/html/fp-resultados.datos
-nano database.sh
-```
-11) Ejecuta el script ```database.sh```
-
-```bash
-chmod +x database.sh
-./database.sh
-```
-
-12) Recuerda que los valores previos también deben hallarse en el archivo ```/var/www/html/fp-resultados/app/config/local/database.php```. Por ejemplo para usuario root y clave root. Modifica los valores según hayas hecho en ```database.sh```.
-
-```php
-               'mysql' => array(
-                        'driver'    => 'mysql',
-                        'host'      => 'localhost',
-                        'port'      => '3306',
-                        'database'  => 'fp',
-                        'username'  => 'root',
-                        'password'  => 'root',
-                        'charset'   => 'utf8',
-                        'charset'   => 'utf8',
-                        'collation' => 'utf8_unicode_ci',
-                        'prefix'    => '',
-                ),
-
-```
-
-13) Si necesitas establecer o cambiar una clave en MySQL, puedes hacerlo con el comando de mysql:
-
-**`ALTER USER '`usuario`'@'localhost' IDENTIFIED WITH mysql_native_password BY '`clave`';`**
-
-En las últimas versiones el sistema de autenticación ha sido cambiado de forma significativa respecto a versiones anteriores. Si instalas la version 5.7 o superior de mysql, usará el plugin auth_socket y no proporcionará una contraseña al usuario root. Pero nosotros queremos ponerle una contraseña.
-
-**Para ello necesitamos cambiar el plugin y establecer la contraseña al mismo tiempo, en el mismo comando**. Primero, cambiar el plugin y luego configurar la contraseña no funcionará, y volverá a caer en auth_socket.
-
-
-Por ejemplo para el usuario root hacemos:
-```
-sudo mysql -u root
-
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
-mysql> FLUSH PRIVILEGES;
-
-mysql> SELECT User, Host, plugin FROM mysql.user;
-+------------------+-----------+-----------------------+
-| User             | Host      | plugin                |
-+------------------+-----------+-----------------------+
-| root             | localhost | mysql_native_password |
-| mysql.session    | localhost | mysql_native_password |
-| mysql.sys        | localhost | mysql_native_password |
-| debian-sys-maint | localhost | mysql_native_password |
-| jose             | localhost | auth_socket           |
-+------------------+-----------+-----------------------+
-5 rows in set (0.00 sec)
-
-mysql> SELECT User, Host, authentication_string FROM mysql.user;
-+------------------+-----------+-------------------------------------------+
-| User             | Host      | authentication_string                     |
-+------------------+-----------+-------------------------------------------+
-| root             | localhost | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |
-| mysql.session    | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
-| mysql.sys        | localhost | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
-| debian-sys-maint | localhost | *B117D4112EFD856563A869CC76ABE86FCA0735C2 |
-| jose             | localhost | *9B7E9CB5C7418FF658BE5C710AC2A3688DFAABF8 |
-+------------------+-----------+-------------------------------------------+
-5 rows in set (0.00 sec)
-
-mysql> exit;
-
-systemctl restart mysql
-```
-
-Si el usuario no existe, utilizar `CREATE` en lugar de `ALTER`.
-
-> REFERENCIA: He dado con la solución al problema anterior en el siguiente enlace, después de haber visitado media internet:
->
-> - https://www.percona.com/blog/2016/03/16/change-user-password-in-mysql-5-7-with-plugin-auth_socket/
-
-
-> NOTA: En algunos casos está habilitada una **política de contraseñas** bastante estricta, del tipo: introducir al menos 8 caracteres, minúsculas y mayúsculas, dígitos y caracteres no alfanuméricos. Podemos deshabilitarla con:
->
->```
->mysql> uninstall plugin validate_password;
->```
-
-
 ## Despliegue en Docker
+
+> **NOTA IMPORTANTE:**
+>
+> Este apartado no tiene información actualizada, necesita ser revisado. Por tanto, no debe tenerse en consideración. Cuando sea actualizado se eliminará esta nota.
+> 
 
 También puedes desplegar la aplicación con Docker. Existe una imagen para la aplicación web y otra para la base de datos.
 
@@ -302,12 +126,8 @@ docker run --rm -i \
 
 > **NOTA IMPORTANTE:**
 >
-> Esta aplicación y sus dependencias hacen uso de PHP 5, por tanto, el código fuente aquí disponible se considera código *legacy*. 
->
-> Puesto que actualmente en Ubuntu 18.04+ se usa la versión PHP 7, dicho entorno no nos sirve para su despliegue local.
->
-> Para su despliegue local necesitamos Ubuntu 16.04 con PHP 5. Instalar una máquina con dicho entorno es algo engorroso. En su lugar, puede usarse un contenedor Docker para obtener un entorno de desarrollo con PHP 5.
->
+> Este apartado no tiene información actualizada, necesita ser revisado. Por tanto, no debe tenerse en consideración. Cuando sea actualizado se eliminará esta nota.
+> 
 
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
@@ -575,21 +395,24 @@ heroku  stack:set  heroku-16
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-11. Asegúrate que el archivo `app/config/database.php` contiene, entre otras, la siguiente configuración:
+11. Asegúrate que el archivo `config/database.php` contiene, entre otras, la siguiente configuración:
 
   ```php
-             'mysql' => array(
-                        'driver'    => 'mysql',
-                        'host'      => getenv('DB_HOST'),
-                        'port'      => getenv('DB_PORT'),
-                        'database'  => getenv('DB_NAME'),
-                        'username'  => getenv('DB_USER'),
-                        'password'  => getenv('DB_PASS'),
-                        'charset'   => 'utf8',
-                        'charset'   => 'utf8',
-                        'collation' => 'utf8_unicode_ci',
-                        'prefix'    => '',
-                ),
+
+    'default' => env('DB_CONNECTION', 'mysql'),
+
+    // ...
+
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
   ```
   Ésta es la configuración para la base de datos usada en producción.
   
@@ -657,15 +480,6 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
   ![fp-resultados profe9](snapshots/heroku-fp-resultados-2.png)
   
 
-## Despliegue en Openshift (Desactualizado)
-
-Si quieres conocer los detalles técnicos acerca de cómo desplegué esta aplicación en OPENSHIFT puedes seguir [este tutorial](https://github.com/jamj2000/fp-resultados/blob/master/INSTALACION.md) explicando los pasos principales. **Actualmente la guía no es correcta, puesto que la plataforma actualizó toda su infraestructura.**
-
-
-## Desarrollo de la aplicación con Laravel 4.2
-
-Si quieres conocer los detalles técnicos acerca de cómo he creado está aplicación puedes seguir [este tutorial](https://github.com/jamj2000/fp-resultados/blob/master/DESARROLLO.md) explicando los conceptos principales. Te ayudará a entender el código fuente.
-
 
 # Licencia
 
@@ -676,3 +490,4 @@ Si quieres conocer los detalles técnicos acerca de cómo he creado está aplica
 - Código            GPL-3         José Antonio Muñoz Jiménez
 - Iconos FlatWoken  CC BY-SA 4.0  Alessandro Roncone         
 ```
+
