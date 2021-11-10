@@ -82,7 +82,7 @@ git  clone  https://github.com/jamj2000/fp-resultados.datos.git  data
 docker-compose  up  -d
 
 # Insertamos datos en el volumen asociado a B
-docker  exec  fpresultados_bd_1  /data/database.sh
+docker  exec  fpresultados_bd_1  /var/www/html/data/database.sh
 ```
 
 ![docker compose](snapshots/docker-compose.png)
