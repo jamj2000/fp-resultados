@@ -68,21 +68,20 @@ También puedes desplegar la aplicación con Docker. Existe una imagen para la a
 Para descargar las imágenes y lanzar los contenedores, ejecuta:
 
 
-```
+```shell
 # Descargamos código fuente de la aplicación
 git  clone  https://github.com/jamj2000/fp-resultados.git
 
+# Entramos en carpeta de código fuente
 cd fp-resultados
 
 # Descargamos datos de la BD en directorio data
 git  clone  https://github.com/jamj2000/fp-resultados.datos.git  data
 
+# Construimos imagen docker y lanzamos contenedor
 docker-compose  up  -d
-```
 
-Para insertar los datos en el volumen asociado a MySQL ejecuta:
-
-```
+# Insertamos datos en el volumen asociado a B
 docker  exec  fpresultados_bd_1  /data/database.sh
 ```
 
