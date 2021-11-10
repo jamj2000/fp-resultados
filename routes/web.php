@@ -33,6 +33,7 @@ Route::get('/', function() {
 Route::get('login',   [LoginController::class, 'show'] );
 Route::post('login',  [LoginController::class, 'login'] );
 
+Route::get('informes', [InformesController::class, 'htmlPdf'] );
 
 // Ruta protegidas
 // Route::get('logout',  [LoginController::class, 'logout'] )->middleware('auth');
@@ -67,7 +68,10 @@ Route::group(['middleware' => ['auth']], function () {
         'index', 'edit', 'update'
     ]);
 
-    // Route::resource('informes',   InformesController::class);
+    // Route::resource('informes',   InformesController::class)->only([
+    //     'htmlPdf'
+    // ]);
+
 });
 
 

@@ -1,7 +1,8 @@
-version: "2"
+version: "3"
 services:
   web:
     image: fp
+    build: .
     ports:
       - "8888:80"
     restart: always
@@ -9,9 +10,9 @@ services:
       - PRODUCTION=true
       - DB_HOST=bd
       - DB_PORT=3306
-      - DB_NAME=fp
-      - DB_USER=root
-      - DB_PASS=root
+      - DB_DATABASE=fp
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
     depends_on:
       - bd
   bd:
@@ -21,3 +22,5 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - /var/lib/mysql:/var/lib/mysql
+      - ./data:/data
+    working_dir: /data
