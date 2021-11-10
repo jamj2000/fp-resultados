@@ -69,9 +69,13 @@ Para descargar las imágenes y lanzar los contenedores, ejecuta:
 
 
 ```
+# Descargamos código fuente de la aplicación
 git  clone  https://github.com/jamj2000/fp-resultados.git
 
-cd fp-resultados.git
+cd fp-resultados
+
+# Descargamos datos de la BD en directorio data
+git  clone  https://github.com/jamj2000/fp-resultados.datos.git  data
 
 docker-compose  up  -d
 ```
