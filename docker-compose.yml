@@ -15,12 +15,17 @@ services:
       - DB_PASSWORD=root
     depends_on:
       - bd
+#    volumes:
+#      - ./:/var/www/html
   bd:
     image: mariadb
     environment:
       - MYSQL_DATABASE=fp
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - /var/lib/mysql:/var/lib/mysql
+      - fpdatabase:/var/lib/mysql
       - ./data:/data
     working_dir: /data
+
+volumes:
+    fpdatabase:

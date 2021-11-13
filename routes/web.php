@@ -33,7 +33,7 @@ Route::get('/', function() {
 Route::get('login',   [LoginController::class, 'show'] );
 Route::post('login',  [LoginController::class, 'login'] );
 
-Route::get('informes', [InformesController::class, 'htmlPdf'] );
+//Route::get('informes', [InformesController::class, 'htmlPdf'] );
 
 // Ruta protegidas
 // Route::get('logout',  [LoginController::class, 'logout'] )->middleware('auth');
@@ -68,9 +68,13 @@ Route::group(['middleware' => ['auth']], function () {
         'index', 'edit', 'update'
     ]);
 
-    // Route::resource('informes',   InformesController::class)->only([
-    //     'htmlPdf'
-    // ]);
+    Route::resource('informes',   InformesController::class);
+
+    Route::get('informes/evaluacion/{curso}/{medio}', [InformesController::class, 'evaluacion']);
+    Route::post('informes/evaluaciones', [InformesController::class, 'evaluaciones']);
+    
+    Route::get('informes/calificaciones/{id}', [InformesController::class, 'calificaciones']);
+    Route::post('informes/calificacionesvarias/{curso}', [InformesController::class, 'calificacionesvarias']);
 
 });
 
