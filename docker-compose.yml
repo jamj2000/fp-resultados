@@ -1,7 +1,7 @@
 version: "2"
 services:
   web:
-    image: jamj2000/web:fp-resultados
+    image: jamj2000/web:fp-resultados-old
     ports:
       - "8888:80"
     restart: always
@@ -15,7 +15,7 @@ services:
     depends_on:
       - bd
   bd:
-    image: jamj2000/mysql:fp-resultados
+    image: jamj2000/mysql:fp-resultados-old
     environment:
       - MYSQL_DATABASE=fp
       - MYSQL_ROOT_PASSWORD=root
