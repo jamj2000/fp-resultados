@@ -25,9 +25,7 @@ __fp-resultados__ es una aplicación web destinada al profesorado de Formación 
 
 ![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
 
-Existe una aplicación funcional alojada en [heroku.com](http://fp-resultados.herokuapp.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Si esto ocurre volver a intentar de nuevo. 
-
-![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.png "Logo de ejemplo")
+Existe una aplicación funcional alojada en [heroku.com](http://fp-resultados-old.herokuapp.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Si esto ocurre volver a intentar de nuevo. 
 
 La aplicación es funcional y dispone de numerosas características.
 
@@ -40,7 +38,7 @@ La aplicación es funcional y dispone de numerosas características.
 
 
 ### Probar la aplicación de demostración
-Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados.herokuapp.com](http://fp-resultados.herokuapp.com).
+Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados-old.herokuapp.com](http://fp-resultados-old.herokuapp.com).
 
 Para entrar debes introducir un correo y contraseña.
 Puedes utilizar cualquiera de los siguientes (correos ficticios):
@@ -66,9 +64,14 @@ Si deseas comprobar las posibilidades para el/los usuarios administradores deber
 
 ## Despliegue en equipo local
 
-Este proyecto se desarrolló durante el año 2015, por lo tanto tiene ya algunos años. Es un proyecto realizado en **PHP** con el **Framework Laravel 4.2**. Debido a esto es requisito usar la versión **PHP5** en lugar de la versión PHP 7 actual. La mayoría de las distribuciones modernas ya vienen con PHP 7. Así que si deseamos instalar la versión 5 deberemos añadir los repositorios adecuados. 
+Este proyecto se desarrolló durante el año 2015, por lo tanto tiene ya algunos años. Es un proyecto realizado en **PHP** con el **Framework Laravel 4.2**. Debido a esto es requisito usar la versión **PHP5** en lugar de la versión PHP 7 actual. La mayoría de las distribuciones modernas ya vienen con PHP 7 u 8. Así que si deseamos instalar la versión 5 deberemos añadir los repositorios adecuados. 
 
-Si estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
+> **IMPORTANTE: Código obsoleto.**
+> 
+> No se recomienda realizar los pasos siguientes. Está disponible una versión más moderna en este repositorio.
+
+
+Si aún así estás interesado en probar la aplicación en tu equipo local, aquí tienes los pasos a seguir para PC con distro Ubuntu o similar:
 
 0) Prerrequisito de PHP 5.
 
@@ -117,6 +120,7 @@ git clone https://github.com/jamj2000/fp-resultados.git
 
 ```bash
 cd /var/www/html/fp-resultados
+git checkout laravel_4.2
 chmod -R 777 app/storage
 ```
 
@@ -249,6 +253,8 @@ git  clone  https://github.com/jamj2000/fp-resultados.git
 
 cd fp-resultados.git
 
+git checkout laravel_4.2
+
 docker-compose  up  -d
 ```
 
@@ -304,7 +310,7 @@ docker run --rm -i \
 >
 > Esta aplicación y sus dependencias hacen uso de PHP 5, por tanto, el código fuente aquí disponible se considera código *legacy*. 
 >
-> Puesto que actualmente en Ubuntu 18.04+ se usa la versión PHP 7, dicho entorno no nos sirve para su despliegue local.
+> Puesto que actualmente en Ubuntu 20.04+ se usa la versión PHP 7 y 8, dicho entorno no nos sirve para su despliegue local.
 >
 > Para su despliegue local necesitamos Ubuntu 16.04 con PHP 5. Instalar una máquina con dicho entorno es algo engorroso. En su lugar, puede usarse un contenedor Docker para obtener un entorno de desarrollo con PHP 5.
 >
@@ -322,6 +328,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```bash
   git  clone  https://github.com/jamj2000/fp-resultados.git
   cd   fp-resultados
+  git checkout laravel_4.2
   ```
 
 4. *OPCIONAL*. 
@@ -358,13 +365,13 @@ Esto nos permitirá crear una imagen Docker:
 - con la instalación de `composer` y otros paquetes necesarios
 - con un archivo `composer.lock` generado mediante `composer install`
 
-Para crear una imagen Docker llamada `fp-resultados`, ejecutamos:
+Para crear una imagen Docker llamada `fp-resultados-old`, ejecutamos:
 
 ```bash
-docker  build  -t fp-resultados  .
+docker  build  -t fp-resultados-old  .
 ```
 
-La opción `-t  fp-resultados` permite asignar un nombre a la imagen Docker.
+La opción `-t  fp-resultados-old` permite asignar un nombre a la imagen Docker.
 
 El punto final indica que docker debe buscar el archivo `Dockerfile` en el directorio actual.
 
@@ -383,9 +390,9 @@ Para generar el archivo `composer.lock` debemos ejecutar un contenedor basado en
                -p 8888:80 \
                --mount source=fp-volume,target=/var/www/html \
                --name fp-app \
-               fp-resultados
+               fp-resultados-old
 ```
-El nombre del contenedor será `fp-app` y la imagen usada será `fp-resultados`.
+El nombre del contenedor será `fp-app` y la imagen usada será `fp-resultados-old`.
 
 Mapeamos el puerto 8888 al puerto 80 del contenedor. Por tanto, podemos ver la aplicación funcionando en `http://localhost:8888`.
 
@@ -426,7 +433,7 @@ git  commit  -m "Añadido composer.lock"
 > ```bash
 > docker container rm  fp-app -f 
 > docker volume    rm  fp-volume
-> docker image     rm  fp-resultados
+> docker image     rm  fp-resultados-old
 > ```
 >
 > La opción `-f` fuerza la eliminación del contenedor.
