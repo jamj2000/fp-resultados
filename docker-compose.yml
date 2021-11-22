@@ -21,8 +21,8 @@ services:
       - MARIADB_DATABASE=fp
       - MARIADB_ROOT_PASSWORD=root
     volumes:
-      - fpdatabase:/var/lib/mysql
+      - datos:/var/lib/mysql
     working_dir: /data
 
 volumes:
-    fpdatabase:
+    datos:

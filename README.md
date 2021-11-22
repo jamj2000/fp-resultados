@@ -73,37 +73,37 @@ cd fp-resultados
 # Lanzamos contenedores
 docker-compose  up  -d
 
-# Insertamos datos en el volumen asociado a B
-docker  exec  fpresultados_bd_1  /var/www/html/data/database.sh
+# Insertamos datos en el contenedor asociado a la Base de Datos
+docker  exec  -it  fp-resultados_bd_1  /data/database.sh
 ```
 
 ![docker compose](snapshots/docker-compose.png)
 
-Para ejecutar la aplicación, abre con el navegador la URL `http://localhost:8888`.
+Para ejecutar la aplicación, abre con el navegador la URL [localhost:8888](http://localhost:8888).
 
-Como puedes observar en la imagen anterior, el contenedor de MySQL lleva asociado un **volumen** para guardar la información de la BD y ofrecer persistencia de datos entre distintas ejecuciones. 
+El contenedor de MariaDB lleva asociado un **volumen** para guardar la información de la BD y ofrecer persistencia de datos entre distintas ejecuciones. 
 
 En cualquier momento podemos realizar una copia de seguridad del volumen con el contenido de la BD, con el comando:
 
-**Exportar volumen fpresultados_datos** 
+**Exportar volumen fp-resultados_datos** 
 
 
 ```bash
 docker run --rm \
-  -v fpresultados_datos:/source:ro \
-  busybox tar -czC /source . > fpresultados_datos.tar.gz
+  -v fp-resultados_datos:/source:ro \
+  busybox tar -czC /source . > fp-resultados_datos.tar.gz
 ```
 
-Y obtendremos una copia de seguridad del volumen en el archivo `fpresultados_datos.tar.gz`.
+Y obtendremos una copia de seguridad del volumen en el archivo `fp-resultados_datos.tar.gz`.
 
 Para restaurar la copia de seguridad anterior de dicho volumen ejecutamos el siguiente comando:
 
-**Importar volumen fpresultados_datos**
+**Importar volumen fp-resultados_datos**
 
 ```bash
 docker run --rm -i \
-  -v fpresultados_datos:/target \
-  busybox tar -xzC /target < fpresultados_datos.tar.gz
+  -v fp-resultados_datos:/target \
+  busybox tar -xzC /target < fp-resultados_datos.tar.gz
 ```
 
 > NOTA: 
@@ -111,7 +111,7 @@ docker run --rm -i \
 >
 > ```bash
 > docker-compose  down
-> docker  volume  rm  fpresultados_datos
+> docker  volume  rm  fp-resultados_datos
 > ```
 > Después restauramos el volumen según se indica más arriba y por último iniciamos la aplicación con `docker-compose up -d`.
 
@@ -200,10 +200,10 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
 
 8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
 
-  - Clona el repositorio que contiene los datos y el script `database.sh` a ejecutar.
+  - Entra en el directorio data del repositorio, que contiene los datos y el script `database.sh` a ejecutar.
+
   ```bash
-  git  clone  https://github.com/jamj2000/fp-resultados.datos.git
-  cd  fp-resultados.datos
+  cd  data
   ```
   - Edita el script `database.sh` con la información de tu base de datos.
   
@@ -246,8 +246,10 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
   
+  En el paso siguiente vamos a configurar las **variables de entorno** necesarias para la conexión a la base de datos.
+  
 
-10. Configura las variables de entorno (llamadas config var en Heroku).
+10. Configura las **variables de entorno** (llamadas config var en Heroku).
 
 Para ello puedes usar uno de los siguientes métodos:
 - Interfaz de Línea de Comandos (CLI) 
@@ -255,16 +257,16 @@ Para ello puedes usar uno de los siguientes métodos:
 
 **CLI**
 
-Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` y `PRODUCTION`.
+Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` y `PRODUCTION`.
 
 Por ejemplo:
 
 ```bash
 heroku config:set DB_HOST=den...gear.host
 heroku config:set DB_PORT=3306
-heroku config:set DB_NAME=basedatos
-heroku config:set DB_USER=usuario
-heroku config:set DB_PASS=clave
+heroku config:set DB_DATABASE=basedatos
+heroku config:set DB_USERNAME=usuario
+heroku config:set DB_PASSWORD=clave
 heroku config:set PRODUCTION=true
 ```
 
