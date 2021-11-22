@@ -8,7 +8,6 @@
 
 ## Repositorios relacionados
 - [App para android](https://github.com/jamj2000/fp-resultados.apk)
-- [Datos de ejemplo](https://github.com/jamj2000/fp-resultados.datos)
 - [Capturas](https://github.com/jamj2000/fp-resultados.capturas)
 
 
@@ -182,6 +181,9 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```bash
   heroku  open
   ```
+
+![heroku deploy](snapshots/heroku-deploy.png)
+
 
 6. ¿Y los datos?
   
