@@ -272,8 +272,6 @@ heroku config:set DB_PASSWORD=clave
 heroku config:set PRODUCTION=true
 ```
 
-**NOTA**: Para cada variable sustituye su valor por el que aparece en tu configuración de GearHost. Añade además la variable `PRODUCTION` con valor `true`.
-
 Para ver las variables configuradas, ejecutamos:
 
 ```bash
