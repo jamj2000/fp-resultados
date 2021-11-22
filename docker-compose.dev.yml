@@ -2,6 +2,9 @@ version: "3"
 services:
   web:
     image: jamj2000/web:fp-resultados
+    build: 
+      context: .
+      dockerfile: Dockerfile.web
     ports:
       - "8888:80"
     restart: always
@@ -14,15 +17,22 @@ services:
       - DB_PASSWORD=root
     depends_on:
       - db
+#    volumes:
+#      - ./:/var/www/html
   db:
     image: jamj2000/db:fp-resultados
+    build: 
+      context: .
+      dockerfile: Dockerfile.db
     hostname: db
+#    image: mariadb
     environment:
       - MARIADB_DATABASE=fp
       - MARIADB_ROOT_PASSWORD=root
     volumes:
       - fpdatabase:/var/lib/mysql
-    working_dir: /data
+#      - ./data:/data
+#    working_dir: /data
 
 volumes:
     fpdatabase:

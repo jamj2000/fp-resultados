@@ -1,0 +1,11 @@
+FROM mariadb:10.6.4
+
+ENV MARIADB_DATABASE=fp
+ENV MARIADB_ROOT_PASSWORD=root
+
+WORKDIR /data
+COPY    data  /data
+
+#RUN     /data/database.sh
+#CMD ["/bin/bash", "-c", "/data/database.sh"]
+#CMD ["/data/database.sh"]
