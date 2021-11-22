@@ -26,7 +26,7 @@ La aplicación es funcional y dispone de numerosas características.
 
 ### Características
 - Permite calificar por resultados de aprendizaje.
-- Genera actas de evaluación y boletines de calificaciones en HTML y PDF.
+- Genera actas de evaluación y boletines de calificaciones en HTML y PDF. (Informes PDF aún no terminado)
 - Se ha diseñado pensando en los ciclos formativos de la familia profesional de Informática y Comunicaciones, sin embargo es posible adaptarla a otras familias profesionales.
 - Permite las operaciones CRUD (Create, Read, Update, Delete) a base de datos MySQL a través de interfaz web.
 
@@ -58,11 +58,6 @@ Si deseas comprobar las posibilidades para el/los usuarios administradores deber
 
 ## Despliegue en Docker
 
-> **NOTA IMPORTANTE:**
->
-> Este apartado no tiene información actualizada, necesita ser revisado. Por tanto, no debe tenerse en consideración. Cuando sea actualizado se eliminará esta nota.
-> 
-
 También puedes desplegar la aplicación con Docker. Existe una imagen para la aplicación web y otra para la base de datos.
 
 Para descargar las imágenes y lanzar los contenedores, ejecuta:
@@ -75,10 +70,7 @@ git  clone  https://github.com/jamj2000/fp-resultados.git
 # Entramos en carpeta de código fuente
 cd fp-resultados
 
-# Descargamos datos de la BD en directorio data
-git  clone  https://github.com/jamj2000/fp-resultados.datos.git  data
-
-# Construimos imagen docker y lanzamos contenedor
+# Lanzamos contenedores
 docker-compose  up  -d
 
 # Insertamos datos en el volumen asociado a B
@@ -125,13 +117,7 @@ docker run --rm -i \
 
 
 
-## Despliegue en Heroku + GearHost (y algo de Docker)
-
-> **NOTA IMPORTANTE:**
->
-> Este apartado no tiene información actualizada, necesita ser revisado. Por tanto, no debe tenerse en consideración. Cuando sea actualizado se eliminará esta nota.
-> 
-
+## Despliegue en Heroku + GearHost
 
 Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
@@ -147,156 +133,11 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   cd   fp-resultados
   ```
 
-4. *OPCIONAL*. 
-
-> NOTA: Este paso y el siguiente son OPCIONALES. Sólo deberemos realizar los pasos 4 y 5 en caso de no disponer del archivo `composer.lock` en el repositorio. 
-
-El archivo `composer.lock` especifica las versiones concretas para cada una de las dependencias.
-
-Podemos generarlo haciendo uso de un contenedor Docker generado a partir de la imagen definida en el siguiente **`Dockerfile`**:
-
-```
-FROM php:5.6-apache
-
-WORKDIR /var/www/html
-COPY . .
-
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
- && curl -S https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
- && apt-get update && apt-get install -y unzip git libmcrypt-dev \
- && docker-php-ext-install pdo pdo_mysql mcrypt \
- && docker-php-ext-enable mcrypt \
- && a2enmod rewrite
-
-RUN composer install \ 
- && chown -R www-data:www-data .  && chmod -R 777 app/storage \
- && composer update
-```
-
-Esto nos permitirá crear una imagen Docker:
-
-- con PHP 5.6 y Apache
-- con el directorio de trabajo `/var/www/html` dentro del contenedor
-- con una copia de todo nuestro código fuente en el directorio anterior
-- con la instalación de `composer` y otros paquetes necesarios
-- con un archivo `composer.lock` generado mediante `composer install`
-
-Para crear una imagen Docker llamada `fp-resultados`, ejecutamos:
-
-```bash
-docker  build  -t fp-resultados  .
-```
-
-La opción `-t  fp-resultados` permite asignar un nombre a la imagen Docker.
-
-El punto final indica que docker debe buscar el archivo `Dockerfile` en el directorio actual.
-
-Para comprobar que se ha creado bien la imagen anterior, ejecutamos:
-
-```bash
-docker images
-```
-
-5. *OPCIONAL*.
-
-Para generar el archivo `composer.lock` debemos ejecutar un contenedor basado en la imagen anterior. Para ello ejecutamos:
-
-```bash
-  docker  run  -d \
-               -p 8888:80 \
-               --mount source=fp-volume,target=/var/www/html \
-               --name fp-app \
-               fp-resultados
-```
-El nombre del contenedor será `fp-app` y la imagen usada será `fp-resultados`.
-
-Mapeamos el puerto 8888 al puerto 80 del contenedor. Por tanto, podemos ver la aplicación funcionando en `http://localhost:8888`.
-
-El contenido del directorio `/var/www/html` del contenedor será accesible en el anfitrión como volumen llamado `fp-volume`. Esto nos permite acceder al código fuente de la aplicación. Este código aparece en `/var/lib/docker/volumes/fp-volume/_data`. Al tratarse de un directorio del sistema, deberemos acceder a él con permisos de root.
-
-Para ver el contenido de dicho directorio, ejecutamos:
-
-```bash
-sudo  ls  /var/lib/docker/volumes/fp-volume/_data
-```
-
-![fp-volume](snapshots/fp-volume.png)
-
-Observa que aparecen un archivo `composer.lock` y una carpeta `vendor` que no estaban en el código fuente original.
-
-La carpeta `vendor` contiene cada una de las dependencias de la aplicación. Esta carpeta no se sube al repositorio git. Por tanto, cuando subamos el código fuente a Heroku, éste leerá el archivo `composer.lock` y volverá a obtener las dependencias, guardándolas en la carpeta `vendor` remota.
-
-
-Para copiar el archivo `composer.lock` a nuestro directorio
-
-```bash
-sudo  cp  /var/lib/docker/volumes/fp-volume/_data/composer.lock  .
-```
-
-Para añadir el archivo anterior al repositorio, ejecutamos:
-
-```bash
-git  add  .
-git  commit  -m "Añadido composer.lock"
-```  
-
-> **NOTA:**
-> 
-> Una vez obtenido y copiado el archivo `composer.lock`, podemos eliminar el contenedor, el volumen asociado y la imagen.
->
-> Para ello, ejecuta:
->
-> ```bash
-> docker container rm  fp-app -f 
-> docker volume    rm  fp-volume
-> docker image     rm  fp-resultados
-> ```
->
-> La opción `-f` fuerza la eliminación del contenedor.
->
-
-
-
-> **NOTA 2:**
->
-> Si en lugar de generar un archivo `composer.lock`, deseamos disponer de un contenedor
-> para realizar desarrollo con PHP5, podemos usar [Dockerfile.dev](Dockerfile.dev) 
-> como método alternativo.
->
-> Para generar el entorno de desarrollo hacemos:
->
-> 1. Creamos imagen y lanzamos contenedor:
-> ```bash
-> docker build  -t fp-resultados.dev -f Dockerfile.dev  .
-> docker run  --name php5dev  -d -v  `pwd`:/var/www/html -p 8000:80 fp-resultados.dev
-> ```
->
-> 2. Ejecutamos `composer update` y damos permisos de escritura a `app/storage`:
-> ```bash
-> docker exec -it php5dev composer update
-> docker exec -it php5dev chmod -R 777 app/storage
-> ```
->
-> 3. Revisamos el archivo `app/config/local/database.php` para establecer los parámetros
-> de la base de datos.  
-> ```bash
-> nano  app/config/local/database.php
-> ```
->
-> 4. Reiniciamos apache2
-> ```bash
-> docker exec -it php5dev apache2ctl restart
-> ```
-> 
-> Ya podemos editar el código PHP de la aplicación y ver el resultado en 
-> http://localhost:8000
->
-
-6. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. Lo haremos desde CLI (Command Line Interface).
+4. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. Lo haremos desde CLI (Command Line Interface).
   
   Para iniciar sesión en Heroku 
   ```bash
-  heroku login  --interactive
+  heroku login  --i
   ```
  
   Para crear una aplicación:
@@ -326,23 +167,7 @@ git  commit  -m "Añadido composer.lock"
   
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
   
- 
-
-7. Las últimas versiones de Heroku realizan el despliegue sobre un *stack* Ubuntu 18, el cual viene con PHP7. Por tanto no es válido para nuestro despliegue. Deberemos indicar que deseamos desplegar sobre el *stack* Ubuntu 16, que viene con PHP 5.
-
-Podemos ver los stacks disponibles con la sentencia:
-
-```bash
-heroku  stack
-```
-
-Para establecer el **stack heroku-16**, que es el que nos proporciona una base Ubuntu 16 + PHP5, ejecutamos:
-
-```bash
-heroku  stack:set  heroku-16
-```
-
-7. Despliega el código en Heroku.
+5. Despliega el código en Heroku.
   
   ```bash
   git  push  heroku  master
@@ -358,11 +183,11 @@ heroku  stack:set  heroku-16
   heroku  open
   ```
 
-8. ¿Y los datos?
+6. ¿Y los datos?
   
   Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
 
-9. Crea una base de datos MySQL y apunta los parámetros de configuración.
+7. Crea una base de datos MySQL y apunta los parámetros de configuración.
   
   En concreto deberás anotar 5 datos:
   - El nombre o IP de host donde se aloja la base de datos.
@@ -373,7 +198,7 @@ heroku  stack:set  heroku-16
   
   ![fp-resultados gearhost](snapshots/gearhost-fp-resultados.png)
 
-10. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
+8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
 
   - Clona el repositorio que contiene los datos y el script `database.sh` a ejecutar.
   ```bash
@@ -398,7 +223,7 @@ heroku  stack:set  heroku-16
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-11. Asegúrate que el archivo `config/database.php` contiene, entre otras, la siguiente configuración:
+9. Asegúrate que el archivo `config/database.php` contiene, entre otras, la siguiente configuración:
 
   ```php
 
@@ -422,7 +247,7 @@ heroku  stack:set  heroku-16
   > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
   
 
-12. Configura las variables de entorno (llamadas config var en Heroku).
+10. Configura las variables de entorno (llamadas config var en Heroku).
 
 Para ello puedes usar uno de los siguientes métodos:
 - Interfaz de Línea de Comandos (CLI) 
