@@ -136,7 +136,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   Para iniciar sesión en Heroku 
   ```bash
-  heroku login  --i
+  heroku login  -i
   ```
  
   Para crear una aplicación:
