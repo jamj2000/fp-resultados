@@ -182,6 +182,9 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```bash
   heroku  open
   ```
+  
+ ![docker compose](snapshots/heroku-deploy.png)
+  
 
 6. ¿Y los datos?
   
@@ -245,9 +248,11 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   Ésta es la configuración para la base de datos usada en producción.
   
   > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
+
+No obstante lo anterior, lo habitual es configurar los valores de dichas variables a través de **variables de entorno**. Heroku las llama variables de configuración. 
   
 
-10. Configura las variables de entorno (llamadas config var en Heroku).
+10. Configura las **variables de entorno** (llamadas config var en Heroku).
 
 Para ello puedes usar uno de los siguientes métodos:
 - Interfaz de Línea de Comandos (CLI) 
@@ -255,16 +260,16 @@ Para ello puedes usar uno de los siguientes métodos:
 
 **CLI**
 
-Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` y `PRODUCTION`.
+Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` y `PRODUCTION`.
 
 Por ejemplo:
 
 ```bash
 heroku config:set DB_HOST=den...gear.host
 heroku config:set DB_PORT=3306
-heroku config:set DB_NAME=basedatos
-heroku config:set DB_USER=usuario
-heroku config:set DB_PASS=clave
+heroku config:set DB_DATABASE=basedatos
+heroku config:set DB_USERNAME=usuario
+heroku config:set DB_PASSWORD=clave
 heroku config:set PRODUCTION=true
 ```
 
