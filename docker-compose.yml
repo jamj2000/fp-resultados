@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       - PRODUCTION=true
-      - DB_HOST=bd
+      - DB_HOST=db
       - DB_PORT=3306
       - DB_DATABASE=fp
       - DB_USERNAME=root
