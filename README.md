@@ -182,9 +182,6 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ```bash
   heroku  open
   ```
-  
- ![docker compose](snapshots/heroku-deploy.png)
-  
 
 6. ¿Y los datos?
   
@@ -248,8 +245,6 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   Ésta es la configuración para la base de datos usada en producción.
   
   > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
-
-No obstante lo anterior, lo habitual es configurar los valores de dichas variables a través de **variables de entorno**. Heroku las llama variables de configuración. 
   
   En el paso siguiente vamos a configurar las **variables de entorno** necesarias para la conexión a la base de datos.
   
