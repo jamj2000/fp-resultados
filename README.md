@@ -73,7 +73,7 @@ cd fp-resultados
 docker-compose  up  -d
 
 # Insertamos datos en el contenedor asociado a la Base de Datos
-docker  exec  -it  fp-resultados_bd_1  /data/database.sh
+docker  exec  -it  fpresultados_db_1  /data/database.sh
 ```
 
 ![docker compose](snapshots/docker-compose.png)
