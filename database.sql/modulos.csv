@@ -1,0 +1,33 @@
+Id. profesor,Siglas,Nombre,Curso,Ciclo,Horas totales,Horas semanales,Número de resultados,Peso R1,Peso R2,Peso R3,Peso R4,Peso R5,Peso R6,Peso R7,Peso R8,Peso R9
+7,MME,Montaje y mantenimiento de equipos,1FPGM A,Sistemas Microinformáticos y Redes,224,7,8,10,10,10,10,10,10,10,10,10
+10,SOM,Sistemas operativos monopuesto,1FPGM A,Sistemas Microinformáticos y Redes,160,5,5,10,10,10,10,10,10,10,10,10
+3,AO,Aplicaciones ofimáticas,1FPGM A,Sistemas Microinformáticos y Redes,256,8,9,10,10,10,10,10,10,10,10,10
+4,RL,Redes locales,1FPGM A,Sistemas Microinformáticos y Redes,224,7,6,10,10,10,10,10,10,10,10,10
+9,FOL,Formación y orientación laboral,1FPGM A,Sistemas Microinformáticos y Redes,96,3,7,10,10,10,10,10,10,10,10,10
+7,MME,Montaje y mantenimiento de equipo,1FPGM B,Sistemas Microinformáticos y Redes,224,7,8,10,10,10,10,10,10,10,10,10
+10,SOM,Sistemas operativos monopuesto,1FPGM B,Sistemas Microinformáticos y Redes,160,5,5,10,10,10,10,10,10,10,10,10
+10,AO,Aplicaciones ofimáticas,1FPGM B,Sistemas Microinformáticos y Redes,256,8,9,10,10,10,10,10,10,10,10,10
+6,RL,Redes locales,1FPGM B,Sistemas Microinformáticos y Redes,224,7,6,10,10,10,10,10,10,10,10,10
+9,FOL,Formación y orientación laboral,1FPGM B,Sistemas Microinformáticos y Redes,96,3,7,10,10,10,10,10,10,10,10,10
+2,ISO,Implantación de sistemas operativos,1FPGS,Administración de Sistemas Informáticos en Red,256,8,7,10,10,10,10,10,10,10,10,10
+5,PAR,Planificación y administración de redes,1FPGS,Administración de Sistemas Informáticos en Red,192,6,7,10,10,10,10,10,10,10,10,10
+7,FH,Fundamentos de hardware,1FPGS,Administración de Sistemas Informáticos en Red,96,3,5,10,10,10,10,10,10,10,10,10
+1,GBD,Gestión de bases de datos,1FPGS,Administración de Sistemas Informáticos en Red,192,6,6,10,10,10,10,10,10,10,10,10
+8,LM,Lenguajes de marcas y sistemas de gestión de información,1FPGS,Administración de Sistemas Informáticos en Red,128,4,7,10,10,10,10,10,10,10,10,10
+9,FOL,Formación y orientación laboral,1FPGS,Administración de Sistemas Informáticos en Red,96,3,6,10,10,10,10,10,10,10,10,10
+3,SOR,Sistemas operativos en red,2FPGM,Sistemas Microinformáticos y Redes,147,7,6,10,10,10,10,10,10,10,10,10
+1,SI,Seguridad informática,2FPGM,Sistemas Microinformáticos y Redes,105,5,5,10,10,10,10,10,10,10,10,10
+8,SR,Servicios en red,2FPGM,Sistemas Microinformáticos y Redes,147,7,8,10,10,10,10,10,10,10,10,10
+4,AW,Aplicaciones web,2FPGM,Sistemas Microinformáticos y Redes,84,4,5,10,10,10,10,10,10,10,10,10
+9,EIE,Empresa e iniciativa emprendedora,2FPGM,Sistemas Microinformáticos y Redes,84,4,4,10,10,10,10,10,10,10,10,10
+,FCT,Formación en centros de trabajo,2FPGM,Sistemas Microinformáticos y Redes,410,0,8,10,10,10,10,10,10,10,10,10
+4,LC,Horas de libre configuración,2FPGM,Sistemas Microinformáticos y Redes,63,3,,10,10,10,10,10,10,10,10,10
+2,ASO,Administración de sistemas operativos,2FPGS,Administración de Sistemas Informáticos en Red,126,6,7,10,10,10,10,10,10,10,10,10
+8,SRI,Servicios de red e Internet,2FPGS,Administración de Sistemas Informáticos en Red,126,6,8,10,10,10,10,10,10,10,10,10
+4,IAW,Implantación de aplicaciones web,2FPGS,Administración de Sistemas Informáticos en Red,84,4,7,10,10,10,10,10,10,10,10,10
+1,ASG,Administración de sistemas gestores de bases de datos,2FPGS,Administración de Sistemas Informáticos en Red,63,3,6,10,10,10,10,10,10,10,10,10
+8,SEG,Seguridad y alta disponibilidad,2FPGS,Administración de Sistemas Informáticos en Red,84,4,7,10,10,10,10,10,10,10,10,10
+,PRO,Proyecto de administración de sistemas informáticos en red,2FPGS,Administración de Sistemas Informáticos en Red,40,0,4,10,10,10,10,10,10,10,10,10
+9,EIE,Empresa e iniciativa emprendedora,2FPGS,Administración de Sistemas Informáticos en Red,84,4,4,10,10,10,10,10,10,10,10,10
+,FCT,Formación en centros de trabajo,2FPGS,Administración de Sistemas Informáticos en Red,370,0,6,10,10,10,10,10,10,10,10,10
+2,LC,Horas de libre configuración,2FPGS,Administración de Sistemas Informáticos en Red,63,3,,10,10,10,10,10,10,10,10,10
