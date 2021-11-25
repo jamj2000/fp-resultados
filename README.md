@@ -187,7 +187,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
 
 6. ¿Y los datos?
   
-  Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado es gratis. 
+  Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado **era** gratis, **ya no existe este plan**. 
 
 7. Crea una base de datos MySQL y apunta los parámetros de configuración.
   
@@ -205,7 +205,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   - Entra en el directorio data del repositorio, que contiene los datos y el script `database.sh` a ejecutar.
 
   ```bash
-  cd  data
+  cd  database.sql
   ```
   - Edita el script `database.sh` con la información de tu base de datos.
   
@@ -244,9 +244,6 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
   ```
-  Ésta es la configuración para la base de datos usada en producción.
-  
-  > NOTA: La configuración de la base de datos usada en desarrollo (entorno local) está configurada en el archivo `app/config/local/database.php`.
   
   En el paso siguiente vamos a configurar las **variables de entorno** necesarias para la conexión a la base de datos.
   
@@ -259,7 +256,7 @@ Para ello puedes usar uno de los siguientes métodos:
 
 **CLI**
 
-Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` y `PRODUCTION`.
+Debemos asignar valores a las 6 variables siguientes: `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` y `DB_PASSWORD`.
 
 Por ejemplo:
 
@@ -269,7 +266,6 @@ heroku config:set DB_PORT=3306
 heroku config:set DB_DATABASE=basedatos
 heroku config:set DB_USERNAME=usuario
 heroku config:set DB_PASSWORD=clave
-heroku config:set PRODUCTION=true
 ```
 
 Para ver las variables configuradas, ejecutamos:
