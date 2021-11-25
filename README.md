@@ -293,9 +293,6 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
-  Ponemos la variable de entorno **`PRODUCTION`** a `true`. El archivo `bootstrap/start.php` busca esta variable. 
-  Si existe lanza la aplicación en modo producción y utiliza la base de datos remota. 
-  Si no existe lanza la aplicación en modo local y usa la base de datos local.
 
 13. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
 
