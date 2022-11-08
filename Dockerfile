@@ -14,3 +14,5 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 RUN composer install \ 
  && chown -R www-data:www-data .  && chmod -R 777 storage \
  && composer update
+ 
+CMD ["apache2-foreground"]
