@@ -15,4 +15,4 @@ RUN composer install \
  && chown -R www-data:www-data .  && chmod -R 777 storage \
  && composer update
  
-CMD ["apache2-foreground"]
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
