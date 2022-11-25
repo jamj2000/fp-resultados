@@ -1,4 +1,4 @@
-FROM mariadb:10.6.4 as builder
+FROM mariadb:10.3 as builder
 # Reference: https://serverfault.com/questions/796762/creating-a-docker-mysql-container-with-a-prepared-database-scheme
 
 # That file does the DB initialization but also runs mysql daemon, by removing the last line it will only init
@@ -21,7 +21,7 @@ RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized
 
 # CHARSET: https://stackoverflow.com/questions/45729326/how-to-change-the-default-character-set-of-mysql-using-docker-compose
 
-FROM mariadb:10.6.4
+FROM mariadb:10.3
 
 COPY --from=builder /initialized-db /var/lib/mysql
 COPY database.sql /database.sql
