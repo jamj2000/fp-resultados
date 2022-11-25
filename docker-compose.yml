@@ -2,6 +2,7 @@ version: "3"
 services:
   web:
     image: jamj2000/web:fp-resultados
+    hostname: web
     ports:
       - "8888:80"
     restart: always
@@ -22,7 +23,7 @@ services:
       - MARIADB_ROOT_PASSWORD=root
     volumes:
       - datos:/var/lib/mysql
-    working_dir: /data
+#    working_dir: /data
 
 volumes:
     datos:

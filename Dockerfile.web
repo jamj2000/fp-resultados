@@ -3,6 +3,12 @@ FROM php:8.0.3-apache
 WORKDIR /var/www/html
 COPY . .
 
+ENV DB_DATABASE=fp
+ENV DB_HOST=db
+ENV DB_PORT=3306
+ENV DB_USERNAME=root
+ENV DB_PASSWORD=root
+
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
  && curl -S https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
  && apt-get update && apt-get install -y unzip git libmcrypt-dev libxml2-dev zlib1g-dev libpng-dev libjpeg-dev  \
@@ -14,3 +20,5 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 RUN composer install \ 
  && chown -R www-data:www-data .  && chmod -R 777 storage \
  && composer update
+
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

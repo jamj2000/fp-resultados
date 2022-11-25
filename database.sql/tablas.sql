@@ -1,5 +1,23 @@
 drop table if exists modulos_alumnos, alumnos, modulos, profesores;
 
+
+CREATE TABLE `profesores` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `apellido1` varchar(100),
+  `apellido2` varchar(100),
+  `nombre` varchar(100),
+  `tutoria` varchar(100),
+  `email` varchar(100),
+  `alias` varchar(100),
+  `password` varchar(100),
+  `remember_token` varchar(100) DEFAULT NULL,
+  `admin` char(1),
+  `created_at` timestamp NOT NULL DEFAULT NOW(),
+  `updated_at` timestamp NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=1;
+
+
  
 CREATE TABLE `alumnos` (
   `id` integer NOT NULL AUTO_INCREMENT,
@@ -37,25 +55,11 @@ CREATE TABLE `modulos` (
   `r9_peso` integer,
   `created_at` timestamp NOT NULL DEFAULT NOW(),
   `updated_at` timestamp NOT NULL DEFAULT NOW(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (profesor_id) REFERENCES profesores(id)
 ) ENGINE=INNODB AUTO_INCREMENT=1;
 
-
-CREATE TABLE `profesores` (
-  `id` integer NOT NULL AUTO_INCREMENT,
-  `apellido1` varchar(100),
-  `apellido2` varchar(100),
-  `nombre` varchar(100),
-  `tutoria` varchar(100),
-  `email` varchar(100),
-  `alias` varchar(100),
-  `password` varchar(100),
-  `remember_token` varchar(100) DEFAULT NULL,
-  `admin` char(1),
-  `created_at` timestamp NOT NULL DEFAULT NOW(),
-  `updated_at` timestamp NOT NULL DEFAULT NOW(),
-  PRIMARY KEY (`id`)
-) ENGINE=INNODB AUTO_INCREMENT=1;
+#ALTER TABLE modulos ADD FOREIGN KEY(profesor_id) REFERENCES profesores(id);
 
 
 CREATE TABLE `modulos_alumnos` (
@@ -71,6 +75,11 @@ CREATE TABLE `modulos_alumnos` (
   `r7` integer DEFAULT '-2',
   `r8` integer DEFAULT '-2',
   `r9` integer DEFAULT '-2',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (modulo_id) REFERENCES modulos(id),
+  FOREIGN KEY (alumno_id) REFERENCES alumnos(id)
 ) ENGINE=INNODB AUTO_INCREMENT=1;
+
+#ALTER TABLE modulos_alumnos ADD FOREIGN KEY(modulo_id) REFERENCES modulos(id);
+#ALTER TABLE modulos_alumnos ADD FOREIGN KEY(alumno_id) REFERENCES alumnos(id);
 
