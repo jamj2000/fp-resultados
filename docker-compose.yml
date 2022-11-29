@@ -18,6 +18,7 @@ services:
   db:
     image: jamj2000/db:fp-resultados
     hostname: db
+    restart: always
     environment:
       - MARIADB_DATABASE=fp
       - MARIADB_ROOT_PASSWORD=root
