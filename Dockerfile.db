@@ -7,6 +7,8 @@ RUN ["sed", "-i", "s/exec \"$@\"/echo \"not running $@\"/", "/usr/local/bin/dock
 # needed for intialization
 ENV MARIADB_DATABASE=fp
 ENV MARIADB_ROOT_PASSWORD=root
+ENV MARIADB_CHARACTER_SET=utf8mb4
+ENV MARIADB_COLLATE=utf8mb4_unicode_ci
 
 #COPY database.sql/tablas.sql       /docker-entrypoint-initdb.d/
 #COPY database.sql/tablas_datos.sql /docker-entrypoint-initdb.d/
