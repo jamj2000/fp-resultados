@@ -10,18 +10,14 @@ ENV MARIADB_ROOT_PASSWORD=root
 ENV MARIADB_CHARACTER_SET=utf8mb4
 ENV MARIADB_COLLATE=utf8mb4_unicode_ci
 
-#COPY database.sql/tablas.sql       /docker-entrypoint-initdb.d/
-#COPY database.sql/tablas_datos.sql /docker-entrypoint-initdb.d/
 COPY database.sql/setup.sql         /docker-entrypoint-initdb.d/
 
 # Need to change the datadir to something else that /var/lib/mysql because the parent docker file defines it as a volume.
 # https://docs.docker.com/engine/reference/builder/#volume :
 #       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
 #       it has been declared, those changes will be discarded.
-RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db", "--aria-log-dir-path", "/initialized-db", \
-     "--character_set_server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db", "--aria-log-dir-path", "/initialized-db" ]
 
-# CHARSET: https://stackoverflow.com/questions/45729326/how-to-change-the-default-character-set-of-mysql-using-docker-compose
 
 FROM mariadb:10.3
 
