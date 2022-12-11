@@ -31,7 +31,8 @@ La aplicación es funcional y dispone de numerosas características.
 
 
 ### Probar la aplicación de demostración
-Si deseas comprobar las funcionalidades que ofrece esta aplicación, abre en el navegador la dirección [http://fp-resultados.herokuapp.com](http://fp-resultados.herokuapp.com).
+Si deseas comprobar las funcionalidades que ofrece esta aplicación, puedes hacerlo de forma rápida y sencilla con docker-compose.
+
 
 Para entrar debes introducir un correo y contraseña.
 Puedes utilizar cualquiera de los siguientes (correos ficticios):
@@ -71,9 +72,6 @@ cd fp-resultados
 
 # Lanzamos contenedores
 docker-compose  up  -d
-
-# Insertamos datos en el contenedor asociado a la Base de Datos
-docker  exec  -it  fp-resultados_db_1  /data/database.sh
 ```
 
 ![docker compose](snapshots/docker-compose.png)
@@ -84,25 +82,23 @@ El contenedor de MariaDB lleva asociado un **volumen** para guardar la informaci
 
 En cualquier momento podemos realizar una copia de seguridad del volumen con el contenido de la BD, con el comando:
 
-**Exportar volumen fp-resultados_datos** 
+**Exportar volumen fp_datos** 
 
 
 ```bash
-docker run --rm \
-  -v fp-resultados_datos:/source:ro \
-  busybox tar -czC /source . > fp-resultados_datos.tar.gz
+docker run --rm -v fp_datos:/source:ro \
+  busybox tar -czC /source . > fp_datos.tar.gz
 ```
 
-Y obtendremos una copia de seguridad del volumen en el archivo `fp-resultados_datos.tar.gz`.
+Y obtendremos una copia de seguridad del volumen en el archivo `fp_datos.tar.gz`.
 
 Para restaurar la copia de seguridad anterior de dicho volumen ejecutamos el siguiente comando:
 
 **Importar volumen fp-resultados_datos**
 
 ```bash
-docker run --rm -i \
-  -v fp-resultados_datos:/target \
-  busybox tar -xzC /target < fp-resultados_datos.tar.gz
+docker run --rm -i -v fp_datos:/target \
+  busybox tar -xzC /target < fp_datos.tar.gz
 ```
 
 > NOTA: 
@@ -110,7 +106,7 @@ docker run --rm -i \
 >
 > ```bash
 > docker-compose  down
-> docker  volume  rm  fp-resultados_datos
+> docker  volume  rm  fp_datos
 > ```
 > Después restauramos el volumen según se indica más arriba y por último iniciamos la aplicación con `docker-compose up -d`.
 
