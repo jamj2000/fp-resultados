@@ -1,8 +1,9 @@
-version: "3"
+version: "3.4"
 services:
   web:
     image: jamj2000/web:fp-resultados
     hostname: web
+    container_name: fp_web
     ports:
       - "8888:80"
     restart: always
@@ -18,13 +19,16 @@ services:
   db:
     image: jamj2000/db:fp-resultados
     hostname: db
-    restart: always
+    container_name: fp_db
     environment:
       - MARIADB_DATABASE=fp
       - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_CHARACTER_SET=utf8mb4
+      - MARIADB_COLLATE=utf8mb4_unicode_ci
     volumes:
       - datos:/var/lib/mysql
 #    working_dir: /data
 
 volumes:
     datos:
+      name: fp_datos
