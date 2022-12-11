@@ -31,7 +31,7 @@ La aplicación es funcional y dispone de numerosas características.
 
 
 ### Probar la aplicación de demostración
-Si deseas comprobar las funcionalidades que ofrece esta aplicación, puedes hacerlo de forma rápida y sencilla con docker-compose.
+Si deseas comprobar las funcionalidades que ofrece esta aplicación, puedes hacerlo en [railway.app](https://fp-resultados-production.up.railway.app)
 
 
 Para entrar debes introducir un correo y contraseña.
@@ -74,9 +74,7 @@ cd fp-resultados
 docker-compose  up  -d
 ```
 
-![docker compose](snapshots/docker-compose.png)
-
-Para ejecutar la aplicación, abre con el navegador la URL [localhost:8888](http://localhost:8888).
+Para acceder a la aplicación, abre con el navegador la URL [localhost:8888](http://localhost:8888).
 
 El contenedor de MariaDB lleva asociado un **volumen** para guardar la información de la BD y ofrecer persistencia de datos entre distintas ejecuciones. 
 
@@ -94,7 +92,7 @@ Y obtendremos una copia de seguridad del volumen en el archivo `fp_datos.tar.gz`
 
 Para restaurar la copia de seguridad anterior de dicho volumen ejecutamos el siguiente comando:
 
-**Importar volumen fp-resultados_datos**
+**Importar volumen fp_datos**
 
 ```bash
 docker run --rm -i -v fp_datos:/target \
@@ -112,9 +110,15 @@ docker run --rm -i -v fp_datos:/target \
 
 
 
-## Despliegue en Heroku + GearHost
+## [OBSOLETO] Despliegue en Heroku + GearHost
 
-Actualmente la aplicación está desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
+> Esta sección está obsoleta. Por favor, ignórala.
+> 
+> Actualmente, tanto Heroku como GearHost son de pago. Por tanto, si deseas hacer uso de las indicaciones siguientes, es posible que haya habido algún pequeño cambio en la forma de trabajar con estas plataformas. Tenlo en cuenta.
+>
+> Se ha dejado visible, por motivos didácticos y como registro de un pasado menos convulso 😛
+
+La aplicación estaba desplegada en [HEROKU](https://www.heroku.com). Como base de datos utiliza DBaaS MySQL proporcionado por [GEARHOST](https://gearhost.com).
 
 Si deseas hacer un despligue usando los servicios proporcionados por los sitios anteriores, **sigue estos pasos**: 
 
