@@ -325,7 +325,7 @@ A continuación muestro mi dashboard después de crear los dos proyectos que nec
 
 ![Github](snapshots/railway-github.png)
 
-> NOTA: Antes de poder seleccionar un repositorio, deberás realizar la configuración de acceso GitHub. Si no dispones del código fuente de la aplicación, **haz un fork** de [https://github.com/jamj2000/fp-resultados](https://github.com/jamj2000/fp-resultados).
+> NOTA: Antes de poder seleccionar un repositorio, deberás realizar la configuración de acceso a GitHub. Si no dispones del código fuente de la aplicación, **haz un fork** de [https://github.com/jamj2000/fp-resultados](https://github.com/jamj2000/fp-resultados).
 
 Por ahora no haremos nada más. Más adelante volveremos a la aplicación para terminar de configurarla. 
 A continuación pasamos a provisionar la base de datos.
@@ -362,18 +362,20 @@ Y ejecutamos
 
 ![MySQL](snapshots/railway-mysql-setup.png) 
 
-Comprueba las variables de entorno:
+Si todo hay ido bien podrás ver los datos en la pestaña **Data**
+
+![MySQL conexión](snapshots/railway-mysql-tables.png)  
+
+Por último, comprueba las **variables de entorno**
 
 ![MySQL conexión](snapshots/railway-mysql-variables.png)  
 
-Copia estas **variables de entorno**. Las necesitarás para configurar la aplicación.
+Copia estas variables. Las necesitarás para configurar la aplicación.
 
 
 **6. Finalizamos la configuración de la aplicación.**
 
-Vuelve a la aplicación. Y copia el valor de las **variables de entorno** anteriores, pero cambiándole el nombre.
-
-Esto es necesario porque en el archivo `config/database.php` de la aplicación tenemos los siguientes nombres de variables:
+Vuelve a la aplicación. Y crea **variables de entorno** anteriores, pero con el nombre que aparece más abajo. Esto es necesario porque en el archivo `config/database.php` de la aplicación tenemos los siguientes nombres de variables:
 
   ```php
 
@@ -395,8 +397,7 @@ Esto es necesario porque en el archivo `config/database.php` de la aplicación t
 
 ![MySQL](snapshots/railway-app-variables.png)  
 
-Por último en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. 
-Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/deploy.sh)
+Por último en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará mediante un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/deploy.sh)
 
 
 ![MySQL](snapshots/railway-app-deployment.png)  
