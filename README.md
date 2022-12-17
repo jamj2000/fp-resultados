@@ -16,9 +16,9 @@ __fp-resultados__ es una aplicación web destinada al profesorado de Formación 
 
 ![Captura web](https://github.com/jamj2000/fp-resultados.capturas/blob/master/captura-web.png "Captura web")
 
-Existe una aplicación funcional alojada en [heroku.com](http://fp-resultados.herokuapp.com) para fines demostrativos. La primera vez que se accede a ella suele tardar algún tiempo en cargar. Si esto ocurre volver a intentar de nuevo. 
+Existe una aplicación funcional alojada en [railway.app](https://fp-resultados-production.up.railway.app/) para fines demostrativos. En esta plataforma tengo el plan gratuito, que tiene un límite de horas. Si no te carga la página, probablemente haya agotado el límite de horas mensual. Deberás esperar al siguiente mes para acceder a la aplicación. Sorry 😞 
 
-![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.png "Logo de ejemplo")
+![Código QR de la aplicación](https://github.com/jamj2000/fp-resultados.capturas/blob/master/fp-resultados.qr.mini.railway.png "Logo de ejemplo")
 
 La aplicación es funcional y dispone de numerosas características.
 
@@ -302,6 +302,11 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
   Si inicias sesión con usuario `profe9@gmail.com` y contraseña `profe9`:  
   ![fp-resultados profe9](snapshots/heroku-fp-resultados-2.png)
   
+
+
+## Despliegue en Railway
+
+
 
 
 # Licencia
