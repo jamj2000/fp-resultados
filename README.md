@@ -305,7 +305,7 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
 
 ## Despliegue en Railway
 
-Después de que Heroku pasase a ser de pago, estuve investigando un poco acerca de [plataformas gratuitas donde desplegar esta aplicación](https://github.com/jamj2000/deploy). En un principio me he decantado por **railway.app**, puesto que permite subir proyectos PHP y también dispone de provisión de base de datos MySQL.
+Después de que Heroku pasase a ser de pago, estuve investigando un poco acerca de [plataformas gratuitas donde desplegar esta aplicación](https://github.com/jamj2000/deploy). En un principio me he decantado por **[railway.app](https://railway.app)**, puesto que permite subir proyectos PHP y también dispone de provisión de base de datos MySQL.
 
 Si deseas desplegar tú mismo esta aplicación en esta plataforma, **sigue los siguientes pasos**:
 
