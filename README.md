@@ -110,7 +110,7 @@ docker run --rm -i -v fp_datos:/target \
 
 
 
-## [OBSOLETO] Despliegue en Heroku + GearHost
+## Despliegue en Heroku + GearHost
 
 > Esta sección está obsoleta. Por favor, ignórala.
 > 
