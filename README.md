@@ -121,17 +121,17 @@ La aplicación estaba desplegada en [HEROKU](https://www.heroku.com). Como base 
 
 Si deseas hacer un despligue usando los servicios proporcionados por los sitios anteriores, **sigue estos pasos**: 
 
-1. Crea una cuenta en Heroku. Éste tiene varios [planes](https://www.heroku.com/pricing). Registrate en el plan Free, que aunque está algo limitado es gratis.
+**1. Crea una cuenta en Heroku.** Éste tiene varios [planes](https://www.heroku.com/pricing). Registrate en el plan Free, que aunque está algo limitado es gratis.
 
-2. Instala la herramienta `heroku-cli`. En [este enlace](https://devcenter.heroku.com/articles/heroku-cli) tienes la información necesaria.
+**2. Instala la herramienta `heroku-cli`.** En [este enlace](https://devcenter.heroku.com/articles/heroku-cli) tienes la información necesaria.
 
-3. Clona este repositorio en tu equipo:
+**3. Clona este repositorio en tu equipo:**
   ```bash
   git  clone  https://github.com/jamj2000/fp-resultados.git
   cd   fp-resultados
   ```
 
-4. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku. Y crea una nueva aplicación. Lo haremos desde CLI (Command Line Interface).
+**4. Inicia sesión desde el terminal en la cuenta que previamente creaste en Heroku.** Y crea una nueva aplicación. Lo haremos desde CLI (Command Line Interface).
   
   Para iniciar sesión en Heroku 
   ```bash
@@ -165,7 +165,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   **NOTA:** Debes sustituir `nombre_aplicacion` por el nombre que desees dar a tu aplicación. Ten en cuenta que no puede tener espacios en blanco ni tildes. Probablemente tengas que probar con varios nombres, pues muchos de ellos ya están ocupados. La opción `--region eu` es para que la aplicación se aloje en servidores de Europa. 
   
-5. Despliega el código en Heroku.
+**5. Despliega el código en Heroku.**
   
   ```bash
   git  push  heroku  master
@@ -184,11 +184,11 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
 ![heroku deploy](snapshots/heroku-deploy.png)
 
 
-6. ¿Y los datos?
+**6. ¿Y los datos?**
   
   Los datos de la aplicación se guardan en una base de datos. En este caso hemos usado el DBaaS que nos proporciona [GearHost](https://www.gearhost.com). Este sitio tiene varios [planes](https://www.gearhost.com/pricing). Escoge el plan Free, que aunque está algo limitado **era** gratis, **ya no existe este plan**. 
 
-7. Crea una base de datos MySQL y apunta los parámetros de configuración.
+**7. Crea una base de datos MySQL y apunta los parámetros de configuración.**
   
   En concreto deberás anotar 5 datos:
   - El nombre o IP de host donde se aloja la base de datos.
@@ -199,7 +199,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   
   ![fp-resultados gearhost](snapshots/gearhost-fp-resultados.png)
 
-8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:
+**8. Crea las tablas e introduce los datos en ellas. Para ello sigue estos pasos:**
 
   - Entra en el directorio data del repositorio, que contiene los datos y el script `database.sh` a ejecutar.
 
@@ -224,7 +224,7 @@ Si deseas hacer un despligue usando los servicios proporcionados por los sitios 
   ![MySQL GearHost Test](snapshots/mysql-gearhost-test.png)
    
 
-9. Asegúrate que el archivo `config/database.php` contiene, entre otras, la siguiente configuración:
+**9. Asegúrate que el archivo `config/database.php` contiene, entre otras, la siguiente configuración:**
 
   ```php
 
@@ -293,7 +293,7 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
 
-13. Abre el navegador web y ve a la URL de la aplicación. En mi caso `http://fp-resultados.herokuapp.com`.
+**11. Abre el navegador web y ve a la URL de la aplicación.** En mi caso `http://fp-resultados.herokuapp.com`.
 
   Debe aparecer lo siguiente:
   ![fp-resultados login](snapshots/heroku-fp-resultados-1.png)
@@ -309,7 +309,7 @@ Después de que Heroku pasase a ser de pago, estuve investigando un poco acerca 
 
 Si deseas desplegar tu mismo esta aplicación en esta plataforma, **sigue los siguientes pasos**:
 
-1. Regístrate en el sitio y accede a tu dashboard.
+**1. Regístrate en el sitio y accede a tu dashboard.**
 
 A continuación muestro mi dashboard después de crear los dos proyectos que necesitarás: 
 
@@ -321,13 +321,27 @@ A continuación muestro mi dashboard después de crear los dos proyectos que nec
 ![Nuevo proyecto](snapshots/railway-new-project.png)
 
 
-3. Crea una aplicación con código fuente en un repositorio de GitHub.
+**3. Crea una aplicación con código fuente en un repositorio de GitHub.**
 
 ![Github](snapshots/railway-github.png)
 
-> NOTA: Antes de poder seleccionar un repositorio, deberás realizar la configuración de acceso GitHub. Si no dispones del código fuente de la aplicación, haz un fork de [https://github.com/jamj2000/fp-resultados](https://github.com/jamj2000/fp-resultados). 
+> NOTA: Antes de poder seleccionar un repositorio, deberás realizar la configuración de acceso GitHub. Si no dispones del código fuente de la aplicación, **haz un fork** de [https://github.com/jamj2000/fp-resultados](https://github.com/jamj2000/fp-resultados).
 
-4. Crea una provisión MySQL.
+Por ahora no haremos nada más. Más adelante volveremos a la aplicación para terminar de configurarla. 
+A continuación pasamos a provisionar la base de datos.
+
+
+**4. Clonamos el repositorio para tener acceso de forma local al código fuente.**
+
+```console
+git  clone  https://github.com/jamj2000/fp-resultados
+cd   fp-resultados
+```
+
+NOTA: Es aconsejable que utilices tu repositorio *forkeado*, así podrás modificar el proyecto a tu gusto.
+
+
+**5. Crea una provisión MySQL.**
 
 ![MySQL](snapshots/railway-mysql.png)      
 
@@ -335,11 +349,55 @@ Comprueba los datos de conexión:
 
 ![MySQL conexión](snapshots/railway-mysql-connect.png)  
 
+Para insertar los datos de las tablas, ejecutamos el script **setup.sql** que se halla dentro de la carpeta `database.sql` desde un terminal de texto.
+
+Entramos en la carpeta
+
+```console 
+cd  database.sql
+```
+
+Y ejecutamos
+
+![MySQL](snapshots/railway-mysql-setup.png) 
+
 Comprueba las variables de entorno:
 
 ![MySQL conexión](snapshots/railway-mysql-variables.png)  
 
-5. 
+Copia estas **variables de entorno**. Las necesitarás para configurar la aplicación.
+
+
+**6. Finalizamos la configuración de la aplicación.**
+
+Vuelve a la aplicación. Y copia el valor de las **variables de entorno** anteriores, pero cambiándole el nombre.
+
+Esto es necesario porque en el archivo `config/database.php` de la aplicación tenemos los siguientes nombres de variables:
+
+  ```php
+
+    'default' => env('DB_CONNECTION', 'mysql'),
+
+    // ...
+
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+  ```
+
+![MySQL](snapshots/railway-app-variables.png)  
+
+Por último en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. 
+
+![MySQL](snapshots/railway-app-deployment.png)  
+
 
 # Licencia
 
