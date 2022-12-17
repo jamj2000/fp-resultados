@@ -362,7 +362,7 @@ Y ejecutamos
 
 ![MySQL](snapshots/railway-mysql-setup.png) 
 
-Si todo hay ido bien podrás ver los datos en la pestaña **Data**
+Si todo ha ido bien podrás ver los datos en la pestaña **Data**
 
 ![MySQL conexión](snapshots/railway-mysql-tables.png)  
 
