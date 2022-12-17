@@ -112,8 +112,7 @@ docker run --rm -i -v fp_datos:/target \
 
 ## Despliegue en Heroku + GearHost
 
-> Esta sección está obsoleta. Por favor, ignórala.
-> 
+
 > Actualmente, tanto Heroku como GearHost son de pago. Por tanto, si deseas hacer uso de las indicaciones siguientes, es posible que haya habido algún pequeño cambio en la forma de trabajar con estas plataformas. Tenlo en cuenta.
 >
 > Se ha dejado visible, por motivos didácticos y como registro de un pasado menos convulso 😛
@@ -306,8 +305,41 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
 
 ## Despliegue en Railway
 
+Después de que Heroku pasase a ser de pago, estuve investigando un poco acerca de [plataformas gratuitas donde desplegar esta aplicación](https://github.com/jamj2000/deploy). En un principio me he decantado por **railway.app**, puesto que permite subir proyectos PHP y también dispone de provisión de base de datos MySQL.
+
+Si deseas desplegar tu mismo esta aplicación en esta plataforma, **sigue los siguientes pasos**:
+
+1. Regístrate en el sitio y accede a tu dashboard.
+
+A continuación muestro mi dashboard después de crear los dos proyectos que necesitarás: 
+
+![Dashboard](snapshots/railway-dashboard.png)
 
 
+2. Pulsa en el botón **New Project**. 
+
+![Nuevo proyecto](snapshots/railway-new-project.png)
+
+
+3. Crea una aplicación con código fuente en un repositorio de GitHub.
+
+![Github](snapshots/railway-github.png)
+
+> NOTA: Antes de poder seleccionar un repositorio, deberás realizar la configuración de acceso GitHub. Si no dispones del código fuente de la aplicación, haz un fork de [https://github.com/jamj2000/fp-resultados](https://github.com/jamj2000/fp-resultados). 
+
+4. Crea una provisión MySQL.
+
+![MySQL](snapshots/railway-mysql.png)      
+
+Comprueba los datos de conexión:
+
+![MySQL conexión](snapshots/railway-mysql-connect.png)  
+
+Comprueba las variables de entorno:
+
+![MySQL conexión](snapshots/railway-mysql-variables.png)  
+
+5. 
 
 # Licencia
 
