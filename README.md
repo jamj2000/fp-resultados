@@ -293,7 +293,7 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
   ![fp-resultados env](snapshots/env-heroku-fp-resultados.png)
   
 
-**11. Abre el navegador web y ve a la URL de la aplicación.** En mi caso `http://fp-resultados.herokuapp.com`.
+**11. Inicia el navegador web y abre la URL de la aplicación.** En mi caso `http://fp-resultados.herokuapp.com`.
 
   Debe aparecer lo siguiente:
   ![fp-resultados login](snapshots/heroku-fp-resultados-1.png)
@@ -307,7 +307,7 @@ Para ello, vuelve a la web de Heroku, inicia sesión, selecciona tu aplicación 
 
 Después de que Heroku pasase a ser de pago, estuve investigando un poco acerca de [plataformas gratuitas donde desplegar esta aplicación](https://github.com/jamj2000/deploy). En un principio me he decantado por **railway.app**, puesto que permite subir proyectos PHP y también dispone de provisión de base de datos MySQL.
 
-Si deseas desplegar tu mismo esta aplicación en esta plataforma, **sigue los siguientes pasos**:
+Si deseas desplegar tú mismo esta aplicación en esta plataforma, **sigue los siguientes pasos**:
 
 **1. Regístrate en el sitio y accede a tu dashboard.**
 
@@ -321,7 +321,7 @@ A continuación muestro mi dashboard después de crear los dos proyectos que nec
 ![Nuevo proyecto](snapshots/railway-new-project.png)
 
 
-**3. Crea una aplicación con código fuente en un repositorio de GitHub.**
+**3. Crea una aplicación con código fuente desde un repositorio de GitHub.**
 
 ![Github](snapshots/railway-github.png)
 
@@ -338,7 +338,7 @@ git  clone  https://github.com/jamj2000/fp-resultados
 cd   fp-resultados
 ```
 
-NOTA: Es aconsejable que utilices tu repositorio *forkeado*, así podrás modificar el proyecto a tu gusto.
+> NOTA: Es aconsejable que utilices tu repositorio *forkeado*, así podrás modificar el proyecto a tu gusto.
 
 
 **5. Crea una provisión MySQL.**
@@ -375,7 +375,7 @@ Copia estas variables. Las necesitarás para configurar la aplicación.
 
 **6. Finalizamos la configuración de la aplicación.**
 
-Vuelve a la aplicación. Y crea **variables de entorno** anteriores, pero con el nombre que aparece más abajo. Esto es necesario porque en el archivo `config/database.php` de la aplicación tenemos los siguientes nombres de variables:
+Vuelve a la aplicación. Y crea las **variables de entorno** anteriores, pero con el nombre que aparece más abajo. Esto es necesario porque en el archivo `config/database.php` de la aplicación tenemos los siguientes nombres de variables:
 
   ```php
 
@@ -397,7 +397,7 @@ Vuelve a la aplicación. Y crea **variables de entorno** anteriores, pero con el
 
 ![MySQL](snapshots/railway-app-variables.png)  
 
-Por último en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará mediante un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/deploy.sh)
+Por último, en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará mediante un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/deploy.sh)
 
 
 ![MySQL](snapshots/railway-app-deployment.png)  
