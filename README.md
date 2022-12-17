@@ -350,6 +350,7 @@ Comprueba los datos de conexión:
 ![MySQL conexión](snapshots/railway-mysql-connect.png)  
 
 Para insertar los datos de las tablas, ejecutamos el script **setup.sql** que se halla dentro de la carpeta `database.sql` desde un terminal de texto.
+Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/database.sql/setup.sql)
 
 Entramos en la carpeta
 
@@ -395,6 +396,8 @@ Esto es necesario porque en el archivo `config/database.php` de la aplicación t
 ![MySQL](snapshots/railway-app-variables.png)  
 
 Por último en la pestaña de **Deployments** -> **Details**, deberás indicar que el despliegue se hará un **dockerfile** y que el comando a ejecutar al iniciar el contenedor será `/var/www/html/deploy.sh`. 
+Puedes ver el contenido de este archivo [aquí](https://github.com/jamj2000/fp-resultados/blob/master/deploy.sh)
+
 
 ![MySQL](snapshots/railway-app-deployment.png)  
 
