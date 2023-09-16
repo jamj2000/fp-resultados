@@ -6,6 +6,15 @@
 
 ![Logo de ejemplo](https://github.com/jamj2000/fp-resultados.capturas/blob/master/logo.png "Logo de ejemplo")
 
+---
+
+![railway expired](snapshots/railway-expired.png)
+
+> **NOTA**
+>
+> En estos momentos, tengo expirado el crédito en Railway, así que la aplicación no está desplegada en Internet.
+
+
 ## Repositorios relacionados
 - [App para android](https://github.com/jamj2000/fp-resultados.apk)
 - [Capturas](https://github.com/jamj2000/fp-resultados.capturas)
